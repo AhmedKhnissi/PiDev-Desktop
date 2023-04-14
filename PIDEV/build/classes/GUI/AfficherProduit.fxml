@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="557.0" prefWidth="943.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.AfficherProduitController">
+   <style>
+       .button {
+           -fx-background-color: #4CAF50;
+           -fx-text-fill: white;
+           -fx-font-size: 14px;
+           -fx-padding: 8px 16px;
+           -fx-border-radius: 4px;
+       }
+
+       .table-header {
+           -fx-background-color: #4CAF50;
+           -fx-text-fill: white;
+           -fx-font-size: 16px;
+           -fx-font-weight: bold;
+       }
+       .table-view {
+    -fx-background-color: white;
+}
+
+/* Style pour les en-têtes de colonne */
+.table-view .column-header {
+    -fx-background-color: #333;
+    -fx-text-fill: white;
+}
+
+/* Style pour les cellules de la TableView */
+.table-view .table-cell {
+    -fx-alignment: center-left;
+}
+
+/* Style pour le bouton */
+.button {
+    -fx-background-color: #2ecc71;
+    -fx-text-fill: white;
+}
+   </style>
+   <children>
+      <TableView fx:id="tableProduit" layoutX="14.0" layoutY="53.0" prefHeight="446.0" prefWidth="784.0">
+         <columns>
+            <TableColumn fx:id="coNom" prefWidth="150.0" styleClass="table-header" text="Nom" />
+            <TableColumn fx:id="coDescription" prefWidth="200.0" styleClass="table-header" text="Description" />
+            <TableColumn fx:id="coPrix" prefWidth="75.0" styleClass="table-header" text="Prix" />
+            <TableColumn fx:id="coStock" prefWidth="75.0" styleClass="table-header" text="Stock" />
+         </columns>
+      </TableView>
+      <Button layoutX="653.0" layoutY="14.0" mnemonicParsing="false" onAction="#getAddView" prefHeight="32.0" prefWidth="108.0" styleClass="button" text="Ajouter" />
+      <Button layoutX="525.0" layoutY="14.0" mnemonicParsing="false" onAction="#supprimerPublication" prefHeight="32.0" prefWidth="108.0" styleClass="button" text="Supprimer" />
+   </children>
+</AnchorPane>
