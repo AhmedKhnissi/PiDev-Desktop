@@ -66,8 +66,8 @@ public class ModifierRdvVetoController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
-        ObservableList<String> listRegion = FXCollections.observableArrayList("Affecté","Non Affecté");
-        decisiontf.setItems(listRegion);
+        ObservableList<String> listDecision = FXCollections.observableArrayList("Affecté","Non Affecté");
+        decisiontf.setItems(listDecision);
     }    
 
     @FXML

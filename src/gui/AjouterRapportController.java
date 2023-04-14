@@ -49,8 +49,20 @@ int id;
           try {
               RapportMedical s = new RapportMedical();
               
-            s.setDescription(descriptionid.getText());
+              String description = descriptionid.getText();
+            if(description == null || description.trim().isEmpty()){
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Erreur de saisie");
+            alert.setHeaderText("la case 'Description' est vide ! ");
+            alert.setContentText("Veuillez Entrer Une Description Valide. ! ");
+            alert.showAndWait();
+            return;
+        }
+            s.setDescription(description);
+            
             s.setAnimal_id(id);
+            
+            
               System.out.println(id);
             ps.ajouter(s);
             Alert alert = new Alert(Alert.AlertType.INFORMATION);

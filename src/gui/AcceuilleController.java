@@ -37,7 +37,7 @@ public class AcceuilleController implements Initializable {
         Stage nouveauStage;
         Parent root = FXMLLoader.load(getClass().getResource("AfficherListeAnimal.fxml"));
         nouveauStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        Scene scene = new Scene(root);
+        Scene scene = new Scene(root, 1300, 1000);
         nouveauStage.setScene(scene);
         
     }
@@ -47,7 +47,7 @@ public class AcceuilleController implements Initializable {
         Stage nouveauStage;
         Parent root = FXMLLoader.load(getClass().getResource("AfficherListeVeto.fxml"));
         nouveauStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        Scene scene = new Scene(root);
+        Scene scene = new Scene(root, 1300, 1000);
         nouveauStage.setScene(scene);
     }
     
