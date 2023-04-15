@@ -13,6 +13,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.TreeMap;
 import utils.MyDB;
 
 /**
@@ -78,6 +79,23 @@ String req = "DELETE FROM rendez_vous where id = ?";
     }
     return rapports;
 }
+     public TreeMap<Integer, Integer> nombreVetoParRdv() throws SQLException {
+        
+        TreeMap<Integer, Integer> Vetos = new TreeMap<Integer, Integer>();
+        String req = "SELECT user.id, COUNT(rendez_vous.id) as nombre_de_vetos\n"
+                + "FROM user\n"
+                + "LEFT JOIN Rendez_vous ON user.id = rendez_vous.user_id\n"
+                + "GROUP BY user.id;";
+        PreparedStatement ps = cnx.prepareStatement(req);
+        
+        ResultSet rs = ps.executeQuery();
+        while (rs.next()) {
+            Vetos.put(rs.getInt("id"), rs.getInt("nombre_de_vetos"));
+            
+        }
+        
+        return Vetos;
+    }
     
    
 }

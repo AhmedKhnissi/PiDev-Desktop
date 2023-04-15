@@ -68,4 +68,30 @@ List<user> veterinaire = new ArrayList<>();
         }
         return veterinaire;    }
     
+       public user recupererUserByid(int id) throws SQLException {
+
+        user p= new user();
+        String req = "select * from user where id = ? ";
+        PreparedStatement ps = cnx.prepareStatement(req);
+        ps.setInt(1, id);
+        ResultSet rs = ps.executeQuery();
+
+        if (rs.next()) {
+
+           p.setEMail(rs.getString("email"));
+            p.setNom(rs.getString("nom"));
+            p.setPrenom(rs.getString("prenom"));
+          
+            p.setPays(rs.getString("pays"));
+            
+            p.setGouvernorat(rs.getString("gouvernorat"));
+            
+            p.setVille(rs.getString("ville"));
+            p.setId(rs.getInt("id"));
+
+        }
+        return p;
+
+    }
+    
 }

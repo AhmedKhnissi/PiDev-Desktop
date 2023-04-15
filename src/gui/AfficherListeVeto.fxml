@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -10,7 +11,7 @@
 
 <AnchorPane id="AnchorPane" prefHeight="917.0" prefWidth="1321.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.AfficherListeVetoController">
     <children>
-      <ScrollPane fx:id="scrollPane" layoutX="13.0" layoutY="181.0" prefHeight="732.0" prefWidth="1298.0" style="-fx-background-color: F5F6FA;" AnchorPane.bottomAnchor="4.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="181.0">
+      <ScrollPane fx:id="scrollPane" layoutX="13.0" layoutY="181.0" prefHeight="732.0" prefWidth="1071.0" style="-fx-background-color: F5F6FA;" AnchorPane.bottomAnchor="4.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="250.0" AnchorPane.topAnchor="181.0">
          <content>
             <GridPane fx:id="grid" alignment="CENTER" hgap="20.0" layoutX="100.0" layoutY="100.0" prefHeight="432.0" prefWidth="659.0" style="-fx-alignment: center; -fx-padding: 20;" vgap="20.0">
               <rowConstraints>
@@ -34,5 +35,6 @@
             </Label>
          </children>
       </AnchorPane>
+      <Button layoutX="1110.0" layoutY="459.0" mnemonicParsing="false" onAction="#OuvrirStat" prefHeight="45.0" prefWidth="184.0" text="Stat Villes" />
          </children>
 </AnchorPane>
