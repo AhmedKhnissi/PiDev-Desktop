@@ -36,6 +36,8 @@ import services.RendezVousService;
 public class VeterinaireController implements Initializable {
 
     @FXML
+    private Button calendrier;
+    @FXML
     private Button afficherRdv;
     @FXML
     private Label nomVeto;
@@ -55,7 +57,7 @@ public class VeterinaireController implements Initializable {
     /**
      * Initializes the controller class.
      */
-    user pe = new user();
+     user pe = new user();
        RendezVousService aa = new RendezVousService();
     int ids;
     public void setVeto(user c) {
@@ -78,14 +80,33 @@ public class VeterinaireController implements Initializable {
     
     
 }
+    
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
     }    
 
     @FXML
-    private void afficherRdvVeto(ActionEvent event) throws SQLException, IOException {
-                // Récupération de l'ID de l'animal à partir de l'objet "pe" (supposons que "pe" soit un objet Animal)
+    private void afficherCalendrier(ActionEvent event) throws IOException {
+        BorderPane borderPane = new BorderPane();
+        FXMLLoader loader1 = new FXMLLoader(getClass().getResource("CalendrierE.fxml"));
+        Parent root2 = loader1.load();
+        GUI.CalendrierEController controller= loader1.getController();
+        controller.setData(pe);
+        HBox hbox = new HBox(new Pane(), root2);
+        hbox.setSpacing(20);
+
+        borderPane.setRight(hbox);
+
+        
+
+        borderPane.setPadding(new Insets(10, 10, 30, 10));
+        nomVeto.getScene().setRoot(borderPane);
+    }
+
+    @FXML
+    private void afficherRdvVeto(ActionEvent event) throws SQLException, IOException  {
+            // Récupération de l'ID de l'animal à partir de l'objet "pe" (supposons que "pe" soit un objet Animal)
         
         int vetoId = pe.getId();
 
@@ -127,8 +148,10 @@ public class VeterinaireController implements Initializable {
     }
     }
 
+    
+
     @FXML
-    private void ajouterRdvVeto(ActionEvent event) throws SQLException, IOException {
+    private void ajouterRdvVeto(ActionEvent event) throws SQLException, IOException  {
                int animalid = pe.getId();
 
         //System.err.println("1");
@@ -151,8 +174,8 @@ public class VeterinaireController implements Initializable {
             afficherRdv.getScene().setRoot(borderPane); 
  } catch (IOException ex) {
             System.out.println("error" + ex.getMessage());
-        }
-    }
+        }   
+
     }
     
-
+}

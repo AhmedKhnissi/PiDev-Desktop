@@ -11,7 +11,9 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import utils.MyDB;
 
@@ -92,6 +94,36 @@ List<user> veterinaire = new ArrayList<>();
         }
         return p;
 
+    }
+       public List<Date> veterinaireIsDispo(user t,Date d) throws SQLException {
+        List <Date> dateMec = new ArrayList<>();
+        String req= "select start from calendar where user_id = ? AND YEAR(start) = ? AND MONTH(start) = ? AND DAY(start) = ?";
+        PreparedStatement ps = cnx.prepareStatement(req);
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        String date=sdf.format(d);
+        String[] parts = date.split("-");
+        ps.setInt(1, t.getId());
+        ps.setInt(2, Integer.valueOf(parts[0]));
+        ps.setInt(3, Integer.valueOf(parts[1]));
+        ps.setInt(4, Integer.valueOf(parts[2]));
+        ResultSet rs = ps.executeQuery();
+        while (rs.next()){
+        Date dd=rs.getTimestamp("start");
+        dateMec.add(dd);
+        }
+        return dateMec;}
+       
+       public List<Date> veterinaireInDispo(user t) throws SQLException {
+        List <Date> dateMec = new ArrayList<>();
+        String req= "select start from calendar where user_id = ?  ";
+        PreparedStatement ps = cnx.prepareStatement(req);
+        ps.setInt(1, t.getId());
+        ResultSet rs = ps.executeQuery();
+        while (rs.next()){
+        Date dd=rs.getTimestamp("start");
+        dateMec.add(dd);
+        }
+        return dateMec;
     }
     
 }
