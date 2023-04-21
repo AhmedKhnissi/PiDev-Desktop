@@ -5,7 +5,10 @@
  */
 package GUI;
 
+import com.twilio.Twilio;
+import com.twilio.rest.api.v2010.account.Message;
 import entities.RendezVous;
+import entities.user;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
@@ -25,6 +28,7 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import services.RendezVousService;
+import services.UserService;
 
 /**
  * FXML Controller class
@@ -41,6 +45,10 @@ public class ModifierRdvVetoController implements Initializable {
     /**
      * Initializes the controller class.
      */
+    public static final String ACCOUNT_SID = "AC002bd788f319e067fa0249d67368a519";
+    public static final String AUTH_TOKEN = "71e69b3286682cbf751e82234ab626fa";
+    UserService us = new UserService();
+    
     int idrdv =0;
     
     int vetoId;
@@ -59,6 +67,7 @@ public class ModifierRdvVetoController implements Initializable {
         raceanimal=c.getRaeanimal();
         nomanimal=c.getNomanimal();
         vetoId=c.getUser_id();
+        System.out.println("behi haw id l veterinaire " + vetoId);
         decisiontf.setValue(c.getDecision().toString());
         idrdv=c.getId();
     
@@ -98,6 +107,17 @@ public class ModifierRdvVetoController implements Initializable {
             alert.setContentText("Le Rendez-Vous a été Modifier avec succès !");
             alert.showAndWait();
         System.out.println("Rendez-Vous modifié avec succes");
+        
+         user veto = new user();
+           veto = us.recupererUserByid(vetoId);   
+        String bienvenue = "Salut Mr/Mmme MyVet Vous Informe Que Votre Rendez-Vous Pour L'Animal Nommée "+ nomanimal + " De La Race " + raceanimal +
+                " Chez Le Vétérinaire "+ veto.getPrenom() + " "+ veto.getNom() + " Pour La Date "+ date + " et L'Heure "+ heure +
+                " à Pris La Décision Suivante "+ decisiontf.getValue() + " Merci De Consulter Votre Compte ! ";
+            Twilio.init(ACCOUNT_SID, AUTH_TOKEN);
+            Message message = Message.creator(
+                    new com.twilio.type.PhoneNumber("+21656106247"),
+                    new com.twilio.type.PhoneNumber("+16073897187"), bienvenue).create();
+            System.out.println(message.getSid());
         } catch (SQLException ex) {
             System.out.println("error" + ex.getMessage());
         }

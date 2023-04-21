@@ -30,7 +30,8 @@ public class Test {
            // System.out.println(rvs.recupererRdvByVeto(1));
             //System.out.println(ps.recuperer());
             RendezVous t = new RendezVous(1, 1, "Zah", "22", "12", "fexli", "box");
-            rvs.modifier(t);
+           // rvs.modifier(t);
+            System.out.println(rvs.recupererRdvByVeto(1)); 
             
         } catch (SQLException ex) {
             System.out.println(ex.getMessage());

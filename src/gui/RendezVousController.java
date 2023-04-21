@@ -75,7 +75,10 @@ public void setRdv(RendezVous c) throws SQLException {
     decisionlabel.setText(c.getDecision());
     
         pe.setUser_id(c.getUser_id());
-        pe.setId(c.getId());
+        System.out.println("fel rendez vous controller haw l clé etrangére taa l veto  "+ pe.getUser_id());
+        pe.setId(idRdv);
+        
+        System.out.println("fel rendez vous controller haw l clé primaire taa rendez vous "+ idRdv);
         pe.setDate(c.getDate());
         pe.setHeure(c.getHeure());
         pe.setNomanimal(c.getNomanimal());

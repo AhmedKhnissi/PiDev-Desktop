@@ -111,7 +111,7 @@ public class VeterinaireController implements Initializable {
         int vetoId = pe.getId();
 
         //System.err.println("1");
-        System.out.println(vetoId);
+        System.out.println("hedha l id taa l veto doub ma tenzel aala consulter rdv " +vetoId);
 
         List<RendezVous> rdv = aa.recupererRdvByVeto(vetoId);
         System.out.println(rdv);

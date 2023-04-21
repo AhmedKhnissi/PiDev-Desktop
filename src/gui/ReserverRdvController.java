@@ -4,8 +4,14 @@
  * and open the template in the editor.
  */
 package GUI;
-
+import entities.user;
+import com.twilio.Twilio;
+import com.twilio.rest.api.v2010.account.Message;
 import entities.RendezVous;
+import java.awt.AWTException;
+import java.awt.SystemTray;
+import java.awt.TrayIcon;
+import java.awt.image.BufferedImage;
 import java.net.URL;
 import java.sql.SQLException;
 import java.util.ResourceBundle;
@@ -13,6 +19,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.embed.swing.SwingFXUtils;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -20,7 +27,9 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
 import services.RendezVousService;
+import services.UserService;
 
 /**
  * FXML Controller class
@@ -34,7 +43,7 @@ public class ReserverRdvController implements Initializable {
     @FXML
     private TextField dateid;
     @FXML
-    private TextField heureid;
+    private ComboBox<String> heureid;
     
     @FXML
     private TextField nomanimalid;
@@ -42,7 +51,10 @@ public class ReserverRdvController implements Initializable {
     private Button ajouterbtn;
     int id;
     RendezVousService ps = new RendezVousService();
-
+    
+    
+    
+     
     /**
      * Initializes the controller class.
      */
@@ -50,14 +62,16 @@ public class ReserverRdvController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
         ObservableList<String> listCategorie = FXCollections.observableArrayList("Chien","Chat","Lapin","Oiseau","Singe","Agneau","Vache");
+        ObservableList<String> listHeure = FXCollections.observableArrayList("09:00","10:00","11:00","12:00","14:00","15:00","16:00","17:00");
         decisiontf.setItems(listCategorie);
+        heureid.setItems(listHeure);
     }    
      public void dynamicinitialize(int id) {
          this.id = id;
      }
 
     @FXML
-    private void ajouter(ActionEvent event) {
+    private void ajouter(ActionEvent event) throws SQLException {
         try {
               RendezVous s = new RendezVous();
               
@@ -83,7 +97,7 @@ public class ReserverRdvController implements Initializable {
             s.setDate(date);
             
             
-            String heure = heureid.getText();
+            String heure = heureid.getValue();
             if (heure == null || heure.trim().isEmpty()) {
                 Alert alert = new Alert(Alert.AlertType.ERROR);
                 alert.setTitle("Erreur de saisie");
@@ -93,17 +107,7 @@ public class ReserverRdvController implements Initializable {
                 return;
             }
 
-            Pattern heurePattern = Pattern.compile("^([0-1][0-9]|2[0-3]):[0-5][0-9]$");
-            Matcher heureMatcher = heurePattern.matcher(heure);
-
-            if (!heureMatcher.matches()) {
-                Alert alert = new Alert(Alert.AlertType.ERROR);
-                alert.setTitle("Erreur de saisie");
-                alert.setHeaderText("Format d'heure incorrect !");
-                alert.setContentText("L'heure doit être au format HH:MM avec HH entre 00 et 23 et MM entre 00 et 59.");
-                alert.showAndWait();
-                return;
-            }
+            
 
             s.setHeure(heure);
             
@@ -141,6 +145,30 @@ public class ReserverRdvController implements Initializable {
         } catch (SQLException ex) {
             System.out.println("error" + ex.getMessage());
         }
+        
+        if (SystemTray.isSupported()) {
+//         String img = "C:\\xampp\\htdocs\\pidev\\Highbrow\\src\\media\\full_down.png";
+//            File file = new File(img);
+//            Image img1 = new Image(file.toURI().toString());
+             String imagePath = "/images/full_up.png";
+            URL imageURL = getClass().getResource(imagePath);
+            Image img1 = new Image(imageURL.toString()); 
+            BufferedImage awtImage = SwingFXUtils.fromFXImage(img1, null);
+        TrayIcon trayIcon = new TrayIcon(awtImage, "Notification Title");
+        SystemTray tray = SystemTray.getSystemTray();
+        try {
+            tray.add(trayIcon);
+            trayIcon.displayMessage("Votre Rendez-Vous a bien été ajouté", "Le Vétérinaire Va Bientot Traitée Votre Rendez-Vous", TrayIcon.MessageType.INFO);
+        } catch (AWTException e) {
+            System.err.println("Could not add TrayIcon to SystemTray");}
+        
+       } else {
+        System.err.println("SystemTray is not supported");
+      
+
+    }
+       
+        
     }
     
 }

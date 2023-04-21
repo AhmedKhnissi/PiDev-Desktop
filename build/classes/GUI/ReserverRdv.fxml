@@ -17,11 +17,14 @@
          <font>
             <Font size="15.0" />
          </font></TextField>
-         <TextField fx:id="heureid" alignment="CENTER" layoutX="814.0" layoutY="427.0" prefHeight="52.0" prefWidth="345.0" promptText="HH:MM" style="-fx-background-radius: 10; -fx-border-color: #4682B4; -fx-border-radius: 10; -fx-background-color: #ffffff;" styleClass="labelTitreSieges" stylesheets="@../values/values.css">
-         <font>
-            <Font size="15.0" />
-         </font></TextField>
-         <ComboBox fx:id="decisiontf" layoutX="814.0" layoutY="286.0" prefHeight="70.0" prefWidth="345.0" promptText="Cliquez içi" style="-fx-background-color: #4682B4;">
+        <ComboBox fx:id="heureid" layoutX="808.0" layoutY="427.0" prefHeight="52.0" prefWidth="345.0" promptText="Cliquez içi" style="-fx-background-color: #ffffff; -fx-border-color: #4682B4; -fx-border-radius: 10; -fx-background-radius: 10;">
+         <opaqueInsets>
+            <Insets left="15.0" />
+         </opaqueInsets>
+         <padding>
+            <Insets left="94.0" />
+         </padding></ComboBox>  
+         <ComboBox fx:id="decisiontf" layoutX="808.0" layoutY="295.0" prefHeight="52.0" prefWidth="345.0" promptText="Cliquez içi" style="-fx-background-color: #ffffff; -fx-border-color: #4682B4; -fx-border-radius: 10; -fx-background-radius: 10;">
          <opaqueInsets>
             <Insets left="15.0" />
          </opaqueInsets>

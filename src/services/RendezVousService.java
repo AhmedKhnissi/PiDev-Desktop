@@ -73,7 +73,7 @@ String req = "DELETE FROM rendez_vous where id = ?";
         rapport.setHeure(rs.getString("heure"));
         rapport.setNomanimal(rs.getString("nomanimal"));
         rapport.setRaeanimal(rs.getString("raceanimal"));
-        rapport.setUser_id(rs.getInt(IdVeto));
+        rapport.setUser_id(rs.getInt("user_id"));
         rapport.setDecision(rs.getString("decision"));
         rapports.add(rapport);
     }

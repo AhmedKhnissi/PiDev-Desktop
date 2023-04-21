@@ -71,7 +71,7 @@ public class CalendrierEController implements Initializable {
     private LocalDate currentDate;
     CalendarService es = new CalendarService();
     Date da;
-    String [] h={"9","10","11","12","14","15","16","17"};
+    String [] h={"09","10","11","12","14","15","16","17"};
     private ChoiceBox<String> cbvehicules;
    user me = new user();
    private int id_mec;
