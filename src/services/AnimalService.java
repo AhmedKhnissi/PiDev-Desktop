@@ -8,6 +8,7 @@ package services;
 import java.sql.Connection;
 import utils.MyDB;
 import entities.Animal;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -55,6 +56,27 @@ public class AnimalService implements IService<Animal>{
         animaux.add(animal);
     }
     return animaux;
+    }
+    
+    public Animal recupererAnimalByid(int id) throws SQLException {
+
+        Animal p= new Animal();
+        String req = "select * from animal where id = ? ";
+        PreparedStatement ps = cnx.prepareStatement(req);
+        ps.setInt(1, id);
+        ResultSet rs = ps.executeQuery();
+
+        if (rs.next()) {
+
+           p.setNom(rs.getString("nom"));
+            p.setAge(rs.getInt("age"));
+            p.setPoids(rs.getInt("poids"));
+            p.setAnimals_id(rs.getInt("animals_id"));
+            
+
+        }
+        return p;
+
     }
     
 

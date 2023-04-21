@@ -23,6 +23,7 @@ import org.jfree.chart.JFreeChart;
 import org.jfree.chart.plot.PlotOrientation;
 import services.RendezVousService;
 import org.jfree.data.category.DefaultCategoryDataset;
+import org.jfree.data.general.DefaultPieDataset;
 import services.UserService;
 
 /**
@@ -51,23 +52,20 @@ public class StatistiquesController implements Initializable {
         TreeMap<Integer,Integer> nbrVeterinaireByRdv;
         try {
             nbrVeterinaireByRdv = ls.nombreVetoParRdv();
-            DefaultCategoryDataset dataset = new DefaultCategoryDataset();
+            DefaultPieDataset dataset = new DefaultPieDataset();
              for (Map.Entry<Integer, Integer> entry : nbrVeterinaireByRdv.entrySet()) {
             Integer key = entry.getKey();
             v=vs.recupererUserByid(key);
             int value = entry.getValue();
-           dataset.addValue(value,"Gouvernorat",v.getGouvernorat() );
+           dataset.setValue(v.getGouvernorat(), value);
            
-            chart = ChartFactory.createBarChart(
-                    "Les Gouvernorats Par Rendez-Vous", // Titre du graphique
-                    "Nom Gouvernorat", // 
-                    "Nombre rdv", // 
-                    dataset, // 
-                    PlotOrientation.VERTICAL, // Orientation
-                    true, //
+            JFreeChart chart = ChartFactory.createPieChart(
+                    "Villes Avec Les Plus De Rendez-Vous", // 
+                    dataset, // Dataset
+                    true, // 
                     true, // 
                     false // 
-            ); 
+            );
             
             chartPanel = new ChartPanel(chart);
             chartPanel.setPreferredSize(new java.awt.Dimension(450, 400));

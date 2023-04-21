@@ -5,27 +5,42 @@
  */
 package gui;
 
+
 import entities.RapportMedical;
 import java.io.IOException;
-import java.net.URL;
+
 import java.sql.SQLException;
 import java.util.Optional;
-import java.util.ResourceBundle;
+
 import javafx.event.ActionEvent;
-import javafx.fxml.FXML;
+
 import javafx.fxml.FXMLLoader;
-import javafx.fxml.Initializable;
+
 import javafx.geometry.Insets;
 import javafx.scene.Parent;
 import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
+
 import javafx.scene.control.ButtonType;
-import javafx.scene.control.Label;
-import javafx.scene.layout.AnchorPane;
+import entities.Animal;
+
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import services.RapportMedicalService;
+import java.net.URL;
+import java.util.ResourceBundle;
+import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
+import javafx.scene.Scene;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.AnchorPane;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
+import services.AnimalService;
 
 /**
  * FXML Controller class
@@ -36,6 +51,8 @@ public class RapportMedicalController implements Initializable {
 
     @FXML
     private AnchorPane rapportLignes;
+    @FXML
+    private ImageView img;
     @FXML
     private Label descriptionlabel;
     @FXML
@@ -48,17 +65,19 @@ public class RapportMedicalController implements Initializable {
      */
     int animalId;
     private int idRapport;
-
+RapportMedical loca = new RapportMedical();
     
        
     
        RapportMedical pe = new RapportMedical();
        RapportMedicalService aa = new RapportMedicalService();
+       AnimalService vs = new AnimalService();
     
 public void setRapport(RapportMedical c) throws SQLException {
+    Animal v=new Animal();
     idRapport = c.getId();
     descriptionlabel.setText(c.getDescription());
-    
+    v= vs.recupererAnimalByid(c.getAnimal_id());
     pe.setAnimal_id(c.getAnimal_id());
     pe.setId(c.getId());
     pe.setDescription(c.getDescription());
@@ -80,8 +99,41 @@ public void setRapport(RapportMedical c) throws SQLException {
     }    
 
     @FXML
+    private void afficherRapportDetail(MouseEvent event) throws IOException, SQLException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("DetailRapport.fxml"));
+        Parent root1 = loader.load();
+        GUI.DetailRapportController facturecontroller = loader.getController();
+        facturecontroller.facture(pe.getAnimal_id() ,idRapport );
+        BorderPane borderPane = new BorderPane();
+         
+        if (loca.getAnimal_id() != 0) {
+            FXMLLoader loader1 = new FXMLLoader(getClass().getResource("DetailRapportProfil.fxml"));
+            Parent root2 = loader1.load();
+            GUI.DetailRapportProfilController dchauffeur = loader1.getController();
+            dchauffeur.setChauffeurDetail(loca.getAnimal_id());
+
+            // Utiliser un HBox pour placer root1 et root2 côte à côte avec un espacement de 20 pixels
+            HBox hbox = new HBox(root1, new Pane(), root2);
+            hbox.setSpacing(20);
+            
+            borderPane.setRight(hbox);
+        } else {
+            borderPane.setLeft(root1);
+        }
+        
+        
+        borderPane.setPadding(new Insets(10, 10, 30, 10));
+        Scene scene = new Scene(borderPane);
+        Stage stage = new Stage();
+        stage.setScene(scene);
+        stage.initModality(Modality.NONE);
+        stage.initOwner(img.getScene().getWindow());
+        stage.show();
+    }
+
+    @FXML
     private void modifierRapoort(ActionEvent event) {
-         try {
+             try {
              
             System.out.println("NIK ZIBIIIIIIIII");
                 
@@ -158,6 +210,7 @@ public void setRapport(RapportMedical c) throws SQLException {
             System.out.println(ex.getMessage());
         }
     }
+
 
     }
     

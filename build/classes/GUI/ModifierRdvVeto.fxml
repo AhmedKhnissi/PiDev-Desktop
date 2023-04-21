@@ -9,7 +9,7 @@
 
 <AnchorPane id="AnchorPane" prefHeight="1015.0" prefWidth="1582.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.ModifierRdvVetoController">
     <children>
-        <ComboBox fx:id="decisiontf" layoutX="141.0" layoutY="259.0" prefHeight="70.0" prefWidth="494.0" promptText=" Decision Rendez-Vous" style="-fx-background-color: #4682B4;" >
+        <ComboBox fx:id="decisiontf" layoutX="141.0" layoutY="259.0" prefHeight="70.0" prefWidth="494.0" promptText=" Decision Rendez-Vous" style="-fx-background-color: #ffffff; -fx-border-radius: 10; -fx-border-color: #4682B4; -fx-background-radius: 10;">
          <opaqueInsets>
             <Insets left="15.0" />
          </opaqueInsets>

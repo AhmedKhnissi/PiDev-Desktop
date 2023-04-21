@@ -159,23 +159,16 @@ public class CalendrierEController implements Initializable {
                 int month1 = Integer.parseInt(parts1[1]);
 
                 String moisString = month1 + "";
-                //List<Location> locationFait = ls.recupererAllByIdVehicule(2);
                 List<Calendar> locationFait = es.recuperer();
-                //List<Date> locationFait = ms.mecaniciensInDispo(me);
                 for (int i = 0; i < locationFait.size(); i++) {
 
                     Date dateDebut = locationFait.get(i).getStart();
                     System.out.println("DDDD"+dateDebut);
-                    //Date dateDebut = locationFait.get(i);
-                    //System.out.println(dateDebut);
-                    //Date dateFin = locationFait.get(i).getDate_fin();
                     String s = dateDebut.toString();
-                    //String s2 = dateFin.toString();
 
                     String[] parts = s.split("-");
                     System.out.println(parts[2]);
                     System.out.println("AAAA");
-                    //String[] parts3 = s2.split("-");
                     int year = Integer.parseInt(parts[0]);
                     int month = Integer.parseInt(parts[1]);
                     //int dayy_heure = Integer.parseInt(parts[2]);
@@ -299,7 +292,7 @@ public class CalendrierEController implements Initializable {
         else if (Integer.valueOf(heures.getValue().toString())<8){
             Alert a2 = new Alert(Alert.AlertType.ERROR);
             a2.setHeaderText(null);
-            a2.setContentText("Le mécanicien ouvre a 8h");
+            a2.setContentText("Le Vétérinaire ouvre a 8h");
             a2.showAndWait();
         }
         else if (occ>=1){

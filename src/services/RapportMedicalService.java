@@ -82,6 +82,23 @@ String req = "DELETE FROM rapport_medical where id = ?";
     }
     return rapports;
 }
+   
+   public RapportMedical recupererById(int t) throws SQLException {
+        RapportMedical l = new RapportMedical();
+        String req = "select * from rapport_medical where id = ? ";
+        PreparedStatement ps = cnx.prepareStatement(req);
+        ps.setInt(1, t);
+        ResultSet rs = ps.executeQuery();
+        while (rs.next()) {
+            
+            l.setId(rs.getInt("id"));
+            l.setAnimal_id(rs.getInt("animal_id"));
+            l.setDescription(rs.getString("description"));
+            
+        }
+        
+        return l;
+    }
 
 
 

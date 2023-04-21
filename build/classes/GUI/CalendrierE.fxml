@@ -50,11 +50,12 @@
                         <Font name="System Bold Italic" size="15.0" />
                      </font>
                   </Button>
-                  <TextField fx:id="localDate" layoutX="568.0" layoutY="33.0" prefHeight="50.0" prefWidth="309.0" style="-fx-background-color: #4682B4;" text="Ajouter Votre Rendez-Vous !">
-                     <font>
-                        <Font name="System Bold Italic" size="20.0" />
-                     </font>
-                  </TextField>
+                  <TextField fx:id="localDate" layoutX="568.0" layoutY="33.0" prefHeight="50.0" prefWidth="309.0" style="-fx-background-color: #4682B4; -fx-text-fill: white;" text="Ajouter Votre Rendez-Vous !">
+     <font>
+        <Font name="System Bold Italic" size="20.0" />
+     </font>
+</TextField>
+
                </children>
             </AnchorPane>
                   <GridPane fx:id="daysGrid" layoutX="18.0" layoutY="175.0" prefHeight="200.0" prefWidth="319.0">
