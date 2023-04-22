@@ -6,13 +6,21 @@
 package services;
 
 import java.sql.Connection;
-import utils.MyDB;
-import entities.Animal;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
+import entities.Animal;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
+import utils.MyDB;
 
 import services.IService;
 
@@ -29,36 +37,64 @@ public class AnimalService implements IService<Animal>{
 
     @Override
     public void ajouter(Animal t) throws SQLException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        String req = "INSERT INTO `animal`(`nom`, `poids`, `age`) "
+            + "VALUES ('"+t.getNom()+"', '"+t.getPoids()+"', '"+t.getAge()+"')";
+        Statement st = cnx.createStatement();
+        st.executeUpdate(req);
+        System.out.println("Animal ajouté avec succès !");
     }
+    
 
     @Override
     public void modifier(Animal t) throws SQLException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        String requete = "UPDATE animal SET nom = ?, poids = ?, age = ? WHERE id = ?";
+        PreparedStatement pst = cnx.prepareStatement(requete);
+        pst.setString(1, t.getNom());
+        pst.setFloat(2, t.getPoids());
+        pst.setInt(3, t.getAge());
+        pst.setInt(4, t.getId());
+        pst.executeUpdate();
+        System.out.println("Animal modifié avec succès !");
     }
 
     @Override
     public void supprimer(Animal t) throws SQLException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        String requete = "DELETE FROM animal WHERE id = ?";
+        PreparedStatement pst = cnx.prepareStatement(requete);
+        pst.setInt(1, t.getId());
+        pst.executeUpdate();
+        System.out.println("Animal supprimé avec succès !");
     }
 
+  
+    
     @Override
     public List<Animal> recuperer() throws SQLException {
-        List<Animal> animaux = new ArrayList<>();
-    String req = "SELECT * FROM Animal";
+        List<Animal> animals = new ArrayList<>();
+        String requete = "SELECT * FROM animal";
         Statement stm = cnx.createStatement();
-        ResultSet rs = stm.executeQuery(req);
-    while (rs.next()) {
-        Animal animal = new Animal();
-        animal.setId(rs.getInt("id"));
-        animal.setNom(rs.getString("nom"));
-        animaux.add(animal);
-    }
-    return animaux;
+        ResultSet rs = stm.executeQuery(requete);
+        while (rs.next()) {
+            Animal t = new Animal();
+            t.setId(rs.getInt("id"));
+            t.setNom(rs.getString("nom"));
+            t.setPoids(rs.getInt("poids"));
+            t.setAge(rs.getInt("age"));
+            animals.add(t);
+        }
+        return animals;
     }
     
+    
+    
+    
+}
+    
+    
+
+
 
    
     
     
-}
+

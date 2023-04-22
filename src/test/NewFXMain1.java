@@ -24,7 +24,7 @@ public class NewFXMain1 extends Application {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("../gui/acceuille.fxml"));
             Parent root = loader.load();
             Scene sc = new Scene(root);
-            primaryStage.setTitle("Personnes");
+            primaryStage.setTitle("MyVet");
             primaryStage.setScene(sc);
             primaryStage.show();
         } catch (IOException ex) {

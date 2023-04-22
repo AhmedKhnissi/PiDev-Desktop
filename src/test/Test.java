@@ -6,8 +6,12 @@
 package test;
 
 
+import entities.Animal;
 import entities.RendezVous;
 import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import services.AnimalService;
 
 import services.RapportMedicalService;
 import services.RendezVousService;
@@ -23,18 +27,7 @@ public class Test {
     
     public static void main(String[] args) {
        
-        try {
-            
-            UserService ps = new UserService();
-            RendezVousService rvs = new RendezVousService();
-           // System.out.println(rvs.recupererRdvByVeto(1));
-            //System.out.println(ps.recuperer());
-            RendezVous t = new RendezVous(1, 1, "Zah", "22", "12", "fexli", "box");
-            rvs.modifier(t);
-            
-        } catch (SQLException ex) {
-            System.out.println(ex.getMessage());
         }
     }
     
-}
+//}

@@ -11,27 +11,28 @@ package entities;
  */
 public class Animal {
     private int id,age;
-    private String nom,poids;
-        private int    categories_animal_id,animals_id;
+    private String nom;
+    private float poids;
+       
 
     public Animal() {
     }
 
-    public Animal(int age, String nom, String poids, int categories_animal_id, int animals_id) {
+    public Animal(int age, String nom, float poids) {
         this.age = age;
         this.nom = nom;
         this.poids = poids;
-        this.categories_animal_id = categories_animal_id;
-        this.animals_id = animals_id;
+   
     }
 
-    public Animal(int id, int age, String nom, String poids, int categories_animal_id, int animals_id) {
-        this.id = id;
-        this.age = age;
+   
+
+    public Animal(String nom, int age, float poids) {
         this.nom = nom;
+        this.age = age;
         this.poids = poids;
-        this.categories_animal_id = categories_animal_id;
-        this.animals_id = animals_id;
+        
+        
     }
 
     public int getId() {
@@ -58,33 +59,20 @@ public class Animal {
         this.nom = nom;
     }
 
-    public String getPoids() {
+    public float getPoids() {
         return poids;
     }
 
-    public void setPoids(String poids) {
+    public void setPoids(float poids) {
         this.poids = poids;
     }
 
-    public int getCategories_animal_id() {
-        return categories_animal_id;
-    }
-
-    public void setCategories_animal_id(int categories_animal_id) {
-        this.categories_animal_id = categories_animal_id;
-    }
-
-    public int getAnimals_id() {
-        return animals_id;
-    }
-
-    public void setAnimals_id(int animals_id) {
-        this.animals_id = animals_id;
-    }
+    
+ 
 
     @Override
     public String toString() {
-        return "Animal{" + "id=" + id + ", age=" + age + ", nom=" + nom + ", poids=" + poids + ", categories_animal_id=" + categories_animal_id + ", animals_id=" + animals_id + '}';
+        return "Animal{" + "id=" + id + ", age=" + age + ", nom=" + nom + ", poids=" + poids + '}';
     }
         
 }
