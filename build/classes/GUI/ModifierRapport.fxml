@@ -2,9 +2,9 @@
 
 <?import java.lang.String?>
 <?import javafx.scene.control.Button?>
-<?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.text.Font?>
 
 <AnchorPane id="AnchorPane" prefHeight="1000.0" prefWidth="1500.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.ModifierRapportController">
@@ -14,7 +14,7 @@
             <Font size="15.0" />
          </font></TextField>
       
-      <Button fx:id="modifierbtn" alignment="CENTER" contentDisplay="CENTER" graphicTextGap="10.0" layoutX="776.0" layoutY="267.0" mnemonicParsing="false" onAction="#valider" prefHeight="64.0" prefWidth="183.0" stylesheets="@../values/values.css" text="Valider" textAlignment="CENTER" textFill="#2f1e1e">
+      <Button fx:id="modifierbtn" alignment="CENTER" contentDisplay="CENTER" graphicTextGap="10.0" layoutX="776.0" layoutY="267.0" mnemonicParsing="false" onAction="#valider" prefHeight="64.0" prefWidth="183.0" stylesheets="@../values/values.css" text="Valider" textAlignment="CENTER" textFill="WHITE">
          <styleClass>
             <String fx:value="afficherRapportsbtn" />
             <String fx:value="modifierButton" />

@@ -5,13 +5,8 @@
  */
 package test;
 
-
-import entities.RendezVous;
 import java.sql.SQLException;
 
-import services.RapportMedicalService;
-import services.RendezVousService;
-import services.UserService;
 
 
 /**
@@ -23,18 +18,8 @@ public class Test {
     
     public static void main(String[] args) {
        
-        try {
-            
-            UserService ps = new UserService();
-            RendezVousService rvs = new RendezVousService();
-           // System.out.println(rvs.recupererRdvByVeto(1));
-            //System.out.println(ps.recuperer());
-            RendezVous t = new RendezVous(1, 1, "Zah", "22", "12", "fexli", "box");
-            rvs.modifier(t);
-            
-        } catch (SQLException ex) {
-            System.out.println(ex.getMessage());
-        }
-    }
     
+            System.out.println();
+   
+    }
 }

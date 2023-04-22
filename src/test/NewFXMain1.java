@@ -1,4 +1,4 @@
-/*
+    /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
@@ -21,10 +21,10 @@ public class NewFXMain1 extends Application {
     @Override
     public void start(Stage primaryStage) {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("../gui/acceuille.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("../gui/AfficherProduit.fxml"));
             Parent root = loader.load();
             Scene sc = new Scene(root);
-            primaryStage.setTitle("Personnes");
+            primaryStage.setTitle("produit");
             primaryStage.setScene(sc);
             primaryStage.show();
         } catch (IOException ex) {

@@ -19,9 +19,9 @@ public class NewFXMain extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception {
-        Parent root = FXMLLoader.load(getClass().getResource("../gui/acceuille.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("../gui/AfficherProduit.fxml"));
         Scene scene = new Scene(root,600,400); 
-        primaryStage.setTitle("Gérer Personnes");
+        primaryStage.setTitle("Gérer produit");
         primaryStage.setScene(scene);
         primaryStage.show();
     }
