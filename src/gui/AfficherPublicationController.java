@@ -25,9 +25,13 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TextArea;
+import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 import services.PublicationService;
@@ -55,7 +59,20 @@ public class AfficherPublicationController implements Initializable {
     @FXML
     private TableColumn<Publication, Integer> likesColumn; 
     @FXML
-    private TableColumn<Publication, Integer> dislikeColumn; 
+    private TableColumn<Publication, Integer> dislikeColumn;  
+    
+    @FXML
+    private TextField tfAuteur;
+    @FXML
+    private TextField tfTitre; 
+    @FXML
+    private TextArea taContenu;
+    @FXML
+    private TextField tfImage; 
+    @FXML
+    private Button suppbtn;
+    @FXML
+    private Button modbtn;
     
 
     /**
@@ -112,7 +129,19 @@ public class AfficherPublicationController implements Initializable {
         
         
         
-    } 
+    }  
+      @FXML
+    private void clicked(javafx.scene.input.MouseEvent event) { 
+        int myIndex =publicationTableView.getSelectionModel().getSelectedIndex();
+        Publication selectedPub = publicationTableView.getItems().get(myIndex);  
+            System.out.println("Selected publication: " + selectedPub);
+
+        tfAuteur.setText(selectedPub.getAuteur()); 
+    tfTitre.setText(selectedPub.getTitre()); 
+    tfImage.setText(selectedPub.getContenu());
+    taContenu.setText(selectedPub.getContenu()); 
+    }
+
    
     @FXML
 private void supprimerPublication(ActionEvent event) { 
@@ -149,28 +178,82 @@ private void supprimerPublication(ActionEvent event) {
         alert.setContentText("Veuillez sélectionner une publication à supprimer.");
         alert.showAndWait();
     }
-}
+}   
  
      
    
 
-@FXML
-    private void moditpub(ActionEvent event) throws IOException {
-        Stage nouveauStage;
-        Parent root = FXMLLoader.load(getClass().getResource("ModifierPublication.fxml"));
-        nouveauStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        Scene scene = new Scene(root);
-        nouveauStage.setScene(scene);
-    } 
-    
-    @FXML
-    public Publication clicked(MouseEvent event) {
-        int myIndex =publicationTableView.getSelectionModel().getSelectedIndex();
-        Publication selectedpublication = publicationTableView.getItems().get(myIndex);
-        
-   return selectedpublication; 
-    } 
+
+   @FXML
+private void modifier(ActionEvent event) {
+    int selectedIndex = publicationTableView.getSelectionModel().getSelectedIndex();
+
+    if (selectedIndex < 0) {
+        // Display a warning dialog if no publication is selected
+        Alert alert5 = new Alert(Alert.AlertType.WARNING);
+        alert5.setTitle("Avertissement");
+        alert5.setHeaderText(null);
+        alert5.setContentText("Veuillez sélectionner une publication à modifier.");
+        alert5.showAndWait();
+    } else {
+        Publication selectedPub = publicationTableView.getItems().get(selectedIndex);
+
+        if (tfTitre.getText().isEmpty() || taContenu.getText().isEmpty() || tfAuteur.getText().isEmpty() || tfImage.getText().isEmpty()) {
+            Alert al = new Alert(Alert.AlertType.WARNING);
+            al.setTitle("Controle de saisie");
+            al.setContentText("Veuillez remplir tous les champs !");
+            al.show();
+        } else {
+            String auteur = tfAuteur.getText();
+            String titre = tfTitre.getText();
+            String contenu = taContenu.getText();
+            String image = tfImage.getText();
+
+            Publication p = new Publication(auteur, titre, contenu, image);
+            p.setId(selectedPub.getId());
+
+            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+            alert.setTitle("Confirmation de modification");
+            alert.setHeaderText("Êtes-vous sûr de vouloir modifier la publication sélectionnée ?");
+            alert.setContentText("Cette action est irréversible.");
+
+            Optional<ButtonType> result = alert.showAndWait();
+
+            if (result.isPresent() && result.get() == ButtonType.OK) {
+                // Update the publication object with the new values
+                PublicationService ps = new PublicationService();
+
+                try {
+                    ps.modifier(p);
+                    update();
+                    Alert al = new Alert(Alert.AlertType.INFORMATION);
+                    al.setTitle("Publication modifiée");
+                    al.setContentText("La publication a été modifiée avec succès !");
+                    al.show();
+                } catch (SQLException ex) {
+                    Alert al = new Alert(Alert.AlertType.ERROR);
+                    al.setTitle("Erreur");
+                    al.setContentText("Impossible de modifier la publication : " + ex.getMessage());
+                    al.show();
+                }
+            }
+        }
+    }
 }
+
+    
+    
+    
+    }
+     
+    
+    
+
+  
+    
+    
+ 
+
     
  
 

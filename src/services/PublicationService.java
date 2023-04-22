@@ -58,7 +58,7 @@ public class PublicationService  implements IService<Publication> {
         pst.setString(2, t.getTitre());
         pst.setString(3, t.getContenu()); 
         pst.setString(4, t.getImage());
-        pst.setInt(4, t.getId());
+        pst.setInt(5, t.getId());
         pst.executeUpdate();
         System.out.println("Publication modifié avec succès !");
     }
