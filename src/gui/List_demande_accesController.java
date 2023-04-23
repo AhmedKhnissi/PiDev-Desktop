@@ -18,12 +18,10 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
-import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
@@ -36,62 +34,54 @@ import myvet.services.UserService;
  *
  * @author user
  */
-
-public class List_veterinaireController implements Initializable {
-
-    /**
-     * Initializes the controller class.
-     */
+public class List_demande_accesController implements Initializable {
     private UserService userservice;
+
     @FXML
     private ScrollPane scrollPane1;
     @FXML
     private GridPane UsertGrid;
-    
-    private ObservableList<User> alluser = FXCollections.observableArrayList();
-     private List<User> listveterinaires;
     @FXML
     private Button retour;
-     
-     
+    
+    private ObservableList<User> alluser = FXCollections.observableArrayList();
+     private List<User> listdemande;
 
-     
-     
-     
-
+    /**
+     * Initializes the controller class.
+     */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-          System.out.println("helllllllllllooooooooooooooooooooooooo initialize");
+           System.out.println("helllllllllllooooooooooooooooooooooooo initialize");
         try {
-            listProduitfeed();
+            listdemandes();
         } catch (SQLException ex) {
             Logger.getLogger(List_veterinaireController.class.getName()).log(Level.SEVERE, null, ex);
         } catch (IOException ex) {
-            Logger.getLogger(List_veterinaireController.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(List_demande_accesController.class.getName()).log(Level.SEVERE, null, ex);
         }
          System.out.println("helllllllllllooooooooooooooooooooooooo fin initialize");
-
-        
-    } 
+        // TODO
+    }  
     
     
-        private void listProduitfeed() throws SQLException, IOException {
+     private void listdemandes() throws SQLException, IOException {
         userservice= new UserService();
         int row =1 ;
         int col=0;
                  System.out.println("helllllllllllooooooooooooooooooooooooo initialize  222");
 
         
-            listveterinaires = userservice.recuperer_veterinaires();
+            listdemande = userservice.recuperer_demande_acces();
                      System.out.println("helllllllllllooooooooooooooooooooooooo debut boucle");
 
-            for (User vet : listveterinaires) {
+            for (User dm : listdemande) {
                 FXMLLoader fxmlLoader = new FXMLLoader();
-                fxmlLoader.setLocation(getClass().getResource("Card_Veterinaire.fxml"));
+                fxmlLoader.setLocation(getClass().getResource("Card_demande_acces.fxml"));
                 VBox vbox = fxmlLoader.load();
                 vbox.setStyle("-fx-background-color: #F7F8FD;");
-                Card_VeterinaireController cardController = fxmlLoader.getController();
-                cardController.setData(vet);
+                Card_demande_accesController cardController = fxmlLoader.getController();
+                cardController.setData(dm);
                 if (col == 3) {
                     col = 0;
                     row++;
@@ -101,12 +91,11 @@ public class List_veterinaireController implements Initializable {
                          System.out.println("helllllllllllooooooooooooooooooooooooo fin pour");
 
             }
-
-    }
+     }
 
     @FXML
     private void retour_acceuil(ActionEvent event) {
-                        try{
+                                 try{
         Stage nouveauStage;
         Parent root = FXMLLoader.load(getClass().getResource("NavbarAdmin.fxml"));
         nouveauStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
@@ -117,7 +106,4 @@ public class List_veterinaireController implements Initializable {
         }
     }
     
-    
-    
- 
 }

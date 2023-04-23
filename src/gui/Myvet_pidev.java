@@ -34,7 +34,6 @@ public class Myvet_pidev extends Application {
         } catch (IOException ex) {
             System.out.println(ex.getMessage());
         }
-
     }
 
     /**

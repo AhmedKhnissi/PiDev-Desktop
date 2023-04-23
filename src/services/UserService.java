@@ -10,7 +10,9 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import javafx.scene.control.Alert;
 import myvet.entities.User;
+import myvet.entities.UserSession;
 import myvet.utils.MaConnection;
 
 /**
@@ -25,8 +27,8 @@ public class UserService implements Iservice<User> {
     }
     @Override
     public void ajouter(User t) throws SQLException {
-         String req = "INSERT INTO `user`(`nom`, `prenom`, `email`,`password`, `pays`, `gouvernorat`,`ville`, `rue`, `telephone`,`bloque`,`demande_acces`,`roles`) "
-                + "VALUES (?,?,?,?,?,?,?,?,?,?,?,?)";
+         String req = "INSERT INTO `user`(`nom`, `prenom`, `email`,`password`, `pays`, `gouvernorat`,`ville`, `rue`, `telephone`,`bloque`,`demande_acces`,`roles`,`permistravail`) "
+                + "VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?)";
         PreparedStatement ps = cnx.prepareStatement(req);
         
         ps.setString(1, t.getNom());
@@ -38,9 +40,10 @@ public class UserService implements Iservice<User> {
         ps.setString(7, t.getVille());
         ps.setString(8, t.getRue());
         ps.setString(9, t.getTel());
-        ps.setInt(10, 1);
+        ps.setInt(10, 0);
         ps.setInt(11, 1);
         ps.setString(12, "[\"ROLE_VETERINAIRE\"]");
+        ps.setString(13, t.getPermistravail());
 
         
         ps.executeUpdate();
@@ -49,8 +52,17 @@ public class UserService implements Iservice<User> {
     }
 
     @Override
-    public void modifier(User t) throws SQLException {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    public void modifier(User u,String email) throws SQLException {
+            String req = "UPDATE user SET email=?,nom=?,prenom=? where email = ?";
+        PreparedStatement ps = cnx.prepareStatement(req);
+        ps.setString(1, u.getEmail());
+        ps.setString(2, u.getNom());
+        ps.setString(3, u.getPrenom());
+        ps.setString(4, email);
+
+  
+        ps.executeUpdate();
+        
     }
 
     @Override
@@ -76,8 +88,8 @@ public class UserService implements Iservice<User> {
 
     @Override
     public void ajouter_prop(User t) throws SQLException {
-             String req = "INSERT INTO `user`(`nom`, `prenom`, `email`,`password`, `pays`, `gouvernorat`,`ville`, `rue`, `telephone`,`roles`) "
-                + "VALUES (?,?,?,?,?,?,?,?,?,?)";
+             String req = "INSERT INTO `user`(`nom`, `prenom`, `email`,`password`, `pays`, `gouvernorat`,`ville`, `rue`, `telephone`,`roles`,`bloque`,`demandetravail`) "
+                + "VALUES (?,?,?,?,?,?,?,?,?,?,?,?)";
         PreparedStatement ps = cnx.prepareStatement(req);
         
         ps.setString(1, t.getNom());
@@ -91,6 +103,8 @@ public class UserService implements Iservice<User> {
         ps.setString(9, t.getTel());
        
         ps.setString(10, "[\"ROLE_PROPRIETAIRE\"]");
+        ps.setInt(11, 0);
+        ps.setInt(12, 0);
 
         
         ps.executeUpdate();
@@ -101,8 +115,8 @@ public class UserService implements Iservice<User> {
 
     @Override
     public void ajouter_magasin(User t) throws SQLException {
-         String req = "INSERT INTO `user`(`nom`,`email`,`password`, `pays`, `gouvernorat`,`ville`, `rue`, `telephone`,`bloque`,`demande_acces`,`roles`) "
-                + "VALUES (?,?,?,?,?,?,?,?,?,?,?)";
+         String req = "INSERT INTO `user`(`nom`,`email`,`password`, `pays`, `gouvernorat`,`ville`, `rue`, `telephone`,`bloque`,`demande_acces`,`roles`,`permistravail`) "
+                + "VALUES (?,?,?,?,?,?,?,?,?,?,?,?)";
         PreparedStatement ps = cnx.prepareStatement(req);
         
         ps.setString(1, t.getNom());
@@ -113,9 +127,10 @@ public class UserService implements Iservice<User> {
         ps.setString(6, t.getVille());
         ps.setString(7, t.getRue());
         ps.setString(8, t.getTel());
-        ps.setInt(9, 1);
+        ps.setInt(9, 0);
         ps.setInt(10, 1);
         ps.setString(11, "[\"ROLE_MAGASIN\"]");
+        ps.setString(12, t.getPermistravail());
 
         
         ps.executeUpdate();
@@ -125,9 +140,10 @@ public class UserService implements Iservice<User> {
     @Override
     public List<User> recuperer_veterinaires() throws SQLException {
    List<User> veterinaires = new ArrayList<>();
-        String sql= "SELECT * FROM user where roles=?";
+        String sql= "SELECT * FROM user where roles=? AND demande_acces=?";
         try (PreparedStatement stmt = cnx.prepareStatement(sql)) {
                     stmt.setString(1, "[\"ROLE_VETERINAIRE\"]");
+                    stmt.setInt(2, 0);
 
             ResultSet rs = stmt.executeQuery();
             while (rs.next()) {
@@ -148,10 +164,12 @@ public class UserService implements Iservice<User> {
 
     @Override
     public List<User> recuperer_magasins() throws SQLException {
-List<User> veterinaires = new ArrayList<>();
-        String sql= "SELECT * FROM user where roles=?";
+    List<User> veterinaires = new ArrayList<>();
+        String sql= "SELECT * FROM user where roles=? AND demande_acces=?";
         try (PreparedStatement stmt = cnx.prepareStatement(sql)) {
                     stmt.setString(1, "[\"ROLE_MAGASIN\"]");
+                    stmt.setInt(2, 0);
+
 
             ResultSet rs = stmt.executeQuery();
             while (rs.next()) {
@@ -173,10 +191,12 @@ List<User> veterinaires = new ArrayList<>();
 
     @Override
     public List<User> recuperer_proprietaires() throws SQLException {
-   List<User> veterinaires = new ArrayList<>();
-        String sql= "SELECT * FROM user where roles=?";
+    List<User> veterinaires = new ArrayList<>();
+        String sql= "SELECT * FROM user where roles=? AND demande_acces=?";
         try (PreparedStatement stmt = cnx.prepareStatement(sql)) {
                     stmt.setString(1, "[\"ROLE_PROPRIETAIRE\"]");
+                    stmt.setInt(2, 0);
+
 
             ResultSet rs = stmt.executeQuery();
             while (rs.next()) {
@@ -198,9 +218,157 @@ List<User> veterinaires = new ArrayList<>();
 
     @Override
     public List<User> recuperer_demande_acces() throws SQLException {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+  List<User> demandes = new ArrayList<>();
+        String sql= "SELECT * FROM user where demande_acces=?";
+        try (PreparedStatement stmt = cnx.prepareStatement(sql)) {
+                    stmt.setInt(1, 1);
+
+            ResultSet rs = stmt.executeQuery();
+            while (rs.next()) {
+                int id = rs.getInt("id");
+                String nom = rs.getString("nom");
+                String prenom = rs.getString("prenom");
+                String email = rs.getString("email");
+                String tel = rs.getString("telephone");
+                String pays = rs.getString("pays");
+                String gouvernorat = rs.getString("gouvernorat");
+                String ville = rs.getString("ville");
+                String rue = rs.getString("rue");
+                demandes.add(new User(id, nom, prenom, email, pays, gouvernorat, ville, rue,tel));
+            }
+        }
+        return demandes;   
+    }
+    
+    
+    public User authenticate(String mail, String password) {
+        User u = new User();
+        u.setId(0);
+        try {
+
+            String sql = "SELECT * FROM user WHERE email = ? AND password = ?";
+            PreparedStatement ps = cnx.prepareStatement(sql);
+            ps.setString(1, mail);
+            ps.setString(2, password);
+            
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                  
+                u.setId(rs.getInt("id"));
+                u.setNom(rs.getString("nom"));
+                u.setPrenom(rs.getString("prenom"));
+                u.setEmail(rs.getString("email"));
+                u.setTel(rs.getString("telephone"));
+                u.setPassword(rs.getString("password"));
+                u.setRole(rs.getString("roles"));
+                u.setPays(rs.getString("pays"));
+                u.setGouvernorat(rs.getString("gouvernorat"));
+                u.setVille(rs.getString("ville"));
+                u.setRue(rs.getString("rue"));
+                u.setBloque(rs.getInt("bloque"));
+                u.setDemande_acces(rs.getInt("demande_acces"));
+                u.setPermistravail(rs.getString("permistravail"));
+
+
+            } 
+
+        } catch (SQLException e) {
+            System.out.print("erreur authentification");
+
+        }
+        return u;
+    }
+    
+    
+    
+    
+ public void modifier_vet_et_prop(User u,String email) throws SQLException {
+            String req = "UPDATE user SET email=?,nom=?,prenom=?,telephone=?,pays=?,gouvernorat=?,ville=?,rue=? where email = ?";
+        PreparedStatement ps = cnx.prepareStatement(req);
+        ps.setString(1, u.getEmail());
+        ps.setString(2, u.getNom());
+        ps.setString(3, u.getPrenom());
+        ps.setString(4, u.getTel());
+        ps.setString(5, u.getPays());
+        ps.setString(6, u.getGouvernorat());
+        ps.setString(7, u.getVille());
+        ps.setString(8, u.getRue());
+        ps.setString(9, email);
+
+  
+        ps.executeUpdate();
+        
     }
 
+   public void accepter(int id) throws SQLException{
    
+       String req = "UPDATE user SET demande_acces=? where id = ?";
+        PreparedStatement ps = cnx.prepareStatement(req);
+        ps.setInt(1, 0);
+        ps.setInt(2, id);
+      
+
+  
+        ps.executeUpdate();
+   }
+   
+      public void bloquer(int id) throws SQLException{
+   
+       String req = "UPDATE user SET bloque=? where id = ?";
+        PreparedStatement ps = cnx.prepareStatement(req);
+        ps.setInt(1, 1);
+        ps.setInt(2, id);
+      
+
+  
+        ps.executeUpdate();
+   }
+      
+         public void debloquer(int id) throws SQLException{
+   
+        String req = "UPDATE user SET bloque=? where id = ?";
+        PreparedStatement ps = cnx.prepareStatement(req);
+        ps.setInt(1, 0);
+        ps.setInt(2, id);
+      
+
+  
+        ps.executeUpdate();
+   }
+         
+         
+         
+     public void ModifierMdp(String email, String pwd) {
+     try{
+        String req = "UPDATE user SET password=? WHERE email=?";
+        PreparedStatement pst = cnx.prepareStatement(req);
+            
+            pst.setString(1, pwd);
+            pst.setString(2, email);
+            pst.executeUpdate();
+            System.out.println("The password was updated successfully!");
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+        }  
+    }
+     
+     
+       public Integer rechercheEmail(String email){
+                    Integer exist = 0;
+                    PreparedStatement pst;
+                    ResultSet rs = null;
+                    try {
+                        pst = cnx.prepareStatement("SELECT COUNT(*) AS count FROM user WHERE email=? ");
+                        pst.setString(1, email);
+                      
+                        rs = pst.executeQuery();
+                        if (rs.next()) {
+                             exist=rs.getInt("count"); 
+                        }
+                    } catch (SQLException ex) {
+                        System.out.println(ex.getMessage());
+                    }
+                    return exist;
+    }
     
 }

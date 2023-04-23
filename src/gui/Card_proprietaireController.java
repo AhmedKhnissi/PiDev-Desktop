@@ -21,6 +21,7 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import myvet.entities.User;
+import myvet.entities.UserSession;
 import myvet.services.UserService;
 
 /**
@@ -58,6 +59,8 @@ public class Card_proprietaireController implements Initializable {
     private Button bloquer;
     @FXML
     private Label id;
+    @FXML
+    private Button deploquer;
 
     /**
      * Initializes the controller class.
@@ -99,7 +102,25 @@ public class Card_proprietaireController implements Initializable {
     }
 
     @FXML
-    private void bloquer(ActionEvent event) {
+    private void bloquer(ActionEvent event) throws SQLException {
+        UserService userservice=new UserService();
+        int idValue = Integer.parseInt(id.getText());
+        System.out.println("idddddddddddddddddd "+idValue);
+        userservice.bloquer(idValue);
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("bloquer");
+        alert.setHeaderText(null);
+        alert.setContentText("proprietaire a été bloqué avec succès ");
+        alert.showAndWait();
+                   try{
+        Stage nouveauStage;
+        Parent root = FXMLLoader.load(getClass().getResource("List_veterinaire.fxml"));
+        nouveauStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        Scene scene = new Scene(root);
+        nouveauStage.setScene(scene);
+        }catch(IOException ex){
+          System.out.println("nooooooooooooooooooooooooooooooooooooooooooonnnnnnnnnnn");
+        }
     }
     
         
@@ -112,7 +133,31 @@ public class Card_proprietaireController implements Initializable {
     pays.setText(vet.getPays());
     gouvernorat.setText(vet.getGouvernorat());
      ville.setText(vet.getVille());
-    rue.setText(vet.getRue());    
+    rue.setText(vet.getRue()); 
+   
+    }
+
+    @FXML
+    private void deploquer(ActionEvent event) throws SQLException {
+                    UserService userservice=new UserService();
+
+        int idValue = Integer.parseInt(id.getText());
+        System.out.println("idddddddddddddddddd "+idValue);
+        userservice.debloquer(idValue);
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("débloquer");
+        alert.setHeaderText(null);
+        alert.setContentText("proprietaire a été débloqué avec succès ");
+        alert.showAndWait();
+         try{
+        Stage nouveauStage;
+        Parent root = FXMLLoader.load(getClass().getResource("List_proprietaire.fxml"));
+        nouveauStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        Scene scene = new Scene(root);
+        nouveauStage.setScene(scene);
+        }catch(IOException ex){
+          System.out.println("nooooooooooooooooooooooooooooooooooooooooooonnnnnnnnnnn");
+        }
     }
     
 }

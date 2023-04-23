@@ -9,6 +9,9 @@ package myvet.entities;
  * @author user
  */
 public class User {
+    
+  
+
    private Integer id;
    private String nom;
    private String prenom;
@@ -25,6 +28,9 @@ public class User {
    private String role;
     public User() {
     }
+    
+
+
     public User(int id,String nom, String prenom, String email, String pays, String gouvernorat, String ville, String rue, String tel) {
          this.id = id;
         this.nom = nom;
@@ -175,6 +181,7 @@ public class User {
     public void setDemande_acces(Integer demande_acces) {
         this.demande_acces = demande_acces;
     }
+
 
     @Override
     public String toString() {

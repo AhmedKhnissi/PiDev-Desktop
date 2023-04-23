@@ -4,7 +4,6 @@
  */
 package myvet_pidev;
 
-import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
 import java.util.ResourceBundle;
@@ -12,39 +11,25 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Node;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
-import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
-import javafx.stage.Stage;
-import myvet.entities.CrypterPassword;
 import myvet.entities.User;
+import myvet.entities.UserSession;
 import myvet.services.UserService;
-import static myvet_pidev.Ajouter_VeterinaireController.EmailIsValid;
-import static myvet_pidev.Ajouter_VeterinaireController.NameIsValid;
-import static myvet_pidev.Ajouter_VeterinaireController.PasswordisValid;
-import static myvet_pidev.Ajouter_VeterinaireController.TelIsValid;
 
 /**
  * FXML Controller class
  *
  * @author user
  */
-public class Ajouter_ProprietaireController implements Initializable {
+public class Modifier_magasinController implements Initializable {
 
     @FXML
     private TextField nom;
     @FXML
-    private TextField prenom;
-    @FXML
     private TextField email;
-    @FXML
-    private PasswordField password;
     @FXML
     private TextField tel;
     @FXML
@@ -56,9 +41,12 @@ public class Ajouter_ProprietaireController implements Initializable {
     @FXML
     private TextField rue;
     @FXML
-    private Button ajouter;
     
-       private static final Pattern EMAIL_REGEX =
+    private Button modifier;
+    UserService userservice=new UserService();
+
+    
+         private static final Pattern EMAIL_REGEX =
             Pattern.compile("^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$");
    private static final Pattern NAME_REGEX =
             Pattern.compile("^[A-Za-zÀ-ÖØ-öø-ÿ]+([\\s-][A-Za-zÀ-ÖØ-öø-ÿ]+)*$");
@@ -67,19 +55,8 @@ public class Ajouter_ProprietaireController implements Initializable {
    private static final Pattern PASSWORD_REGEX =
             Pattern.compile("^(?=.*\\d).{6}$");
    
-      CrypterPassword cps=new CrypterPassword();
-      UserService us= new UserService();
-
-
-    /**
-     * Initializes the controller class.
-     */
-    @Override
-    public void initialize(URL url, ResourceBundle rb) {
-        // TODO
-    } 
-    
-       public static boolean EmailIsValid(String email) {
+   
+        public static boolean EmailIsValid(String email) {
         Matcher matcher = EMAIL_REGEX.matcher(email);
         return matcher.matches();
         
@@ -97,9 +74,25 @@ public class Ajouter_ProprietaireController implements Initializable {
         return matcher.matches();
     }
 
+    /**
+     * Initializes the controller class.
+     */
+    @Override
+    public void initialize(URL url, ResourceBundle rb) {
+        UserSession session=UserSession.getInstance();
+        email.setText(session.getEmail());
+        nom.setText(session.getNom());
+        tel.setText(session.getTel());
+        pays.setText(session.getPays());
+        gouvernorat.setText(session.getGouvernorat());
+        ville.setText(session.getVille());
+        rue.setText(session.getRue());
+        // TODO
+    }    
+
     @FXML
-    private void sauvegarder(ActionEvent event) {
-             if(nom.getText().isEmpty() || prenom.getText().isEmpty() || email.getText().isEmpty() || password.getText().isEmpty() ||tel.getText().isEmpty() ||pays.getText().isEmpty() ||gouvernorat.getText().isEmpty() || rue.getText().isEmpty() || ville.getText().isEmpty() ){
+    private void modifier_user(ActionEvent event) throws SQLException {
+                        if(nom.getText().isEmpty()  || email.getText().isEmpty()  ||tel.getText().isEmpty() ||pays.getText().isEmpty() ||gouvernorat.getText().isEmpty() || rue.getText().isEmpty() || ville.getText().isEmpty() ){
          Alert alert = new Alert(Alert.AlertType.WARNING);
             alert.setTitle("Erreur");
             alert.setHeaderText(null);
@@ -112,15 +105,14 @@ public class Ajouter_ProprietaireController implements Initializable {
         alert.setContentText("L'adresse e-mail que vous avez saisie est invalide. Veuillez saisir une adresse e-mail valide.");
         alert.showAndWait();
     
-    }
-        else if(us.rechercheEmail(email.getText())>=1){
+      }else if(userservice.rechercheEmail(email.getText())>=1){
         Alert alert = new Alert(Alert.AlertType.WARNING);
         alert.setTitle("erreur");
         alert.setHeaderText(null);
         alert.setContentText("Email exist déjà.");
         alert.showAndWait();  
        }
-        else if( NameIsValid(nom.getText())== false ||NameIsValid(prenom.getText())== false || NameIsValid(pays.getText())== false || NameIsValid(gouvernorat.getText())== false ||NameIsValid(ville.getText())== false || NameIsValid(rue.getText())== false  ){
+        else if( NameIsValid(nom.getText())== false  || NameIsValid(pays.getText())== false || NameIsValid(gouvernorat.getText())== false ||NameIsValid(ville.getText())== false || NameIsValid(rue.getText())== false  ){
        Alert alert = new Alert(Alert.AlertType.WARNING);
         alert.setTitle("champ invalide");
         alert.setHeaderText(null);
@@ -135,48 +127,42 @@ public class Ajouter_ProprietaireController implements Initializable {
         alert.setContentText("Le numero téléphone que vous avez saisi est invalide. Veuillez saisir un nombre de 8 chiffres.");
         alert.showAndWait();
 
-    }
-    else if(PasswordisValid(password.getText())== false){
-     Alert alert = new Alert(Alert.AlertType.WARNING);
-        alert.setTitle("Mot de passe invalide");
-        alert.setHeaderText(null);
-        alert.setContentText("Le mot de passe doit contenir au moins un chiffre et avoir une longueur de 6 caractères.");
-        alert.showAndWait();
-         }
-        else{
-         User u = new User();
+    }else{
+    //else if(PasswordisValid(password.getText())== false){
+     //Alert alert = new Alert(Alert.AlertType.WARNING);
+       // alert.setTitle("Mot de passe invalide");
+        //alert.setHeaderText(null);
+        //alert.setContentText("Le mot de passe doit contenir au moins un chiffre et avoir une longueur de 6 caractères.");
+        //alert.showAndWait();
+    //}
+        UserSession session=UserSession.getInstance();
+        String email_ancien=session.getEmail();
+        User u=new User();
         u.setNom(nom.getText());
-        u.setPrenom(prenom.getText());
         u.setEmail(email.getText());
-        u.setPassword(cps.CrypterPassword(password.getText()));
+        u.setTel(tel.getText());
         u.setPays(pays.getText());
         u.setGouvernorat(gouvernorat.getText());
-         u.setVille(ville.getText());
+        u.setVille(ville.getText());
         u.setRue(rue.getText());
-        u.setTel(tel.getText());
-        u.setBloque(0);
-        u.setDemande_acces(0);
-        try {
-            us.ajouter_prop(u);
-                  Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setTitle("Succes");
-            alert.setHeaderText(null);
-            alert.setContentText(" propriétaire a été ajouté avec succès ");
-            alert.showAndWait();
-                       try{
-        Stage nouveauStage;
-        Parent root = FXMLLoader.load(getClass().getResource("Login.fxml"));
-        nouveauStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        Scene scene = new Scene(root);
-        nouveauStage.setScene(scene);
-        }catch(IOException ex){
-          System.out.println("nooooooooooooooooooooooooooooooooooooooooooonnnnnnnnnnn");
-        }
-            
-        } catch (SQLException ex) {
-            System.out.println(ex.getMessage());
-        }
-      }
+        
+        session.setEmail(u.getEmail());
+        session.setNom(u.getNom());
+        session.setPrenom(u.getPrenom());
+        session.setTel(u.getTel());
+        session.setPays(u.getPays());
+        session.setGouvernorat(u.getGouvernorat());
+        session.setVille(u.getVille());
+        session.setRue(u.getRue());
+        
+        
+        userservice.modifier_vet_et_prop(u,email_ancien);
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("Modifier");
+        alert.setHeaderText(null);
+        alert.setContentText("Information Utilisateurs a été modifié avec succès");
+        alert.showAndWait();
+    }
     }
     
 }

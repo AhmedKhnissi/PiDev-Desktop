@@ -10,13 +10,13 @@
 <?import javafx.scene.shape.Circle?>
 <?import javafx.scene.text.Font?>
 
-<VBox style="-fx-background-color: F7F8FD;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="myvet_pidev.Card_magasinController">
+<VBox style="-fx-background-color: F7F8FD;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="myvet_pidev.Card_demande_accesController">
    <children>
       <VBox fx:id="vbox" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="528.0" prefWidth="386.0" style="-fx-background-color: F7F8FD;">
          <children>
             <AnchorPane prefHeight="528.0" prefWidth="376.0" style="-fx-background-color: F7F8FD;">
                <children>
-                  <Label fx:id="nom" layoutX="34.0" layoutY="85.0" prefHeight="22.0" prefWidth="338.0" text="nom">
+                  <Label fx:id="nom" layoutX="34.0" layoutY="87.0" prefHeight="22.0" prefWidth="338.0" text="nom">
                      <font>
                         <Font name="System Bold" size="12.0" />
                      </font>
@@ -24,8 +24,8 @@
                   <Button fx:id="modifyItem1" layoutX="172.0" layoutY="483.0" mnemonicParsing="false" onAction="#handleModifyItem" prefHeight="30.0" prefWidth="102.0" style="-fx-background-color: #B7B78A; -fx-text-fill: white;" text="Modifier l'offre" visible="false" />
                   <Button fx:id="deletItemButton1" layoutX="265.0" layoutY="483.0" mnemonicParsing="false" onAction="#handleDeleteItem" prefHeight="30.0" prefWidth="114.0" style="-fx-background-color: #D9534F; -fx-text-fill: white;" text="Supprimer l'offre" visible="false" />
                   <Circle fill="#f49f85" layoutX="14.0" layoutY="345.0" radius="5.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" />
-                  <Button fx:id="supprimer" layoutX="64.0" layoutY="458.0" mnemonicParsing="false" onAction="#supprimer" prefHeight="25.0" prefWidth="76.0" style="-fx-background-color: red; -fx-text-fill: white;" text="supprimer" />
-                  <Circle fill="#f49f85" layoutX="14.0" layoutY="96.0" radius="5.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" />
+                  <Button fx:id="supprimer" layoutX="89.0" layoutY="483.0" mnemonicParsing="false" onAction="#refuser" prefHeight="25.0" prefWidth="76.0" style="-fx-background-color: red; -fx-text-fill: white;" text="REFUSER" />
+                  <Circle fill="#f49f85" layoutX="14.0" layoutY="103.0" radius="5.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" />
                   <Label fx:id="email" layoutX="29.0" layoutY="138.0" prefHeight="22.0" prefWidth="338.0" text="email">
                      <font>
                         <Font name="System Bold" size="12.0" />
@@ -36,7 +36,7 @@
                         <Font name="System Bold" size="12.0" />
                      </font>
                   </Label>
-                  <Circle fill="#f49f85" layoutX="14.0" layoutY="149.0" radius="5.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" />
+                  <Circle fill="#f49f85" layoutX="14.0" layoutY="154.0" radius="5.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" />
                   <Circle fill="#f49f85" layoutX="14.0" layoutY="193.0" radius="5.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" />
                   <Circle fill="#f49f85" layoutX="14.0" layoutY="241.0" radius="5.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" />
                   <Circle fill="#f49f85" layoutX="14.0" layoutY="293.0" radius="5.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" />
@@ -61,14 +61,19 @@
                         <Font name="System Bold" size="12.0" />
                      </font>
                   </Label>
-                  <Button fx:id="bloquer" layoutX="165.0" layoutY="458.0" mnemonicParsing="false" onAction="#bloquer" prefHeight="25.0" prefWidth="76.0" style="-fx-background-color: #F0A72E; -fx-text-fill: white;" text="bloquer" visible="false" />
-                  <ImageView fitHeight="52.0" fitWidth="50.0" layoutX="322.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
+                  <Button fx:id="ACCEPTER" layoutX="185.0" layoutY="483.0" mnemonicParsing="false" onAction="#accepter" prefHeight="25.0" prefWidth="76.0" style="-fx-background-color: #10841D; -fx-text-fill: white;" text="ACCEPTER" />
+                  <ImageView fitHeight="52.0" fitWidth="76.0" layoutX="296.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../images/boutique.png" />
+                        <Image url="@../images/logo-vet.png" />
                      </image>
                   </ImageView>
-                  <Label fx:id="id" layoutX="20.0" layoutY="31.0" text="id" visible="false" />
-                  <Button fx:id="deploquer" layoutX="168.0" layoutY="458.0" mnemonicParsing="false" onAction="#deploquer" style="-fx-background-color: #10841D;" text="débloquer" textFill="#eee9e9" visible="false" />
+                  <Label fx:id="id" layoutX="20.0" layoutY="14.0" text="id" visible="false" />
+                  <Circle fill="#f49f85" layoutX="14.0" layoutY="433.0" radius="5.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" />
+                  <Label fx:id="rue1" layoutX="24.0" layoutY="422.0" onMouseClicked="#GetPermisTravail" prefHeight="22.0" prefWidth="102.0" text="permis de travail">
+                     <font>
+                        <Font name="System Bold" size="12.0" />
+                     </font>
+                  </Label>
                </children>
             </AnchorPane>
          </children>

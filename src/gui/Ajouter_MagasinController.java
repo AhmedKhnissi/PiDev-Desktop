@@ -4,8 +4,14 @@
  */
 package myvet_pidev;
 
+import java.io.File;
 import java.io.IOException;
 import java.net.URL;
+import java.nio.file.CopyOption;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
 import java.sql.SQLException;
 import java.util.ResourceBundle;
 import java.util.regex.Matcher;
@@ -22,7 +28,11 @@ import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
+import javax.swing.JFileChooser;
+import javax.swing.filechooser.FileNameExtensionFilter;
+import myvet.entities.CrypterPassword;
 import myvet.entities.User;
 import myvet.services.UserService;
 import static myvet_pidev.Ajouter_VeterinaireController.EmailIsValid;
@@ -30,13 +40,14 @@ import static myvet_pidev.Ajouter_VeterinaireController.NameIsValid;
 import static myvet_pidev.Ajouter_VeterinaireController.PasswordisValid;
 import static myvet_pidev.Ajouter_VeterinaireController.TelIsValid;
 
+
 /**
  * FXML Controller class
  *
  * @author user
  */
 public class Ajouter_MagasinController implements Initializable {
-
+    File file;
     @FXML
     private TextField nom;
     @FXML
@@ -66,6 +77,8 @@ public class Ajouter_MagasinController implements Initializable {
             Pattern.compile("^\\d{8}$");
    private static final Pattern PASSWORD_REGEX =
             Pattern.compile("^(?=.*\\d).{6}$");
+   CrypterPassword cps=new CrypterPassword();
+    UserService us= new UserService();
 
     /**
      * Initializes the controller class.
@@ -99,7 +112,16 @@ public class Ajouter_MagasinController implements Initializable {
             alert.setHeaderText(null);
             alert.setContentText("Il faut remplir les champs obligatoires ");
             alert.showAndWait();
-        }else if(EmailIsValid(email.getText())==false ){
+        }    
+        else if(us.rechercheEmail(email.getText())>=1){
+        Alert alert = new Alert(Alert.AlertType.WARNING);
+        alert.setTitle("erreur");
+        alert.setHeaderText(null);
+        alert.setContentText("Email exist déjà.");
+        alert.showAndWait();  
+       }
+             
+             else if(EmailIsValid(email.getText())==false ){
          Alert alert = new Alert(Alert.AlertType.WARNING);
         alert.setTitle("Adresse e-mail invalide");
         alert.setHeaderText(null);
@@ -133,16 +155,19 @@ public class Ajouter_MagasinController implements Initializable {
           User u = new User();
         u.setNom(nom.getText());
         u.setEmail(email.getText());
-        u.setPassword(password.getText());
+        u.setPassword(cps.CrypterPassword(password.getText()));
         u.setPays(pays.getText());
         u.setGouvernorat(gouvernorat.getText());
          u.setVille(ville.getText());
         u.setRue(rue.getText());
         u.setTel(tel.getText());
+        u.setBloque(0);
+        u.setDemande_acces(1);
+        String namefile=file.getName();
+        u.setPermistravail(namefile);
         try {
-            UserService us= new UserService();
             us.ajouter_magasin(u);
-                  Alert alert = new Alert(Alert.AlertType.INFORMATION);
+             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("Succes");
             alert.setHeaderText(null);
             alert.setContentText(" magasin a été ajouté avec succès ");
@@ -161,6 +186,46 @@ public class Ajouter_MagasinController implements Initializable {
             System.out.println(ex.getMessage());
         }
       }
+    }
+
+    @FXML
+    private File ajouter_permis_travail(MouseEvent event) {
+        Path to1 = null;
+        String m = null;
+        String path = "C:\\xampp\\htdocs\\img";
+        JFileChooser chooser = new JFileChooser();
+
+        FileNameExtensionFilter filter = new FileNameExtensionFilter("PDF files (*.pdf)", "*.pdf");
+        chooser.setFileFilter(filter);
+        int returnVal = chooser.showOpenDialog(null);
+        if (returnVal == JFileChooser.APPROVE_OPTION) {
+            m = chooser.getSelectedFile().getAbsolutePath();
+
+            file = chooser.getSelectedFile();
+            String fileName = file.getName();
+
+            if (chooser.getSelectedFile() != null) {
+
+                try {
+                    Path from = Paths.get(chooser.getSelectedFile().toURI());
+                    to1 = Paths.get(path + "\\" + fileName);
+                    
+
+                    CopyOption[] options = new CopyOption[]{
+                        StandardCopyOption.REPLACE_EXISTING,
+                        StandardCopyOption.COPY_ATTRIBUTES
+                    };
+                    Files.copy(from, to1, options);
+                    System.out.println("added");
+                    System.out.println(file);
+
+                } catch (IOException ex) {
+                    System.out.println();
+                }
+            }
+
+        }
+        return file;
     }
     
 }

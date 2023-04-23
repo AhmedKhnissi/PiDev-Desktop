@@ -16,6 +16,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 
 /**
  * FXML Controller class
@@ -47,6 +48,18 @@ public class NavbarAdminController implements Initializable {
 
     @FXML
     private void detail_profile(ActionEvent event) {
+        
+        try {
+            Parent root = FXMLLoader.load(getClass().getResource("Profile.fxml"));
+            Scene scene = new Scene(root);
+            Stage stage = new Stage();
+            stage.setScene(scene);
+            stage.initStyle(StageStyle.UTILITY);
+            stage.show();
+        } catch (IOException ex) {
+            System.out.print(ex);
+        }
+    
     }
 
     @FXML
@@ -64,6 +77,15 @@ public class NavbarAdminController implements Initializable {
 
     @FXML
     private void Demande_acces(ActionEvent event) {
+                try{
+        Stage nouveauStage;
+        Parent root = FXMLLoader.load(getClass().getResource("list_demande_acces.fxml"));
+        nouveauStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        Scene scene = new Scene(root);
+        nouveauStage.setScene(scene);
+        }catch(IOException ex){
+          System.out.println("nooooooooooooooooooooooooooooooooooooooooooonnnnnnnnnnn");
+        }
     }
 
     @FXML
