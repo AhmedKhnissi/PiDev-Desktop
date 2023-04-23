@@ -16,7 +16,7 @@
       <TextArea fx:id="taContenu" layoutX="172.0" layoutY="209.0" prefHeight="150.0" prefWidth="187.0" />
       <TextField fx:id="tfTitre" layoutX="172.0" layoutY="92.0" />
       <TextField fx:id="tfImage" layoutX="172.0" layoutY="147.0" />
+      <Button fx:id="chooseImageButton" layoutX="374.0" layoutY="147.0" onAction="#chooseImage" text="Parcourir" />
       <Button fx:id="ajouterbtn" layoutX="490.0" layoutY="337.0" mnemonicParsing="false" onAction="#ajouterPublication" text="Ajouter" /> 
-      
    </children>
 </AnchorPane>

@@ -6,6 +6,8 @@
 package entities;
 
 import java.sql.Date;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
@@ -22,9 +24,13 @@ public class Publication {
     private int dislike=0;   
     private int nbsignal=0;   
     private user user ;  
-
+    private List<Commentaire> commentaires;
+    
     public Publication() {
+        commentaires = new ArrayList<>();
     }
+
+    
 
     public Publication(int id, String auteur, String titre, String contenu, String image, Date datepub) {
         this.id = id;
@@ -114,7 +120,13 @@ public class Publication {
     public void setUser(user user) {
         this.user = user;
     }
-    
+    public void addCommentaire(Commentaire commentaire) {
+        commentaires.add(commentaire);
+    }
+    public List<Commentaire> getCommentaires() {
+    return commentaires;
+}
+
 
     @Override
     public String toString() {

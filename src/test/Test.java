@@ -6,6 +6,7 @@
 package test;
 
 
+import entities.Commentaire;
 import entities.Publication;
 import entities.RendezVous;
 import java.sql.Date;
@@ -13,6 +14,7 @@ import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import services.CommentaireService;
 import services.PublicationService;
 
 import services.RapportMedicalService;
@@ -32,16 +34,13 @@ public class Test {
        
         LocalDate currentDate = LocalDate.now();
         Date sqlDate = Date.valueOf(currentDate);
-        Publication p = new Publication("khalil", "titre11", "contenu1","image");
-        p.setDatepub(sqlDate);
-        p.setLikes(0);
-        p.setDislike(0);
-        p.setNbsignal(0);
-        PublicationService ps = new PublicationService(); 
+       Commentaire p = new Commentaire(41,"ahla",sqlDate);
+       
+        CommentaireService cs = new CommentaireService(); 
         
        
         try {
-            System.out.println(ps.recuperer());
+            cs.ajouter(p); 
         } catch (SQLException ex) {
             Logger.getLogger(Test.class.getName()).log(Level.SEVERE, null, ex);
         }

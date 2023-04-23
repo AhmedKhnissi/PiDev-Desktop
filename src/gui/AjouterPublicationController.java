@@ -6,6 +6,7 @@
 package gui;
 
 import entities.Publication;
+import java.io.File;
 import java.net.URL;
 import java.sql.Date;
 import java.time.LocalDate;
@@ -17,6 +18,7 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.stage.FileChooser;
 import services.PublicationService;
 
 /**
@@ -38,6 +40,8 @@ public class AjouterPublicationController implements Initializable {
     private Button ajouterbtn;  
     
     PublicationService ps = new PublicationService();
+    @FXML
+    private Button chooseImageButton;
 
     /**
      * Initializes the controller class.
@@ -89,6 +93,19 @@ public class AjouterPublicationController implements Initializable {
 } 
 
     } 
+
+    @FXML
+    private void chooseImage(ActionEvent event) { 
+         FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle("Select Image");
+        fileChooser.getExtensionFilters().addAll(
+            new FileChooser.ExtensionFilter("Image Files", "*.png", "*.jpg", "*.gif")
+        );
+        File selectedFile = fileChooser.showOpenDialog(null);
+        if (selectedFile != null) {
+            tfImage.setText(selectedFile.getAbsolutePath());
+        }
+    }
     
     
     

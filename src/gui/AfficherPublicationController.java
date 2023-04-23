@@ -225,7 +225,7 @@ private void modifier(ActionEvent event) {
 
                 try {
                     ps.modifier(p);
-                    update();
+                    update(); 
                     Alert al = new Alert(Alert.AlertType.INFORMATION);
                     al.setTitle("Publication modifiée");
                     al.setContentText("La publication a été modifiée avec succès !");
@@ -238,7 +238,8 @@ private void modifier(ActionEvent event) {
                 }
             }
         }
-    }
+    } 
+    
 }
 
     

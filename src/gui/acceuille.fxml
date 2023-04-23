@@ -5,7 +5,7 @@
 
 <AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.AcceuilleController">
    <children>
-      <Button layoutX="126.0" layoutY="155.0" mnemonicParsing="false" onAction="#afficherAnimal" prefHeight="75.0" prefWidth="331.0" text="Liste Animal" />
+      <Button layoutX="126.0" layoutY="155.0" mnemonicParsing="false" onAction="#AffichageUser" prefHeight="75.0" prefWidth="331.0" text="Affichage User" />
       <Button layoutX="126.0" layoutY="31.0" mnemonicParsing="false" onAction="#afficherveto" prefHeight="75.0" prefWidth="331.0" text="Liste Vétérinaires" />
       <Button layoutX="126.0" layoutY="282.0" mnemonicParsing="false" onAction="#ajoutpub" prefHeight="75.0" prefWidth="157.0" text="Ajouter Publication" />
       <Button layoutX="300.0" layoutY="282.0" mnemonicParsing="false" onAction="#affichertpub" prefHeight="75.0" prefWidth="157.0" text="Afficher Publications" />
