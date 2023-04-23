@@ -1,0 +1,30 @@
+#root {
+    -fx-background-color: #FFFFFF;
+    -fx-padding: 20px;
+    -fx-font-size: 16px;
+    -fx-font-family: "Arial";
+}
+
+TextField {
+    -fx-pref-width: 200px;
+}
+
+Button {
+    -fx-background-color: #4CAF50;
+    -fx-text-fill: #FFFFFF;
+    -fx-font-weight: bold;
+    -fx-pref-width: 120px; /* Decrease button width */
+    -fx-pref-height: 32px; /* Decrease button height */
+    -fx-font-size: 16px;
+    -fx-font-family: "Arial";
+    -fx-padding: 8px 16px; /* Decrease button padding */
+    -fx-border-radius: 5px;
+    -fx-margin: 10px; /* Add margin between elements */
+}
+
+Label {
+    -fx-font-size: 24px; /* Increase label font size */
+    -fx-font-family: "Arial";
+    -fx-padding: 10px;
+    -fx-margin: 10px; /* Add margin between elements */
+}

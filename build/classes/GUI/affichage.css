@@ -1,0 +1,77 @@
+/* Style for the table */
+#animalTable {
+    -fx-background-color: #f2f2f2;
+    -fx-border-color: #bfbfbf;
+    -fx-border-width: 1px;
+}
+
+/* Style for the table columns */
+#nomColumn, #poidsColumn, #ageColumn, #idColumn {
+    -fx-alignment: CENTER;
+}
+
+/* Style for the buttons */
+.button {
+    -fx-background-color: #1E90FF;
+    -fx-text-fill: white;
+    -fx-font-size: 14px;
+    -fx-font-family: "Arial";
+}
+
+/* Style for the "AJOUTER" button */
+#ajouterAnimal {
+    -fx-background-color: #4caf50;
+}
+
+/* Style for the "SUPPRIMER" button */
+#supprimerBtn {
+    -fx-background-color: #FF0000;
+}
+
+/* Style for the "UPDATE" button */
+#updateBtn {
+    -fx-background-color: #1E90FF;
+}
+
+/* Style for the "LEARN MORE" button */
+#learnmorebtn {
+    -fx-background-color: #1E90FF;
+}
+
+/* Style for the text fields */
+.text-field {
+    -fx-background-color: #f2f2f2;
+    -fx-border-color: #bfbfbf;
+    -fx-border-width: 1px;
+    -fx-font-size: 14px;
+    -fx-font-family: "Arial";
+}
+
+#animalTable {
+    -fx-font-size: 14pt;
+    -fx-font-weight: bold;
+    -fx-table-cell-border-color: transparent;
+    -fx-background-color: #ffffff;
+}
+
+.table-column {
+    -fx-alignment: CENTER;
+    -fx-font-size: 14pt;
+    -fx-font-weight: bold;
+}
+
+.table-view .column-header-background {
+    -fx-background-color: #ececec;
+}
+
+.table-view .filler {
+    -fx-background-color: #ececec;
+}
+
+.table-row-cell {
+    -fx-background-color: #f5f5f5;
+}
+
+.table-row-cell:selected {
+    -fx-background-color: #c5c5c5;
+}

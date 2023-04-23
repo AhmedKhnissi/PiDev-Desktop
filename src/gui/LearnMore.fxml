@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.VBox?>
+
+<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" stylesheets="@APIS.css" xmlns="http://javafx.com/javafx/ 8.0.301" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.LearnMoreController">
+    
+    <VBox layoutX="50" layoutY="50" spacing="10">
+    <HBox spacing="10">
+        <TextField fx:id="animalsearch" onAction="#infoAnimalButtonClicked" />
+        <Button fx:id="infoAnimalButton" mnemonicParsing="false" onAction="#infoAnimalButtonClicked" prefHeight="0.0" prefWidth="135.0" text="InfoAnimal" />
+        <Label fx:id="animalInfoLabel1" prefHeight="40.0" prefWidth="439.0" />
+    </HBox>
+
+    <HBox spacing="10">
+        <Button fx:id="weatherButton" mnemonicParsing="false" onAction="#weatherButtonClicked" text="Weather" />
+
+        <Label fx:id="animalInfoLabel" prefHeight="62.0" prefWidth="642.0" wrapText="true" />
+    </HBox>
+
+    <HBox spacing="10">
+        <Button fx:id="infoAnimalButton1" mnemonicParsing="false" onAction="#getInfoCat" prefHeight="2.0" text="CatInfo" />
+        <Label fx:id="catlabel" prefHeight="206.0" prefWidth="641.0" wrapText="true" />
+        <ImageView fx:id="catImage" fitWidth="200" fitHeight="200" pickOnBounds="true" preserveRatio="true" />
+    </HBox>
+
+  
+</VBox>
+
+    
+</AnchorPane>

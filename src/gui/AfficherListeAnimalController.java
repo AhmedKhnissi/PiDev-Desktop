@@ -2,12 +2,11 @@ package gui;
 
 import entities.Animal;
 import java.io.BufferedReader;
+import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
 import java.net.URL;
-import java.net.URLConnection;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
@@ -19,8 +18,10 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.geometry.Pos;
+import javafx.scene.Node;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
@@ -31,7 +32,6 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import services.AnimalService;
 
@@ -71,33 +71,15 @@ public class AfficherListeAnimalController implements Initializable {
     @FXML
     private Button learnmorebtn;
     
-    @FXML
-     private TextField animalNameTextField;
-
-    @FXML
-    private Label animalInfoLabel;
 
 @FXML
-void learnMoreClicked(ActionEvent event)  {
-    try{
-    URL url = new URL("https://api.api-ninjas.com/v1/animals?name=cheetah");
-HttpURLConnection connection = (HttpURLConnection) url.openConnection();
-connection.setRequestProperty("accept", "application/json");
-InputStream responseStream = connection.getInputStream();
-BufferedReader reader = new BufferedReader(new InputStreamReader(responseStream, "UTF-8"));
-
-String response = "";
-String line = "";
-while ((line = reader.readLine()) != null) {
-    response += line;
-}
-
-JSONObject root = new JSONObject(response);
-String animalFact = root.getString("fact");
-System.out.println(animalFact);
-    }
-    catch(Exception ex){
-    }
+void learnMoreClicked(ActionEvent event) throws IOException  {
+    
+    Stage nouveauStage;
+        Parent root = FXMLLoader.load(getClass().getResource("LearnMore.fxml"));
+        nouveauStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        Scene scene = new Scene(root);
+        nouveauStage.setScene(scene);
 }
 
     
@@ -121,7 +103,8 @@ System.out.println(animalFact);
         poidsColumn.setCellValueFactory(new PropertyValueFactory<>("poids"));
         
    }
-
+private static final String API_URL = "https://api.api-ninjas.com/v1/animals";
+    private static final String API_KEY = "your_api_key_here";
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         update();
