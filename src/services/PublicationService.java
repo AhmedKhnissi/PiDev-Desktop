@@ -99,6 +99,24 @@ List<Publication> Publications = new ArrayList<>();
     return Publications;
       
     }  
+    
+    public void like(Publication t) throws SQLException {
+        String requete = "UPDATE publication SET likes = ? WHERE id = ?";
+        PreparedStatement pst = cnx.prepareStatement(requete);
+        pst.setInt(1, t.getLikes());
+        pst.setInt(2, t.getId());
+        pst.executeUpdate();
+        System.out.println("like!");
+    }
+    
+     public void dislike(Publication t) throws SQLException {
+        String requete = "UPDATE publication SET dislike = ? WHERE id = ?";
+        PreparedStatement pst = cnx.prepareStatement(requete);
+        pst.setInt(1, t.getDislike());
+        pst.setInt(2, t.getId());
+        pst.executeUpdate();
+        System.out.println("dislike!");
+    }
   
 
     }
