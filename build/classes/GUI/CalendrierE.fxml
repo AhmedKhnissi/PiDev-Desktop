@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ChoiceBox?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane id="AnchorPane" prefHeight="1000.0" prefWidth="1500.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.CalendrierEController">
+   <children>
+      <AnchorPane id="AnchorPane" prefHeight="998.0" prefWidth="1501.0" style="-fx-background-color: #ffffff;">
+         <children>
+            <AnchorPane prefHeight="105.0" prefWidth="1502.0" style="-fx-background-color: #4682B4;">
+               <children>
+                  <ImageView fitHeight="56.0" fitWidth="58.0" layoutX="110.0" layoutY="25.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../images/precedent.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fitHeight="62.0" fitWidth="68.0" layoutX="1414.0" layoutY="38.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../images/passer-au-suivant.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fitHeight="39.0" fitWidth="39.0" layoutX="22.0" layoutY="30.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../images/annuler%20(1).png" />
+                     </image>
+                  </ImageView>
+            
+                   <Button fx:id="next" layoutX="1365.0" layoutY="30.0" mnemonicParsing="false" onAction="#next" prefHeight="86.0" prefWidth="103.0" style="-fx-background-color: transparent;">
+                     <font>
+                        <Font name="System Bold Italic" size="15.0" />
+                     </font>
+                  </Button>
+                  <Button layoutX="5.0" layoutY="12.0" mnemonicParsing="false" onAction="#retourner" prefHeight="75.0" prefWidth="79.0" style="-fx-background-color: transparant;">
+                     <font>
+                        <Font name="System Bold Italic" size="20.0" />
+                     </font>
+                  </Button>
+                  <Button fx:id="prev" layoutX="94.0" layoutY="14.0" mnemonicParsing="false" onAction="#prev" prefHeight="75.0" prefWidth="90.0" style="-fx-background-color: transparent;">
+                     <font>
+                        <Font name="System Bold Italic" size="15.0" />
+                     </font>
+                  </Button>
+                  <TextField fx:id="localDate" layoutX="568.0" layoutY="33.0" prefHeight="50.0" prefWidth="309.0" style="-fx-background-color: #4682B4; -fx-text-fill: white;" text="Ajouter Votre Rendez-Vous !">
+     <font>
+        <Font name="System Bold Italic" size="20.0" />
+     </font>
+</TextField>
+
+               </children>
+            </AnchorPane>
+                  <GridPane fx:id="daysGrid" layoutX="18.0" layoutY="175.0" prefHeight="200.0" prefWidth="319.0">
+               <columnConstraints>
+                  <ColumnConstraints />
+                  <ColumnConstraints />
+               </columnConstraints>
+               <rowConstraints>
+                  <RowConstraints />
+                  <RowConstraints />
+               </rowConstraints></GridPane>
+            <Button fx:id="btnConfirmer" layoutX="663.0" layoutY="694.0" mnemonicParsing="false" onAction="#ajouterEntretien" prefHeight="77.0" prefWidth="340.0" style="-fx-background-color: #4682B4;" text="Confirmer" textFill="WHITE">
+               <font>
+                  <Font name="System Bold" size="14.0" />
+               </font></Button>
+            <ChoiceBox fx:id="heures" layoutX="1031.0" layoutY="505.0" onMousePressed="#maj" prefHeight="58.0" prefWidth="266.0" style="-fx-background-radius: 10; -fx-border-color: #4682B4; -fx-border-radius: 10; -fx-background-color: #ffffff;" />
+            <DatePicker fx:id="date_entre" layoutX="1031.0" layoutY="389.0" prefHeight="52.0" prefWidth="266.0" style="-fx-background-radius: 10; -fx-border-color: #4682B4; -fx-border-radius: 10; -fx-background-color: #ffffff;" />
+            <Label layoutX="462.0" layoutY="405.0" text="veuillez saisir la date debut de votre entretien :" textFill="STEELBLUE">
+               <font>
+                  <Font name="System Bold" size="14.0" />
+               </font>
+            </Label>
+            <Label layoutX="462.0" layoutY="524.0" text="veuillez choisir l'heure qui vous convient :" textFill="STEELBLUE">
+               <font>
+                  <Font name="System Bold" size="14.0" />
+               </font>
+            </Label>
+            <Label layoutX="463.0" layoutY="337.0" text="Description :" textFill="STEELBLUE">
+               <font>
+                  <Font name="System Bold" size="14.0" />
+               </font>
+            </Label>
+            <Label layoutX="463.0" layoutY="262.0" prefHeight="27.0" prefWidth="153.0" text="Nom De Votre Animal :" textFill="STEELBLUE">
+               <font>
+                  <Font name="System Bold" size="14.0" />
+               </font>
+            </Label>
+            <TextField fx:id="monanimal" layoutX="1031.0" layoutY="249.0" prefHeight="52.0" prefWidth="266.0" promptText="Tapez Le Nom De L'Animal içi" style="-fx-background-radius: 10; -fx-border-color: #4682B4; -fx-border-radius: 10; -fx-background-color: #ffffff;" />
+            <TextField fx:id="description" layoutX="1031.0" layoutY="321.0" prefHeight="52.0" prefWidth="266.0" promptText="Tapez Une Description Sur L'Etat De L'Animal " style="-fx-background-radius: 10; -fx-border-color: #4682B4; -fx-border-radius: 10; -fx-background-color: #ffffff;" />
+         </children>
+      </AnchorPane>
+   </children>
+</AnchorPane>
