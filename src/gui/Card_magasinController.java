@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/javafx/FXMLController.java to edit this template
  */
-package myvet_pidev;
+package gui;
 
 import java.io.IOException;
 import java.net.URL;
@@ -20,9 +20,9 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
-import myvet.entities.User;
-import myvet.entities.UserSession;
-import myvet.services.UserService;
+import entities.User;
+import entities.UserSession;
+import services.UserService;
 
 /**
  * FXML Controller class
@@ -113,7 +113,7 @@ public class Card_magasinController implements Initializable {
         alert.showAndWait();
                    try{
         Stage nouveauStage;
-        Parent root = FXMLLoader.load(getClass().getResource("List_veterinaire.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("List_magasin.fxml"));
         nouveauStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         Scene scene = new Scene(root);
         nouveauStage.setScene(scene);

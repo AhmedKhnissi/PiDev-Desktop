@@ -10,7 +10,7 @@
 <?import javafx.scene.shape.Circle?>
 <?import javafx.scene.text.Font?>
 
-<VBox style="-fx-background-color: F7F8FD;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="myvet_pidev.Card_VeterinaireController">
+<VBox style="-fx-background-color: F7F8FD;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.Card_VeterinaireController">
    <children>
       <VBox fx:id="vbox" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="528.0" prefWidth="386.0" style="-fx-background-color: F7F8FD;">
          <children>
@@ -21,8 +21,6 @@
                         <Font name="System Bold" size="12.0" />
                      </font>
                   </Label>
-                  <Button fx:id="modifyItem1" layoutX="172.0" layoutY="483.0" mnemonicParsing="false" onAction="#handleModifyItem" prefHeight="30.0" prefWidth="102.0" style="-fx-background-color: #B7B78A; -fx-text-fill: white;" text="Modifier l'offre" visible="false" />
-                  <Button fx:id="deletItemButton1" layoutX="265.0" layoutY="483.0" mnemonicParsing="false" onAction="#handleDeleteItem" prefHeight="30.0" prefWidth="114.0" style="-fx-background-color: #D9534F; -fx-text-fill: white;" text="Supprimer l'offre" visible="false" />
                   <Circle fill="#f49f85" layoutX="14.0" layoutY="345.0" radius="5.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" />
                   <Button fx:id="supprimer" layoutX="64.0" layoutY="458.0" mnemonicParsing="false" onAction="#supprimer" prefHeight="25.0" prefWidth="76.0" style="-fx-background-color: red; -fx-text-fill: white;" text="supprimer" />
                   <Label fx:id="prenom" layoutX="29.0" layoutY="97.0" prefHeight="22.0" prefWidth="338.0" text="prenom">
@@ -67,14 +65,15 @@
                         <Font name="System Bold" size="12.0" />
                      </font>
                   </Label>
-                  <Button fx:id="bloquer" layoutX="165.0" layoutY="458.0" mnemonicParsing="false" onAction="#bloquer" prefHeight="25.0" prefWidth="76.0" style="-fx-background-color: #F0A72E; -fx-text-fill: white;" text="bloquer" visible="false" />
+                  <Button fx:id="bloquer" layoutX="239.0" layoutY="458.0" mnemonicParsing="false" onAction="#bloquer" prefHeight="25.0" prefWidth="76.0" style="-fx-background-color: #F0A72E; -fx-text-fill: white;" text="bloquer" />
                   <ImageView fitHeight="52.0" fitWidth="50.0" layoutX="322.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../images/icone_vet.jpg" />
                      </image>
                   </ImageView>
-                  <Label fx:id="id" layoutX="20.0" layoutY="14.0" text="id" visible="false" />
-                  <Button fx:id="debloquer" layoutX="163.0" layoutY="458.0" mnemonicParsing="false" onAction="#deploquer" prefHeight="25.0" prefWidth="76.0" style="-fx-background-color: #10841D;" text="debloquer" textFill="#f2ebeb" visible="false" />
+                  <Label fx:id="id" layoutX="20.0" layoutY="14.0" text="id" />
+                  <Button fx:id="deploquer" layoutX="149.0" layoutY="458.0" mnemonicParsing="false" onAction="#deploquer" style="-fx-background-color: #10841D;" text="débloquer" textFill="#eee9e9" />
+
                </children>
             </AnchorPane>
          </children>

@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/javafx/FXMLController.java to edit this template
  */
-package myvet_pidev;
+package gui;
 
 import java.io.File;
 import java.io.IOException;
@@ -32,13 +32,10 @@ import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 import javax.swing.JFileChooser;
 import javax.swing.filechooser.FileNameExtensionFilter;
-import myvet.entities.CrypterPassword;
-import myvet.entities.User;
-import myvet.services.UserService;
-import static myvet_pidev.Ajouter_VeterinaireController.EmailIsValid;
-import static myvet_pidev.Ajouter_VeterinaireController.NameIsValid;
-import static myvet_pidev.Ajouter_VeterinaireController.PasswordisValid;
-import static myvet_pidev.Ajouter_VeterinaireController.TelIsValid;
+import entities.CrypterPassword;
+import entities.User;
+import services.UserService;
+
 
 
 /**
@@ -155,7 +152,7 @@ public class Ajouter_MagasinController implements Initializable {
           User u = new User();
         u.setNom(nom.getText());
         u.setEmail(email.getText());
-        u.setPassword(cps.CrypterPassword(password.getText()));
+        u.setPassword(password.getText());
         u.setPays(pays.getText());
         u.setGouvernorat(gouvernorat.getText());
          u.setVille(ville.getText());
@@ -226,6 +223,19 @@ public class Ajouter_MagasinController implements Initializable {
 
         }
         return file;
+    }
+
+    @FXML
+    private void retour(MouseEvent event) {
+                                         try{
+        Stage nouveauStage;
+        Parent root = FXMLLoader.load(getClass().getResource("Login.fxml"));
+        nouveauStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        Scene scene = new Scene(root);
+        nouveauStage.setScene(scene);
+        }catch(IOException ex){
+          System.out.println("nooooooooooooooooooooooooooooooooooooooooooonnnnnnnnnnn");
+        }
     }
     
 }

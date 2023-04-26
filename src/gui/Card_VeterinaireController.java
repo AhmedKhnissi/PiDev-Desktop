@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/javafx/FXMLController.java to edit this template
  */
-package myvet_pidev;
+package gui;
 
 import java.io.File;
 import java.io.IOException;
@@ -21,9 +21,9 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
-import myvet.entities.User;
-import myvet.entities.UserSession;
-import myvet.services.UserService;
+import entities.User;
+import entities.UserSession;
+import services.UserService;
 
 /**
  * FXML Controller class
@@ -63,8 +63,8 @@ public class Card_VeterinaireController implements Initializable {
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-      
-         
+    
+  
         // TODO
     }    
 
@@ -121,6 +121,7 @@ private void supprimer(ActionEvent event) throws SQLException {
     
     
     public void setData(User vet) throws SQLException {
+
     id.setText(Integer.toString(vet.getId()));
     nom.setText(vet.getNom());
     prenom.setText(vet.getPrenom());
@@ -130,9 +131,11 @@ private void supprimer(ActionEvent event) throws SQLException {
     gouvernorat.setText(vet.getGouvernorat());
     ville.setText(vet.getVille());
     rue.setText(vet.getRue());
-    System.out.print("khdheeee dataa saaaaaaaayyyyyyyyiiiiiiiiiiiiiiiiiiiiii    " +nom.getText());
-   
-    
+    //if(vet.getBloque()==1){
+    //bloquer.setVisible(false);}
+    //else{
+      //debloquer.setVisible(false);
+     //}
     }
 
     @FXML

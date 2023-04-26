@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/javafx/FXMLController.java to edit this template
  */
-package myvet_pidev;
+package gui;
 
 import java.io.IOException;
 import java.net.URL;
@@ -28,8 +28,8 @@ import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
-import myvet.entities.User;
-import myvet.services.UserService;
+import entities.User;
+import services.UserService;
 
 /**
  * FXML Controller class

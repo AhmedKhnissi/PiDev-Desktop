@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/javafx/FXMLController.java to edit this template
  */
-package myvet_pidev;
+package gui;
 
 import java.io.File;
 import java.io.IOException;
@@ -33,9 +33,9 @@ import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import javax.swing.JFileChooser;
 import javax.swing.filechooser.FileNameExtensionFilter;
-import myvet.entities.CrypterPassword;
-import myvet.entities.User;
-import myvet.services.UserService;
+import entities.CrypterPassword;
+import entities.User;
+import services.UserService;
 
 /**
  * FXML Controller class
@@ -156,7 +156,7 @@ public class Ajouter_VeterinaireController implements Initializable {
         u.setNom(nom.getText());
         u.setPrenom(prenom.getText());
         u.setEmail(email.getText());
-        u.setPassword(cps.CrypterPassword(password.getText()));
+        u.setPassword(password.getText());
         u.setPays(pays.getText());
         u.setGouvernorat(gouvernorat.getText());
          u.setVille(ville.getText());
@@ -231,6 +231,19 @@ public class Ajouter_VeterinaireController implements Initializable {
         return file;    
         
 
+    }
+
+    @FXML
+    private void retour(MouseEvent event) {
+                                          try{
+        Stage nouveauStage;
+        Parent root = FXMLLoader.load(getClass().getResource("Login.fxml"));
+        nouveauStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        Scene scene = new Scene(root);
+        nouveauStage.setScene(scene);
+        }catch(IOException ex){
+          System.out.println("nooooooooooooooooooooooooooooooooooooooooooonnnnnnnnnnn");
+        }
     }
     
 

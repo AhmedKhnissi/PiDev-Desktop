@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/javafx/FXMLController.java to edit this template
  */
-package myvet_pidev;
+package gui;
 
 import java.net.URL;
 import java.sql.SQLException;
@@ -14,10 +14,11 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
-import myvet.entities.User;
-import myvet.entities.UserSession;
-import myvet.services.UserService;
+import entities.User;
+import entities.UserSession;
+import services.UserService;
 
 /**
  * FXML Controller class
@@ -73,6 +74,8 @@ public class Modifier_magasinController implements Initializable {
         Matcher matcher = PASSWORD_REGEX.matcher(password);
         return matcher.matches();
     }
+    @FXML
+    private PasswordField password;
 
     /**
      * Initializes the controller class.
@@ -87,6 +90,8 @@ public class Modifier_magasinController implements Initializable {
         gouvernorat.setText(session.getGouvernorat());
         ville.setText(session.getVille());
         rue.setText(session.getRue());
+        session.setPassword(session.getPassword());
+
         // TODO
     }    
 
@@ -105,13 +110,7 @@ public class Modifier_magasinController implements Initializable {
         alert.setContentText("L'adresse e-mail que vous avez saisie est invalide. Veuillez saisir une adresse e-mail valide.");
         alert.showAndWait();
     
-      }else if(userservice.rechercheEmail(email.getText())>=1){
-        Alert alert = new Alert(Alert.AlertType.WARNING);
-        alert.setTitle("erreur");
-        alert.setHeaderText(null);
-        alert.setContentText("Email exist déjà.");
-        alert.showAndWait();  
-       }
+      }
         else if( NameIsValid(nom.getText())== false  || NameIsValid(pays.getText())== false || NameIsValid(gouvernorat.getText())== false ||NameIsValid(ville.getText())== false || NameIsValid(rue.getText())== false  ){
        Alert alert = new Alert(Alert.AlertType.WARNING);
         alert.setTitle("champ invalide");
@@ -145,7 +144,8 @@ public class Modifier_magasinController implements Initializable {
         u.setGouvernorat(gouvernorat.getText());
         u.setVille(ville.getText());
         u.setRue(rue.getText());
-        
+        u.setPassword(password.getText());
+
         session.setEmail(u.getEmail());
         session.setNom(u.getNom());
         session.setPrenom(u.getPrenom());
@@ -154,7 +154,8 @@ public class Modifier_magasinController implements Initializable {
         session.setGouvernorat(u.getGouvernorat());
         session.setVille(u.getVille());
         session.setRue(u.getRue());
-        
+        session.setPassword(u.getPassword());
+
         
         userservice.modifier_vet_et_prop(u,email_ancien);
         Alert alert = new Alert(Alert.AlertType.INFORMATION);

@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/javafx/FXMLController.java to edit this template
  */
-package myvet_pidev;
+package gui;
 
 import java.io.IOException;
 import java.net.URL;
@@ -22,9 +22,10 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
-import myvet.entities.User;
-import myvet.entities.UserSession;
-import myvet.services.UserService;
+import entities.CrypterPassword;
+import entities.User;
+import entities.UserSession;
+import services.UserService;
 
 /**
  * FXML Controller class
@@ -39,6 +40,7 @@ public class LoginController implements Initializable {
     private PasswordField mot_de_passe;
     @FXML
     private Button login;
+    CrypterPassword cps=new CrypterPassword();
     UserService us=new UserService();
   private static final Pattern EMAIL_REGEX =
             Pattern.compile("^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$");
@@ -110,6 +112,8 @@ public class LoginController implements Initializable {
 
     @FXML
     private void authenticate(ActionEvent event) throws IOException {
+                         System.out.println(cps.CrypterPassword("123456"));
+
         if(mail.getText().isEmpty() || mot_de_passe.getText().isEmpty()){
         Alert alert = new Alert(Alert.AlertType.WARNING);
                alert.setTitle("erreur");
@@ -127,9 +131,10 @@ public class LoginController implements Initializable {
         }
         else if(us.authenticate(mail.getText(),mot_de_passe.getText()).getId() !=0 && us.authenticate(mail.getText(),mot_de_passe.getText()).getDemande_acces()==0 && us.authenticate(mail.getText(),mot_de_passe.getText()).getBloque()==0){
             
-              User user=new User();
+                User user=new User();
                 user=us.authenticate(mail.getText(),mot_de_passe.getText());
-                
+                 
+
 
                 if("[\"ROLE_VETERINAIRE\"]".equals(user.getRole())){
                    System.out.println("rrrrrrrrooooooooollleeee   "+user.getRole());
@@ -146,7 +151,8 @@ public class LoginController implements Initializable {
                     session.setIsLoggedIn(true);
                     session.setBloque(user.getBloque());
                     session.setPermistravail(user.getPermistravail());
-                    
+                    session.setPassword(user.getPassword());
+
 
                    try{
                    Stage nouveauStage;
@@ -170,6 +176,7 @@ public class LoginController implements Initializable {
                     session.setTel(user.getTel());
                     session.setBloque(user.getBloque());
                     session.setPermistravail(user.getPermistravail());
+                    session.setPassword(user.getPassword());
 
                     session.setIsLoggedIn(true);
 
@@ -193,6 +200,7 @@ public class LoginController implements Initializable {
                     session.setRue(user.getRue());
                     session.setTel(user.getTel());
                     session.setPermistravail(user.getPermistravail());
+                    session.setPassword(user.getPassword());
 
                     session.setIsLoggedIn(true);
 
@@ -217,6 +225,7 @@ public class LoginController implements Initializable {
                     session.setTel(user.getTel());
                     session.setBloque(user.getBloque());
                     session.setPermistravail(user.getPermistravail());
+                    session.setPassword(user.getPassword());
 
                     session.setIsLoggedIn(true);
 
@@ -232,22 +241,26 @@ public class LoginController implements Initializable {
                 }
         
 
-            }
-               else if(us.authenticate(mail.getText(),mot_de_passe.getText()).getDemande_acces()==1){
+            } else if(us.authenticate(mail.getText(),mot_de_passe.getText()).getDemande_acces()==1){
                Alert alert = new Alert(Alert.AlertType.WARNING);
                alert.setTitle("erreur");
                alert.setHeaderText(null);
                alert.setContentText(" votre compte est pas encore activer !");
                alert.showAndWait();
-             }
-        
-               else if(us.authenticate(mail.getText(),mot_de_passe.getText()).getId()==0){
+             } else if(us.authenticate(mail.getText(),mot_de_passe.getText()).getBloque()==1){
+               Alert alert = new Alert(Alert.AlertType.WARNING);
+               alert.setTitle("erreur");
+               alert.setHeaderText(null);
+               alert.setContentText(" votre compte est bloqué !");
+               alert.showAndWait();
+             }/*else {
                    Alert alert = new Alert(Alert.AlertType.WARNING);
                    alert.setTitle("erreur");
                    alert.setHeaderText(null);
                    alert.setContentText(" verifiez votre adresse e-mail ou votre mot de passe !");
                    alert.showAndWait();
-               } 
+               } */
+             
     }
     
 }

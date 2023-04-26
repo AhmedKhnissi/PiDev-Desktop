@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package myvet.services;
+package services;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -11,9 +11,9 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import javafx.scene.control.Alert;
-import myvet.entities.User;
-import myvet.entities.UserSession;
-import myvet.utils.MaConnection;
+import entities.User;
+import entities.UserSession;
+import utils.MaConnection;
 
 /**
  *
@@ -156,7 +156,9 @@ public class UserService implements Iservice<User> {
                 String gouvernorat = rs.getString("gouvernorat");
                 String ville = rs.getString("ville");
                 String rue = rs.getString("rue");
-                veterinaires.add(new User(id, nom, prenom, email, pays, gouvernorat, ville, rue,tel));
+                int bloque = rs.getInt("bloque");
+
+                veterinaires.add(new User(id, nom, prenom, email, pays, gouvernorat, ville, rue,tel,bloque));
             }
         }
         return veterinaires;   
@@ -182,7 +184,9 @@ public class UserService implements Iservice<User> {
                 String gouvernorat = rs.getString("gouvernorat");
                 String ville = rs.getString("ville");
                 String rue = rs.getString("rue");
-                veterinaires.add(new User(id, nom, prenom, email, pays, gouvernorat, ville, rue,tel));
+                int bloque = rs.getInt("bloque");
+
+                veterinaires.add(new User(id, nom, prenom, email, pays, gouvernorat, ville, rue,tel,bloque));
             }
         }
         return veterinaires;   
@@ -209,7 +213,9 @@ public class UserService implements Iservice<User> {
                 String gouvernorat = rs.getString("gouvernorat");
                 String ville = rs.getString("ville");
                 String rue = rs.getString("rue");
-                veterinaires.add(new User(id, nom, prenom, email, pays, gouvernorat, ville, rue,tel));
+                int bloque = rs.getInt("bloque");
+
+                veterinaires.add(new User(id, nom, prenom, email, pays, gouvernorat, ville, rue,tel,bloque));
             }
         }
         return veterinaires;   
@@ -234,7 +240,9 @@ public class UserService implements Iservice<User> {
                 String gouvernorat = rs.getString("gouvernorat");
                 String ville = rs.getString("ville");
                 String rue = rs.getString("rue");
-                demandes.add(new User(id, nom, prenom, email, pays, gouvernorat, ville, rue,tel));
+                int bloque = rs.getInt("bloque");
+
+                demandes.add(new User(id, nom, prenom, email, pays, gouvernorat, ville, rue,tel,bloque));
             }
         }
         return demandes;   
@@ -283,7 +291,7 @@ public class UserService implements Iservice<User> {
     
     
  public void modifier_vet_et_prop(User u,String email) throws SQLException {
-            String req = "UPDATE user SET email=?,nom=?,prenom=?,telephone=?,pays=?,gouvernorat=?,ville=?,rue=? where email = ?";
+            String req = "UPDATE user SET email=?,nom=?,prenom=?,telephone=?,pays=?,gouvernorat=?,ville=?,rue=?,password=? where email = ?";
         PreparedStatement ps = cnx.prepareStatement(req);
         ps.setString(1, u.getEmail());
         ps.setString(2, u.getNom());
@@ -293,7 +301,9 @@ public class UserService implements Iservice<User> {
         ps.setString(6, u.getGouvernorat());
         ps.setString(7, u.getVille());
         ps.setString(8, u.getRue());
-        ps.setString(9, email);
+        ps.setString(9, u.getPassword());
+
+        ps.setString(10, email);
 
   
         ps.executeUpdate();
