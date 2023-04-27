@@ -53,6 +53,17 @@ public class AffichageUserController implements Initializable {
     @FXML
     private TextField searchField;
 List<Publication> publications = null;
+    @FXML
+    private Button btnrechercher;
+    @FXML
+    private Button ActualiserBtn; 
+    
+    final boolean[] likePressed = { false };
+    final boolean[] dislikePressed = { false }; 
+    
+    final boolean[] LikePressed = { false };
+    final boolean[] DislikePressed = { false };
+    
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         publicationService = new PublicationService();
@@ -89,7 +100,7 @@ List<Publication> publications = null;
     // create a new window to display the full content
     Stage stage = new Stage();
     VBox vbox = new VBox();
-    vbox.setPadding(new Insets(250));
+    vbox.setPadding(new Insets(20));
     vbox.setSpacing(10);
 
     // add the full content of the publication to the 
@@ -121,14 +132,7 @@ List<Publication> publications = null;
     HBox likesDislikesBox = new HBox();
 likesDislikesBox.setSpacing(10);
 
-// create a label for the number of likes
-Label likesLabel = new Label("Likes: " + publication.getLikes());
 
-// create a label for the number of dislikes
-Label dislikesLabel = new Label("Dislikes: " + publication.getDislike());
-
-// add the likes and dislikes labels to the HBox
-likesDislikesBox.getChildren().addAll(likesLabel, dislikesLabel);
 
 // add the likes and dislikes HBox to the main VBox
 vbox.getChildren().add(likesDislikesBox);
@@ -162,27 +166,50 @@ for (Commentaire com : commentaires) {
 
     // create a submit button for adding the new comment
     Button submitButton = new Button("Ajouter un commentaire");   
-    Button LikeButton = new Button("Like              "); 
-    Button DislikeButton = new Button("Dislike              ");
+    Button LikeButton = new Button("👍 " + publication.getLikes()); 
+    LikeButton.setStyle("-fx-background-color: #4CAF50; -fx-text-fill: white; -fx-font-weight: bold;");
     
-    submitButton.setOnAction(event -> {
-      
-       
+    Button DislikeButton = new Button("👎 " + publication.getDislike()); 
+    DislikeButton.setStyle("-fx-background-color: #f44336; -fx-text-fill: white; -fx-font-weight: bold;"); 
+    
+    
+    submitButton.setOnAction(event -> { 
+        Alert a9 = new Alert(Alert.AlertType.WARNING);
+        if(commentaireField.getText().isEmpty()){ 
+            
+            a9.setTitle("Champ Vide!");
+            a9.setContentText("Veuillez remplir le champs !");
+            a9.show();
+        }else{
+        
+        
+        
+        
         Commentaire commentaire = new Commentaire();
         commentaire.setPublication(publication);
         commentaire.setContenu(commentaireField.getText());
         commentaire.setDatetime(sqlDate);
 
-        try {
-            commentaireService.ajouter(commentaire);
-            System.out.println("Commentaire ajouté avec succès!"); 
-            Alert al = new Alert(Alert.AlertType.INFORMATION);
-                al.setTitle("Commentaire ajouté");
-                al.setContentText("Commentaire ajoutée !!");
-                al.show();
-        } catch (SQLException ex) {
-            System.out.println("Erreur lors de l'ajout du commentaire: " + ex.getMessage());
+        if (commentaire.hasProfanity()) {
+    Alert alert = new Alert(Alert.AlertType.WARNING);
+    alert.setTitle("Commentaire non autorisé");
+    alert.setContentText("Votre commentaire contient un langage inapproprié.");
+    alert.show();
+} else {
+    try {
+        commentaireService.ajouter(commentaire);
+        System.out.println("Commentaire ajouté avec succès!"); 
+        Alert al = new Alert(Alert.AlertType.INFORMATION);
+        al.setTitle("Commentaire ajouté");
+        al.setContentText("Commentaire ajouté avec succès !");
+        al.show();
+    } catch (SQLException ex) {
+        System.out.println("Erreur lors de l'ajout du commentaire: " + ex.getMessage());
+    }
+}
+
         }
+        
 
         // clear the text field after adding the comment
         commentaireField.clear(); 
@@ -205,35 +232,45 @@ vbox.getChildren().add(buttonBox);
     Scene scene = new Scene(vbox);
     stage.setScene(scene);
     stage.show(); 
-    scene.getStylesheets().add("gui/style.css"); 
-    LikeButton.getStyleClass().add("LikeButton");
-    LikeButton.setOnAction(r -> {
+ LikeButton.setOnAction(r -> {
     int currentLikes = publication.getLikes();
     int currentDislikes = publication.getDislike();
-    if(currentDislikes > 0){
-        publication.setDislike(currentDislikes - 1); // decrement dislikes by 1 if it's greater than 0
+    if (publication.isDislikePressed2()) {
+        publication.setDislike(currentDislikes - 1);
+        publication.setDislikePressed2(false);
     }
-    publication.setLikes(currentLikes + 1); // increment likes by 1
-            try {
-                publicationService.like(publication); // save changes to database
-            } catch (SQLException ex) {
-                Logger.getLogger(AffichageUserController.class.getName()).log(Level.SEVERE, null, ex);
-            }
+    if (!publication.isLikePressed2()) {
+        publication.setLikes(currentLikes + 1);
+        publication.setLikePressed2(true);
+        LikeButton.setText("👍 " + publication.getLikes());
+        try {
+            publicationService.like(publication);
+        } catch (SQLException ex) {
+            Logger.getLogger(AffichageUserController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
 });
+
     
     
-    DislikeButton.setOnAction(r -> {
+   DislikeButton.setOnAction(r -> {
     int currentLikes = publication.getLikes();
     int currentDislikes = publication.getDislike();
-    if(currentLikes > 0){
-        publication.setLikes(currentLikes - 1); // decrement likes by 1 if it's greater than 0
+    if (publication.isLikePressed2()) {
+        publication.setLikes(currentLikes - 1);
+        publication.setLikePressed2(false);
     }
-    publication.setDislike(currentDislikes + 1); // increment dislikes by 1
-            try {
-                publicationService.dislike(publication); // save changes to database
-            } catch (SQLException ex) {
-                Logger.getLogger(AffichageUserController.class.getName()).log(Level.SEVERE, null, ex);
-            }
+    if (!publication.isDislikePressed2()) {
+        publication.setDislike(currentDislikes + 1);
+        publication.setDislikePressed2(true);
+        DislikeButton.setText("👎 " + publication.getDislike());
+        try {
+            publicationService.dislike(publication);
+        } catch (SQLException ex) {
+            Logger.getLogger(AffichageUserController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
 });
 });
 
@@ -244,35 +281,49 @@ vbox.getChildren().add(buttonBox);
         HBox buttonsBox = new HBox();
         buttonsBox.setAlignment(Pos.CENTER);
         buttonsBox.setSpacing(10); 
-        Button likeButton = new Button("Like");
-        Button dislikeButton = new Button("Dislike");
+        Button likeButton =  new Button("👍 " + publication.getLikes());
+         likeButton.setStyle("-fx-background-color: #4CAF50; -fx-text-fill: white; -fx-font-weight: bold;");
+        Button dislikeButton = new Button("👎 " + publication.getDislike()); 
+        dislikeButton.setStyle("-fx-background-color: #f44336; -fx-text-fill: white; -fx-font-weight: bold;");
         buttonsBox.getChildren().addAll(likeButton, dislikeButton, voirPlusButton);
-        likeButton.setOnAction(e -> {
+likeButton.setOnAction(e -> {
     int currentLikes = publication.getLikes();
     int currentDislikes = publication.getDislike();
-    if(currentDislikes > 0){
-        publication.setDislike(currentDislikes - 1); // decrement dislikes by 1 if it's greater than 0
+    if (publication.isDislikePressed()) {
+        publication.setDislike(currentDislikes - 1);
+        publication.setDislikePressed(false);
     }
-    publication.setLikes(currentLikes + 1); // increment likes by 1
-            try {
-                publicationService.like(publication); // save changes to database
-            } catch (SQLException ex) {
-                Logger.getLogger(AffichageUserController.class.getName()).log(Level.SEVERE, null, ex);
-            }
+    if (!publication.isLikePressed()) {
+        publication.setLikes(currentLikes + 1);
+        publication.setLikePressed(true);
+        likeButton.setText("👍 " + publication.getLikes());
+        try {
+            publicationService.like(publication);
+        } catch (SQLException ex) {
+            Logger.getLogger(AffichageUserController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
 });
+
 
 dislikeButton.setOnAction(e -> {
     int currentLikes = publication.getLikes();
     int currentDislikes = publication.getDislike();
-    if(currentLikes > 0){
-        publication.setLikes(currentLikes - 1); // decrement likes by 1 if it's greater than 0
+    if (publication.isLikePressed()) {
+        publication.setLikes(currentLikes - 1);
+        publication.setLikePressed(false);
     }
-    publication.setDislike(currentDislikes + 1); // increment dislikes by 1
-            try {
-                publicationService.dislike(publication); // save changes to database
-            } catch (SQLException ex) {
-                Logger.getLogger(AffichageUserController.class.getName()).log(Level.SEVERE, null, ex);
-            }
+    if (!publication.isDislikePressed()) {
+        publication.setDislike(currentDislikes + 1);
+        publication.setDislikePressed(true);
+        dislikeButton.setText("👎 " + publication.getDislike());
+        try {
+            publicationService.dislike(publication);
+        } catch (SQLException ex) {
+            Logger.getLogger(AffichageUserController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    likeButton.setText("👍 " + publication.getLikes());
 });
 
 
@@ -317,6 +368,14 @@ private void handleSearch(ActionEvent event) {
         displayPublications(filteredPublications);
     }
 }
+
+    @FXML
+    private void Actualiser(ActionEvent event) { 
+        displayPublications(publications);
+    } 
+    
+    
+    
 
 
 }

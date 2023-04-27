@@ -5,6 +5,8 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
@@ -12,7 +14,7 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="881.0" prefWidth="1320.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.AffichageUserController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="881.0" prefWidth="1320.0" stylesheets="@style.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.AffichageUserController">
 
 <GridPane layoutX="18.0" layoutY="125.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="752.0" prefWidth="1275.0">
   
@@ -34,7 +36,13 @@
             </VBox>
         </ScrollPane>
          <TextField fx:id="searchField" promptText="Rechercher" GridPane.columnIndex="0" GridPane.rowIndex="0" />
-         <Button fx:id="btnrechercher" mnemonicParsing="false" onAction="#handleSearch" text="Rechercher" GridPane.columnIndex="1" />
+         <Button fx:id="btnrechercher" mnemonicParsing="false" onAction="#handleSearch" prefHeight="31.0" prefWidth="35.0" GridPane.columnIndex="1" />
+         <Button fx:id="ActualiserBtn" mnemonicParsing="false" onAction="#Actualiser" text="Actualiser" GridPane.columnIndex="2" />
+         <ImageView fitHeight="33.0" fitWidth="35.0" GridPane.columnIndex="1">
+            <image>
+               <Image url="file:///C:/Users/Khalil/Desktop/icon2.png" />
+            </image>
+         </ImageView>
 
         
     </children>

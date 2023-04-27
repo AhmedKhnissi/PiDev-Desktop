@@ -24,7 +24,11 @@ public class Publication {
     private int dislike=0;   
     private int nbsignal=0;   
     private user user ;  
-    private List<Commentaire> commentaires;
+    private List<Commentaire> commentaires; 
+    private boolean likePressed = false;
+    private boolean dislikePressed = false; 
+    private boolean LikePressed = false;
+    private boolean DislikePressed = false;
     
     public Publication() {
         commentaires = new ArrayList<>();
@@ -137,8 +141,46 @@ public class Publication {
         this.auteur = auteur;
         this.titre = titre;
         this.contenu = contenu; 
-        this.image = image; 
+        this.image = image;  
+        
+        
+    } 
+    
+    
+    
+    public boolean isLikePressed() {
+        return likePressed;
     }
+
+    public void setLikePressed(boolean likePressed) {
+        this.likePressed = likePressed;
+    }
+
+    public boolean isDislikePressed() {
+        return dislikePressed;
+    }
+
+    public void setDislikePressed(boolean dislikePressed) {
+        this.dislikePressed = dislikePressed;
+    }  
+    public boolean isLikePressed2() {
+        return LikePressed;
+    }
+
+    public void setLikePressed2(boolean likePressed) {
+        this.LikePressed = likePressed;
+    }
+
+    public boolean isDislikePressed2() {
+        return DislikePressed;
+    }
+
+    public void setDislikePressed2(boolean dislikePressed) {
+        this.DislikePressed = dislikePressed;
+    } 
+    
+    
+}
     
     
     
@@ -149,4 +191,4 @@ public class Publication {
     
     
     
-}
+
