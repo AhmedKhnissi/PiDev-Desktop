@@ -5,6 +5,9 @@
         <group>
             <file>file:/C:/Users/Khalil/Desktop/PI%20main/PiDev-Desktop-KhalilJR/src/entities/Commentaire.java</file>
             <file>file:/C:/Users/Khalil/Desktop/PI%20main/PiDev-Desktop-KhalilJR/src/gui/AffichageUserController.java</file>
+            <file>file:/C:/Users/Khalil/Desktop/PI%20main/PiDev-Desktop-KhalilJR/src/entities/Publication.java</file>
+            <file>file:/C:/Users/Khalil/Desktop/PI%20main/PiDev-Desktop-KhalilJR/src/gui/AfficherPublicationController.java</file>
+            <file>file:/C:/Users/Khalil/Desktop/PI%20main/PiDev-Desktop-KhalilJR/src/services/PublicationService.java</file>
         </group>
     </open-files>
 </project-private>

@@ -62,7 +62,10 @@ List<Publication> publications = null;
     final boolean[] dislikePressed = { false }; 
     
     final boolean[] LikePressed = { false };
-    final boolean[] DislikePressed = { false };
+    final boolean[] DislikePressed = { false }; 
+    
+    
+    final boolean[] signalPressed = { false };
     
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -92,6 +95,7 @@ List<Publication> publications = null;
         // add the publication title and author to the VBox
         Label titleLabel = new Label(publication.getTitre());
         Label authorLabel = new Label("Auteur: " + publication.getAuteur());
+        authorLabel.setStyle("-fx-font-weight: bold; -fx-font-size: 13pt;");
         publicationBox.getChildren().addAll(titleLabel, authorLabel);
 
         // create a button to display the full content of the publication
@@ -105,7 +109,7 @@ List<Publication> publications = null;
 
     // add the full content of the publication to the 
     Label titreLabel = new Label(publication.getTitre());
-    titleLabel.setStyle("-fx-font-weight: bold; -fx-font-size: 16pt;");
+    titleLabel.setStyle("-fx-font-weight: bold; -fx-font-size: 25pt;");
     vbox.getChildren().add(titleLabel); 
     // create labels for displaying the number of likes and dislikes
 
@@ -119,7 +123,8 @@ List<Publication> publications = null;
 
     Label auteurLabel = new Label("Auteur: " + publication.getAuteur()); 
     titleLabel.setTextFill(Color.BLUE);
-    Label dateLabel = new Label("Date: " + publication.getDatepub().toString());
+    Label dateLabel = new Label("Date de Publication: " + publication.getDatepub().toString()); 
+    dateLabel.setStyle("-fx-font-weight: bold; -fx-font-size: 13pt;");
 
     infoBox.getChildren().addAll(authorLabel, dateLabel);
     vbox.getChildren().add(infoBox);
@@ -166,19 +171,23 @@ for (Commentaire com : commentaires) {
 
     // create a submit button for adding the new comment
     Button submitButton = new Button("Ajouter un commentaire");   
+    submitButton.setStyle("-fx-background-color: #4682B4; -fx-text-fill: white; -fx-font-weight: bold;");
     Button LikeButton = new Button("👍 " + publication.getLikes()); 
     LikeButton.setStyle("-fx-background-color: #4CAF50; -fx-text-fill: white; -fx-font-weight: bold;");
     
     Button DislikeButton = new Button("👎 " + publication.getDislike()); 
     DislikeButton.setStyle("-fx-background-color: #f44336; -fx-text-fill: white; -fx-font-weight: bold;"); 
-    
+    Button SignalButton = new Button("Signaler cette publication!"); 
+    SignalButton.setStyle("-fx-background-color: #f44336; -fx-text-fill: white; -fx-font-weight: bold;"); 
+    Button shareOnFacebookButton = new Button("Partager sur Facebook");
+    shareOnFacebookButton.setStyle("-fx-background-color: #4682B4; -fx-text-fill: white; -fx-font-weight: bold;");
     
     submitButton.setOnAction(event -> { 
         Alert a9 = new Alert(Alert.AlertType.WARNING);
         if(commentaireField.getText().isEmpty()){ 
             
             a9.setTitle("Champ Vide!");
-            a9.setContentText("Veuillez remplir le champs !");
+            a9.setContentText("Veuillez remplir le champs pour ajouter un commentaire!");
             a9.show();
         }else{
         
@@ -225,13 +234,19 @@ for (Commentaire com : commentaires) {
     
     HBox buttonBox = new HBox(); 
 buttonBox.setSpacing(10);
-buttonBox.getChildren().addAll(submitButton, LikeButton, DislikeButton);
+buttonBox.getChildren().addAll(submitButton, LikeButton, DislikeButton,SignalButton, shareOnFacebookButton );
 vbox.getChildren().add(buttonBox); 
 
     // add the vbox to the scene and show the window
     Scene scene = new Scene(vbox);
     stage.setScene(scene);
     stage.show(); 
+    
+    shareOnFacebookButton.setOnAction(r -> {
+   
+    publication.shareOnFacebook(publication);
+});
+    
  LikeButton.setOnAction(r -> {
     int currentLikes = publication.getLikes();
     int currentDislikes = publication.getDislike();
@@ -271,6 +286,21 @@ vbox.getChildren().add(buttonBox);
         }
     }
     
+}); 
+   
+   
+  final boolean[] signalPressed = { false };
+SignalButton.setOnAction(r -> {
+    if (!signalPressed[0]) {
+        int currentSignal = publication.getNbsignal();
+        publication.setNbsignal(currentSignal + 1);
+        signalPressed[0] = true;
+        try {
+            publicationService.signaler(publication);
+        } catch (SQLException ex) {
+            Logger.getLogger(AffichageUserController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
 });
 });
 

@@ -60,6 +60,8 @@ public class AfficherPublicationController implements Initializable {
     private TableColumn<Publication, Integer> likesColumn; 
     @FXML
     private TableColumn<Publication, Integer> dislikeColumn;  
+    @FXML
+    private TableColumn<Publication, Integer> signalColumn;  
     
     @FXML
     private TextField tfAuteur;
@@ -110,8 +112,15 @@ public class AfficherPublicationController implements Initializable {
         return new SimpleStringProperty("");
     }
 });   
+        // Create the new column
+    TableColumn<Publication, Integer> signalColumn = new TableColumn<>("Nombre de Signals");
+    signalColumn.setCellValueFactory(new PropertyValueFactory<>("nbsignal"));
+    
+    // Add the new column to the TableView
+    publicationTableView.getColumns().add(signalColumn);
         likesColumn.setCellValueFactory(new PropertyValueFactory<>("Likes")); 
-        dislikeColumn.setCellValueFactory(new PropertyValueFactory<>("dislike"));
+        dislikeColumn.setCellValueFactory(new PropertyValueFactory<>("dislike")); 
+        
         
         
 

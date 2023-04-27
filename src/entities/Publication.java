@@ -5,6 +5,9 @@
  */
 package entities;
 
+import java.awt.Desktop;
+import java.net.URI;
+import java.net.URLEncoder;
 import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
@@ -178,6 +181,22 @@ public class Publication {
     public void setDislikePressed2(boolean dislikePressed) {
         this.DislikePressed = dislikePressed;
     } 
+    
+    public void shareOnFacebook(Publication publication) {
+    try {
+        // Encode the title and content for use in the URL
+        String encodedTitle = URLEncoder.encode(publication.getTitre(), "UTF-8");
+        String encodedContent = URLEncoder.encode(publication.getContenu(), "UTF-8");
+        
+        // Construct the Facebook share URL
+        String url = "https://www.facebook.com/sharer/sharer.php?u=" + encodedContent + "&quote=" + encodedTitle;
+        
+        // Open the URL in the user's default web browser
+        Desktop.getDesktop().browse(new URI(url));
+    } catch (Exception ex) {
+        System.out.println("Error sharing on Facebook: " + ex.getMessage());
+    }
+}
     
     
 }

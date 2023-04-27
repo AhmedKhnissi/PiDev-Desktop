@@ -128,12 +128,7 @@ public class Commentaire {
         e.printStackTrace();
         return false;
     }
-}
-
-
-    
-    
-     
+} 
 } 
 
 

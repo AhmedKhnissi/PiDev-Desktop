@@ -116,6 +116,14 @@ List<Publication> Publications = new ArrayList<>();
         pst.setInt(2, t.getId());
         pst.executeUpdate();
         System.out.println("dislike!");
+    } 
+     public void signaler(Publication t) throws SQLException {
+        String requete = "UPDATE publication SET nbsignal = ? WHERE id = ?";
+        PreparedStatement pst = cnx.prepareStatement(requete);
+        pst.setInt(1, t.getNbsignal());
+        pst.setInt(2, t.getId());
+        pst.executeUpdate();
+        System.out.println("Publication signalée!");
     }
   
 
