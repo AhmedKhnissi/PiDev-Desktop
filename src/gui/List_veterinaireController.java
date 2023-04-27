@@ -64,10 +64,9 @@ public class List_veterinaireController implements Initializable {
           System.out.println("helllllllllllooooooooooooooooooooooooo initialize");
         try {
             listProduitfeed();
-        } catch (SQLException ex) {
-            Logger.getLogger(List_veterinaireController.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (IOException ex) {
-            Logger.getLogger(List_veterinaireController.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException | IOException ex) {
+          System.out.println("erreur liste veterinaire");
+
         }
          System.out.println("helllllllllllooooooooooooooooooooooooo fin initialize");
 

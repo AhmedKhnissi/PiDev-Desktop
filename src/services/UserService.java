@@ -88,7 +88,7 @@ public class UserService implements Iservice<User> {
 
     @Override
     public void ajouter_prop(User t) throws SQLException {
-             String req = "INSERT INTO `user`(`nom`, `prenom`, `email`,`password`, `pays`, `gouvernorat`,`ville`, `rue`, `telephone`,`roles`,`bloque`,`demandetravail`) "
+             String req = "INSERT INTO `user`(`nom`, `prenom`, `email`,`password`, `pays`, `gouvernorat`,`ville`, `rue`, `telephone`,`roles`,`bloque`,`demande_acces`) "
                 + "VALUES (?,?,?,?,?,?,?,?,?,?,?,?)";
         PreparedStatement ps = cnx.prepareStatement(req);
         

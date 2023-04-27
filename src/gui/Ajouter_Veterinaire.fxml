@@ -47,5 +47,10 @@
             <Image url="@../images/upload-2-24.png" />
          </image>
       </ImageView>
+      <ImageView fitHeight="42.0" fitWidth="54.0" layoutX="14.0" layoutY="14.0" onMouseClicked="#retour" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../images/kisspng-brand-logo-black-and-white-triangle-arrow-symbol-5a76c6d1df2c13.8388288415177335859141.png" />
+         </image>
+      </ImageView>
    </children>
 </AnchorPane>

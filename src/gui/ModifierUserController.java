@@ -44,6 +44,8 @@ public class ModifierUserController implements Initializable {
     @FXML
     private TextField rue;
     @FXML
+    private PasswordField password;
+    @FXML
     private Button modifier;
     UserService userservice=new UserService();
 
@@ -74,8 +76,7 @@ public class ModifierUserController implements Initializable {
         Matcher matcher = PASSWORD_REGEX.matcher(password);
         return matcher.matches();
     }
-    @FXML
-    private PasswordField password;
+    
 
     /**
      * Initializes the controller class.
