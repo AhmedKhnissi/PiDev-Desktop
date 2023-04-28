@@ -58,7 +58,22 @@ String req = "DELETE FROM rendez_vous where id = ?";
 
     @Override
     public List<RendezVous> recuperer() throws SQLException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+       List<RendezVous> rapports = new ArrayList<>();
+    String s = "select * from rendez_vous ";
+    PreparedStatement ps = cnx.prepareStatement(s);
+    ResultSet rs = ps.executeQuery();
+    while (rs.next()) {
+        RendezVous rapport = new RendezVous();
+        rapport.setId(rs.getInt("id"));
+        rapport.setDate(rs.getString("date"));
+        rapport.setHeure(rs.getString("heure"));
+        rapport.setNomanimal(rs.getString("nomanimal"));
+        rapport.setRaeanimal(rs.getString("raceanimal"));
+        rapport.setUser_id(rs.getInt("user_id"));
+        rapport.setDecision(rs.getString("decision"));
+        rapports.add(rapport);
+    }
+    return rapports;
     }
      public List<RendezVous> recupererRdvByVeto(int IdVeto) throws SQLException {
     List<RendezVous> rapports = new ArrayList<>();

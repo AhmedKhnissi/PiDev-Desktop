@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package GUI;
+package AkView;
 import entities.user;
 import com.twilio.Twilio;
 import com.twilio.rest.api.v2010.account.Message;
@@ -147,9 +147,6 @@ public class ReserverRdvController implements Initializable {
         }
         
         if (SystemTray.isSupported()) {
-//         String img = "C:\\xampp\\htdocs\\pidev\\Highbrow\\src\\media\\full_down.png";
-//            File file = new File(img);
-//            Image img1 = new Image(file.toURI().toString());
              String imagePath = "/images/full_up.png";
             URL imageURL = getClass().getResource(imagePath);
             Image img1 = new Image(imageURL.toString()); 

@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package GUI;
+package AkView;
 import entities.user;
 import java.net.URL;
 import java.sql.SQLException;

@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package gui;
+package AkView;
 
 import entities.RendezVous;
 import java.io.IOException;
@@ -93,7 +93,7 @@ public void setRdv(RendezVous c) throws SQLException {
         BorderPane borderPane = new BorderPane();
             FXMLLoader loader1 = new FXMLLoader(getClass().getResource("ModifierRdvProp.fxml"));
             Parent root2 = loader1.load();
-              GUI.ModifierRdvPropController controller = loader1.getController();
+              AkView.ModifierRdvPropController controller = loader1.getController();
 
             controller.VetoId(pe.getUser_id());
         System.out.println("haw cle etranger rendez-vous "+pe.getUser_id());}
@@ -106,12 +106,12 @@ public void setRdv(RendezVous c) throws SQLException {
     private void modifierRdv(ActionEvent event) {
          try {
              
-            System.out.println("NIK ZIBIIIIIIIII");
+            System.out.println("lodifier temchi !");
                 
             BorderPane borderPane = new BorderPane();
             FXMLLoader loader1 = new FXMLLoader(getClass().getResource("ModifierRdvProp.fxml"));
             Parent root2 = loader1.load();
-              GUI.ModifierRdvPropController controller = loader1.getController();
+              AkView.ModifierRdvPropController controller = loader1.getController();
 
             
             controller.setData(pe);
@@ -125,15 +125,7 @@ public void setRdv(RendezVous c) throws SQLException {
 
             borderPane.setPadding(new Insets(10, 10, 30, 10));
             rdvLignes.getScene().setRoot(borderPane);
-            
-            
-//            FXMLLoader loader = new FXMLLoader(getClass().getResource("modifierSiege.fxml"));
-//            Parent root = loader.load();
-//            ModifierSiegeController controller = loader.getController();
-//
-//            controller.setData(pe);
-//
-//            siegesLignes.getScene().setRoot(root);
+           
         } catch (IOException ex) {
             System.out.println(ex.getMessage());
         }
@@ -154,9 +146,7 @@ public void setRdv(RendezVous c) throws SQLException {
             BorderPane borderPane = new BorderPane();
             FXMLLoader loader1 = new FXMLLoader(getClass().getResource("AfficherListeVeto.fxml"));
             Parent root2 = loader1.load();
-             // AfficherSiegeController controller = loader1.getController();
-
-            //controller.setData(pe);
+             
             HBox hbox = new HBox(new Pane(), root2);
             hbox.setSpacing(20);
 
@@ -177,12 +167,12 @@ public void setRdv(RendezVous c) throws SQLException {
     private void modifierVetoRdv(ActionEvent event) {
          try {
              
-            System.out.println("NIK ZIBIIIIIIIII");
+            System.out.println("modifier taa vétérinaire hedhi tmarech !");
                 
             BorderPane borderPane = new BorderPane();
             FXMLLoader loader1 = new FXMLLoader(getClass().getResource("ModifierRdvVeto.fxml"));
             Parent root2 = loader1.load();
-              GUI.ModifierRdvVetoController controller = loader1.getController();
+              AkView.ModifierRdvVetoController controller = loader1.getController();
 
             
             controller.setData(pe);
@@ -197,14 +187,6 @@ public void setRdv(RendezVous c) throws SQLException {
             borderPane.setPadding(new Insets(10, 10, 30, 10));
             rdvLignes.getScene().setRoot(borderPane);
             
-            
-//            FXMLLoader loader = new FXMLLoader(getClass().getResource("modifierSiege.fxml"));
-//            Parent root = loader.load();
-//            ModifierSiegeController controller = loader.getController();
-//
-//            controller.setData(pe);
-//
-//            siegesLignes.getScene().setRoot(root);
         } catch (IOException ex) {
             System.out.println(ex.getMessage());
         }

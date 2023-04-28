@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package gui;
+package AkView;
 
 
 import entities.RapportMedical;
@@ -89,12 +89,12 @@ public void setRapport(RapportMedical c) throws SQLException {
         BorderPane borderPane = new BorderPane();
             FXMLLoader loader1 = new FXMLLoader(getClass().getResource("ModifierRapport.fxml"));
             Parent root2 = loader1.load();
-              GUI.ModifierRapportController controller = loader1.getController();
+              AkView.ModifierRapportController controller = loader1.getController();
 
             controller.AnimalId(pe.getAnimal_id());
         System.out.println("hedha clé etranger rapport "+pe.getAnimal_id());}
         catch (IOException ex) {
-            System.err.println("zab");
+            System.err.println("chay");
         }
     }    
 
@@ -102,17 +102,16 @@ public void setRapport(RapportMedical c) throws SQLException {
     private void afficherRapportDetail(MouseEvent event) throws IOException, SQLException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("DetailRapport.fxml"));
         Parent root1 = loader.load();
-        GUI.DetailRapportController facturecontroller = loader.getController();
-        facturecontroller.facture(pe.getAnimal_id() ,idRapport );
+        AkView.DetailRapportController pdfcontroller = loader.getController();
+        pdfcontroller.pdf(pe.getAnimal_id() ,idRapport );
         BorderPane borderPane = new BorderPane();
          
         if (loca.getAnimal_id() != 0) {
             FXMLLoader loader1 = new FXMLLoader(getClass().getResource("DetailRapportProfil.fxml"));
             Parent root2 = loader1.load();
-            GUI.DetailRapportProfilController dchauffeur = loader1.getController();
-            dchauffeur.setChauffeurDetail(loca.getAnimal_id());
+            AkView.DetailRapportProfilController drapport = loader1.getController();
+            drapport.setpdfDetail(loca.getAnimal_id());
 
-            // Utiliser un HBox pour placer root1 et root2 côte à côte avec un espacement de 20 pixels
             HBox hbox = new HBox(root1, new Pane(), root2);
             hbox.setSpacing(20);
             
@@ -135,12 +134,12 @@ public void setRapport(RapportMedical c) throws SQLException {
     private void modifierRapoort(ActionEvent event) {
              try {
              
-            System.out.println("NIK ZIBIIIIIIIII");
+            System.out.println("modifi rapport !");
                 
             BorderPane borderPane = new BorderPane();
             FXMLLoader loader1 = new FXMLLoader(getClass().getResource("ModifierRapport.fxml"));
             Parent root2 = loader1.load();
-              GUI.ModifierRapportController controller = loader1.getController();
+              AkView.ModifierRapportController controller = loader1.getController();
 
             controller.setData(pe);
             
@@ -154,14 +153,7 @@ public void setRapport(RapportMedical c) throws SQLException {
             borderPane.setPadding(new Insets(10, 10, 30, 10));
             rapportLignes.getScene().setRoot(borderPane);
             
-            
-//            FXMLLoader loader = new FXMLLoader(getClass().getResource("modifierSiege.fxml"));
-//            Parent root = loader.load();
-//            ModifierSiegeController controller = loader.getController();
-//
-//            controller.setData(pe);
-//
-//            siegesLignes.getScene().setRoot(root);
+          ;
         } catch (IOException ex) {
             System.out.println(ex.getMessage());
         }
@@ -170,16 +162,7 @@ public void setRapport(RapportMedical c) throws SQLException {
     @FXML
     private void supprimerRapport(ActionEvent event) throws IOException {
         
-//        try {
-//            ps.supprimer(pe);
-//            FXMLLoader loader = new FXMLLoader(getClass().getResource("afficherSiege.fxml"));
-//            Parent root = loader.load();
-//
-//            siegesLignes.getScene().setRoot(root);
-//
-//        } catch (SQLException ex) {
-//            System.out.println(ex.getMessage());
-//        }
+
     Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
     alert.setTitle("Confirmation");
     alert.setHeaderText(null);
@@ -193,9 +176,7 @@ public void setRapport(RapportMedical c) throws SQLException {
             BorderPane borderPane = new BorderPane();
             FXMLLoader loader1 = new FXMLLoader(getClass().getResource("AfficherListeAnimal.fxml"));
             Parent root2 = loader1.load();
-             // AfficherSiegeController controller = loader1.getController();
-
-            //controller.setData(pe);
+            
             HBox hbox = new HBox(new Pane(), root2);
             hbox.setSpacing(20);
 

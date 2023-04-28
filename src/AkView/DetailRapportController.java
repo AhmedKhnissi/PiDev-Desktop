@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package GUI;
+package AkView;
 import com.itextpdf.text.Chunk;
 import com.itextpdf.text.Document;
 import com.itextpdf.text.DocumentException;
@@ -72,7 +72,7 @@ public class DetailRapportController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
     }    
-     public void facture(int idv, int idl) throws SQLException{
+     public void pdf(int idv, int idl) throws SQLException{
          
         Animal v = new Animal();
         user u = new user();

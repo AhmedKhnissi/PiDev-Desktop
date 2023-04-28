@@ -29,20 +29,10 @@
                         <Image url="@../images/passer-au-suivant.png" />
                      </image>
                   </ImageView>
-                  <ImageView fitHeight="39.0" fitWidth="39.0" layoutX="22.0" layoutY="30.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../images/annuler%20(1).png" />
-                     </image>
-                  </ImageView>
             
                    <Button fx:id="next" layoutX="1365.0" layoutY="30.0" mnemonicParsing="false" onAction="#next" prefHeight="86.0" prefWidth="103.0" style="-fx-background-color: transparent;">
                      <font>
                         <Font name="System Bold Italic" size="15.0" />
-                     </font>
-                  </Button>
-                  <Button layoutX="5.0" layoutY="12.0" mnemonicParsing="false" onAction="#retourner" prefHeight="75.0" prefWidth="79.0" style="-fx-background-color: transparant;">
-                     <font>
-                        <Font name="System Bold Italic" size="20.0" />
                      </font>
                   </Button>
                   <Button fx:id="prev" layoutX="94.0" layoutY="14.0" mnemonicParsing="false" onAction="#prev" prefHeight="75.0" prefWidth="90.0" style="-fx-background-color: transparent;">
@@ -67,7 +57,7 @@
                   <RowConstraints />
                   <RowConstraints />
                </rowConstraints></GridPane>
-            <Button fx:id="btnConfirmer" layoutX="663.0" layoutY="694.0" mnemonicParsing="false" onAction="#ajouterEntretien" prefHeight="77.0" prefWidth="340.0" style="-fx-background-color: #4682B4;" text="Confirmer" textFill="WHITE">
+            <Button fx:id="btnConfirmer" layoutX="663.0" layoutY="694.0" mnemonicParsing="false" onAction="#ajouterRendezVous" prefHeight="77.0" prefWidth="340.0" style="-fx-background-color: #4682B4;" text="Confirmer" textFill="WHITE">
                <font>
                   <Font name="System Bold" size="14.0" />
                </font></Button>

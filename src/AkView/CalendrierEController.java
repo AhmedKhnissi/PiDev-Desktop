@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package GUI;
+package AkView;
 
 import entities.Calendar;
 import entities.user;
@@ -104,12 +104,12 @@ public class CalendrierEController implements Initializable {
             YearMonth yearMonth = YearMonth.from(currentDate);
             //afficher combien de jour dans le mois
             int daysInMonth = yearMonth.getMonth().length(yearMonth.isLeapYear());
-            //List<Date> locationFait = ms.mecaniciensInDispo(me);
-            //System.out.println("EEE"+locationFait);
+   
             for (int day = 1; day <= daysInMonth; day++) {
                 Label label = new Label(String.valueOf(day));
                 label.setFont(new Font(20));
                 label.setMinSize(30,30);
+                //on rend string la valeur du jour  
                 String d=String.valueOf(day);
                 if (d.length()==1){
                             d="0"+d;
@@ -117,15 +117,15 @@ public class CalendrierEController implements Initializable {
                 Date date_final = new SimpleDateFormat("yyyy-MM-dd").parse(yearMonth+"-"+d);
                 String date_choisi=yearMonth+"-"+d;
                 AnchorPane button = new AnchorPane();
-                label.setTextFill(Color.BLACK);
+                label.setTextFill(Color.BLUE);
                 button.setOnMouseClicked(e -> {
                     try {
                         heures.getItems().removeAll(h);
                         heures.getItems().addAll(h);
-                        System.out.println("Date Final"+date_final);
+                        System.out.println("Date totale : "+date_final);
                         da=date_final;
                         date_entre.setValue(LocalDate.parse(date_choisi, ISO_LOCAL_DATE));
-                        System.out.println("eeeee"+label.getText());
+                        System.out.println("jour choisie : "+label.getText());
                         this.getDate(date_final);
                         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
                         String daa=sdf.format(da);
@@ -171,20 +171,14 @@ public class CalendrierEController implements Initializable {
                     System.out.println("AAAA");
                     int year = Integer.parseInt(parts[0]);
                     int month = Integer.parseInt(parts[1]);
-                    //int dayy_heure = Integer.parseInt(parts[2]);
-                    //System.out.println("day:"+dayy_heure);
-                    //int dayy = dayy_heure
+                    
                     String[] parts_day_heure = parts[2].split(" ");
                     int dayy = Integer.parseInt(parts_day_heure[0]);
                     System.out.println("DDD"+dayy);
                     String dayEnString = dayy + "";
                     String moisL = month + "";
    
-                    /*if (dayEnString.equals(label.getText()) && moisString.equals(moisL)) {
-
-                        label.setTextFill(Color.RED);
-
-                    }*/
+                    
                 }
 
             }
@@ -252,9 +246,9 @@ public class CalendrierEController implements Initializable {
         updateDaysGrid();
     }
 
-    @FXML
-    private void retourner(ActionEvent event) {
-    }
+    //@FXML
+    //private void retourner(ActionEvent event) {
+    //}
 
     @FXML
     private void prev(ActionEvent event)  throws ParseException {
@@ -268,34 +262,17 @@ public class CalendrierEController implements Initializable {
     }
 
     @FXML
-    private void ajouterEntretien(ActionEvent event) throws SQLException, ParseException, IOException {
+    private void ajouterRendezVous(ActionEvent event) throws SQLException, ParseException, IOException {
         int occ=0;
         List<Date> d=ms.veterinaireInDispo(me);
-        System.out.println("INDISPO"+d);
+        System.out.println("INDISPO Veto : "+d);
         String dd=date_entre.getValue()+" "+heures.getValue().toString()+":00:00.0";
-        System.out.println(dd);
+        System.out.println("hedhi e date d'entree : "+dd);
         for (Date i : d){
             if (String.valueOf(i).equals(dd)){
-                /*Alert al = new Alert(Alert.AlertType.ERROR);
-                al.setHeaderText(null);
-                al.setContentText("La date est déja prise ");
-                al.showAndWait();*/
                 occ=occ+1;
             }
-        }
-        if (Integer.valueOf(heures.getValue().toString())>=18){
-            Alert al = new Alert(Alert.AlertType.ERROR);
-            al.setHeaderText(null);
-            al.setContentText("Le mécanicien ferme a 18h ");
-            al.showAndWait();
-        }
-        else if (Integer.valueOf(heures.getValue().toString())<8){
-            Alert a2 = new Alert(Alert.AlertType.ERROR);
-            a2.setHeaderText(null);
-            a2.setContentText("Le Vétérinaire ouvre a 8h");
-            a2.showAndWait();
-        }
-        else if (occ>=1){
+        }if (occ>=1){
                 Alert a3 = new Alert(Alert.AlertType.ERROR);
                 a3.setHeaderText(null);
                 a3.setContentText("La date est déja prise ");
@@ -305,23 +282,15 @@ public class CalendrierEController implements Initializable {
         Date date = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(dd);
         t.setStart(date);
         t.setUser_id(me.getId());
-            System.out.println("ffffffffffff"+id_mec);
-        //t.setId_vehicule(id);
+            System.out.println("id l vétérinaire li affectinelou l rdv : "+id_mec);
+        
         nomanimal = monanimal.getText();
         descriptions = description.getText();
         t.setTitle(nomanimal);
         t.setDescription(descriptions);
             System.out.println("yyyyy"+descriptions);
         es.ajouter(t);
-//        String bienvenue="Vous avez un rendez-vous d'entretient le "+t.getDate_entretien();
-//            System.out.println("NUMTEL"+ms.recupererById(me));
-//            Twilio.init(ACCOUNT_SID, AUTH_TOKEN);
-//            Message message = Message.creator(
-//                    new com.twilio.type.PhoneNumber("+216"+String.valueOf(me.getContact())),
-//                    new com.twilio.type.PhoneNumber("+13157918497"), bienvenue).create();
-//
-//            System.out.println(message.getSid());
-        /////////////////////
+        
        Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("calendar ");
             alert.setHeaderText("Ajout De Rendez-Vous Avec Succées");

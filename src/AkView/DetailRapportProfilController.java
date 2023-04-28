@@ -8,7 +8,7 @@
 
 
 
-package GUI;
+package AkView;
 import entities.Animal;
 import entities.user;
 import java.io.File;
@@ -53,7 +53,7 @@ AnimalService ch = new AnimalService();
      * Initializes the controller class.
      */
     
-    public void setChauffeurDetail(int id) throws SQLException {
+    public void setpdfDetail(int id) throws SQLException {
         
         Animal c;
         user u;
@@ -68,7 +68,7 @@ AnimalService ch = new AnimalService();
         prenomveto.setText(u.getPrenom());
         description.setText("ok");
 } catch (SQLException ex) {
-            System.out.println("zah");
+            System.out.println("chay ");
     }}
 
     @Override

@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package gui;
+package AkView;
 
 import entities.Animal;
 import java.io.IOException;
@@ -40,7 +40,6 @@ public class AfficherListeAnimalController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
-         // TODO
          
         List<Animal> animal =new ArrayList<>();
         try {
@@ -55,7 +54,7 @@ public class AfficherListeAnimalController implements Initializable {
                 AnchorPane pane = loader.load();
 
                 // Passage de paramètres
-                GUI.AnimalController controller = loader.getController();
+                AkView.AnimalController controller = loader.getController();
                 controller.setAnimal(animal.get(i));
                 if (column > 0) {
                     column = 0;

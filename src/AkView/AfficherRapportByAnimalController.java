@@ -3,9 +3,8 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package gui;
-
-import entities.RendezVous;
+package AkView;
+import entities.RapportMedical;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
@@ -22,38 +21,40 @@ import javafx.geometry.VPos;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
-import services.RendezVousService;
+import services.RapportMedicalService;
 
 /**
  * FXML Controller class
  *
  * @author heha
  */
-public class AfficherRdvByVetoController implements Initializable {
+public class AfficherRapportByAnimalController implements Initializable {
 int id;
     @FXML
     private ScrollPane scrollPane;
     @FXML
     private GridPane grid;
-    RendezVousService ps = new RendezVousService();
+    RapportMedicalService ps = new RapportMedicalService();
 
     /**
      * Initializes the controller class.
      */
     @Override
-    public void initialize(URL url, ResourceBundle rb) {}
-        public void dynamicinitialize(int id) {
-                try {
+    public void initialize(URL url, ResourceBundle rb) {
+        // TODO
+    }    
+     public void dynamicinitialize(int id) {
+        try {
             this.id = id;
-            List<RendezVous> rendez = ps.recupererRdvByVeto(id);
+            List<RapportMedical> vehicules = ps.recupererRapportByAnimal(id);
             int row = 0;
             int column = 0;
-            for (int i = 0; i < rendez.size(); i++) {
+            for (int i = 0; i < vehicules.size(); i++) {
 
-                FXMLLoader loader = new FXMLLoader(getClass().getResource("RendezVous.fxml"));
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("RapportMedical.fxml"));
                 AnchorPane pane = loader.load();
-                RendezVousController controller = loader.getController();
-                controller.setRdv(rendez.get(i));
+                RapportMedicalController controller = loader.getController();
+                controller.setRapport(vehicules.get(i));
                 
 
                 grid.add(pane, column, row);
@@ -74,6 +75,5 @@ int id;
         } catch (SQLException ex) {
             Logger.getLogger(AfficherRapportByAnimalController.class.getName()).log(Level.SEVERE, null, ex);
         }
-    }    
-    
+    }
 }

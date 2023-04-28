@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package GUI;
+package AkView;
 
 import entities.RapportMedical;
 import java.io.IOException;
@@ -89,7 +89,6 @@ public class ModifierRapportController implements Initializable {
                BorderPane borderPane = new BorderPane();
             FXMLLoader loader1 = new FXMLLoader(getClass().getResource("AfficherListeAnimal.fxml"));
             Parent root2 = loader1.load();
-           // AjouterSiegeController controller = loader.getController();
             HBox hbox = new HBox(new Pane(), root2);
             hbox.setSpacing(20);
 
@@ -98,16 +97,7 @@ public class ModifierRapportController implements Initializable {
             
 
             borderPane.setPadding(new Insets(10, 10, 30, 10));
-            descriptionid.getScene().setRoot(borderPane);
-            
-//            
-//            
-//            
-//            
-//            FXMLLoader loader = new FXMLLoader(getClass().getResource("afficherSiege.fxml"));
-//            Parent root = loader.load();
-//            AfficherSiegeController controller = loader.getController();        
-//            nomsiegetf.getScene().setRoot(root);           
+            descriptionid.getScene().setRoot(borderPane);           
         } catch (IOException ex) {
             System.out.println("error" + ex.getMessage());
         }

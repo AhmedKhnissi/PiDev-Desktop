@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package gui;
+package AkView;
 
 import entities.Animal;
 import entities.RendezVous;
@@ -91,7 +91,7 @@ public class VeterinaireController implements Initializable {
         BorderPane borderPane = new BorderPane();
         FXMLLoader loader1 = new FXMLLoader(getClass().getResource("CalendrierE.fxml"));
         Parent root2 = loader1.load();
-        GUI.CalendrierEController controller= loader1.getController();
+        AkView.CalendrierEController controller= loader1.getController();
         controller.setData(pe);
         HBox hbox = new HBox(new Pane(), root2);
         hbox.setSpacing(20);
@@ -129,7 +129,7 @@ public class VeterinaireController implements Initializable {
                       BorderPane borderPane = new BorderPane();   
                    FXMLLoader loader1 = new FXMLLoader(getClass().getResource("AfficherRdvByVeto.fxml"));
                    Parent root2 = loader1.load();
-                   gui.AfficherRdvByVetoController controller = loader1.getController();
+                   AkView.AfficherRdvByVetoController controller = loader1.getController();
             controller.dynamicinitialize(pe.getId());
                    System.out.println("behi hedha id l veterinaire"+ pe.getId());
           
@@ -160,7 +160,7 @@ public class VeterinaireController implements Initializable {
                       BorderPane borderPane = new BorderPane();   
                    FXMLLoader loader1 = new FXMLLoader(getClass().getResource("ReserverRdv.fxml"));
                    Parent root2 = loader1.load();
-                    GUI.ReserverRdvController controller = loader1.getController();
+                    AkView.ReserverRdvController controller = loader1.getController();
             controller.dynamicinitialize(pe.getId());
           
                    HBox hbox = new HBox( new Pane(), root2);

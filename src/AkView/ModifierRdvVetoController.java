@@ -3,10 +3,11 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package GUI;
+package AkView;
 
 import com.twilio.Twilio;
 import com.twilio.rest.api.v2010.account.Message;
+import com.twilio.type.PhoneNumber;
 import entities.RendezVous;
 import entities.user;
 import java.io.IOException;
@@ -46,7 +47,7 @@ public class ModifierRdvVetoController implements Initializable {
      * Initializes the controller class.
      */
     public static final String ACCOUNT_SID = "AC002bd788f319e067fa0249d67368a519";
-    public static final String AUTH_TOKEN = "71e69b3286682cbf751e82234ab626fa";
+    public static final String AUTH_TOKEN = "2b906c8e9b71db0c27991a4a635f281c";
     UserService us = new UserService();
     
     int idrdv =0;
@@ -96,9 +97,6 @@ public class ModifierRdvVetoController implements Initializable {
             s.setDecision(decisiontf.getValue());
             
             
-            
-     
-
         ps.modifier(s);
         System.out.println(s);
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
@@ -109,15 +107,19 @@ public class ModifierRdvVetoController implements Initializable {
         System.out.println("Rendez-Vous modifié avec succes");
         
          user veto = new user();
-           veto = us.recupererUserByid(vetoId);   
+           veto = us.recupererUserByid(vetoId);
+            System.out.println("hedha l veterinaire : " +veto);
+            String from = "+16073897187"; // your Twilio phone number
+    String to = "+21656106247"; // recipient phone number
         String bienvenue = "Salut Mr/Mmme MyVet Vous Informe Que Votre Rendez-Vous Pour L'Animal Nommée "+ nomanimal + " De La Race " + raceanimal +
                 " Chez Le Vétérinaire "+ veto.getPrenom() + " "+ veto.getNom() + " Pour La Date "+ date + " et L'Heure "+ heure +
                 " à Pris La Décision Suivante "+ decisiontf.getValue() + " Merci De Consulter Votre Compte ! ";
             Twilio.init(ACCOUNT_SID, AUTH_TOKEN);
-            Message message = Message.creator(
+               Message message = Message.creator(
                     new com.twilio.type.PhoneNumber("+21656106247"),
                     new com.twilio.type.PhoneNumber("+16073897187"), bienvenue).create();
             System.out.println(message.getSid());
+            
         } catch (SQLException ex) {
             System.out.println("error" + ex.getMessage());
         }
@@ -126,7 +128,6 @@ public class ModifierRdvVetoController implements Initializable {
                BorderPane borderPane = new BorderPane();
             FXMLLoader loader1 = new FXMLLoader(getClass().getResource("AfficherListeVeto.fxml"));
             Parent root2 = loader1.load();
-           // AjouterSiegeController controller = loader.getController();
             HBox hbox = new HBox(new Pane(), root2);
             hbox.setSpacing(20);
 
@@ -136,15 +137,7 @@ public class ModifierRdvVetoController implements Initializable {
 
             borderPane.setPadding(new Insets(10, 10, 30, 10));
             decisiontf.getScene().setRoot(borderPane);
-            
-//            
-//            
-//            
-//            
-//            FXMLLoader loader = new FXMLLoader(getClass().getResource("afficherSiege.fxml"));
-//            Parent root = loader.load();
-//            AfficherSiegeController controller = loader.getController();        
-//            nomsiegetf.getScene().setRoot(root);           
+                   
         } catch (IOException ex) {
             System.out.println("error" + ex.getMessage());
         }

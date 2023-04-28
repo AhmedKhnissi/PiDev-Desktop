@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package gui;
+package AkView;
 
 import entities.user;
 import java.io.IOException;
@@ -50,8 +50,6 @@ public class AfficherListeVetoController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
          // TODO
-         // TODO
-         
         List<user> veto =new ArrayList<>();
         try {
             

@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package GUI;
+package AkView;
 import entities.Animal;
 import entities.RapportMedical;
 import java.io.IOException;
@@ -76,7 +76,6 @@ public class AnimalController implements Initializable {
         System.out.println(animals);
 
         if (animals.isEmpty()) {
-            // Aucun véhicule n'a été trouvé pour ce siège
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("Aucun Rapport trouvé");
             alert.setHeaderText(null);
@@ -88,7 +87,7 @@ public class AnimalController implements Initializable {
                       BorderPane borderPane = new BorderPane();   
                    FXMLLoader loader1 = new FXMLLoader(getClass().getResource("AfficherRapportByAnimal.fxml"));
                    Parent root2 = loader1.load();
-                   gui.AfficherRapportByAnimalController controller = loader1.getController();
+                   AkView.AfficherRapportByAnimalController controller = loader1.getController();
             controller.dynamicinitialize(pe.getId());
           
                    HBox hbox = new HBox( new Pane(), root2);
