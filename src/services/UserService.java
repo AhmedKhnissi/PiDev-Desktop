@@ -19,7 +19,7 @@ import utils.MaConnection;
  *
  * @author user
  */
-public class UserService implements Iservice<User> {
+public class UserService implements Iuserservice<User> {
  Connection cnx;
     
     public UserService() {
