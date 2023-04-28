@@ -140,6 +140,8 @@ public class LoginController implements Initializable {
                    System.out.println("rrrrrrrrooooooooollleeee   "+user.getRole());
 
                     UserSession session = UserSession.getInstance();
+                    session.setId(user.getId());
+
                     session.setEmail(user.getEmail());
                     session.setNom(user.getNom());
                     session.setPrenom(user.getPrenom());
@@ -166,6 +168,8 @@ public class LoginController implements Initializable {
                   
                 }else if("[\"ROLE_PROPRIETAIRE\"]".equals(user.getRole())){
                     UserSession session = UserSession.getInstance();
+                    session.setId(user.getId());
+
                     session.setEmail(user.getEmail());
                     session.setNom(user.getNom());
                     session.setPrenom(user.getPrenom());
@@ -190,7 +194,10 @@ public class LoginController implements Initializable {
                     System.out.println("nooooooooooooooooooooooooooooooooooooooooooonnnnnnnnnnn");
                    }
                 }else if("[\"ROLE_ADMIN\"]".equals(user.getRole())){
+                    
                  UserSession session = UserSession.getInstance();
+                    session.setId(user.getId());
+                 
                     session.setEmail(user.getEmail());
                     session.setNom(user.getNom());
                     session.setPrenom(user.getPrenom());
@@ -215,6 +222,8 @@ public class LoginController implements Initializable {
                    }
                 }else if("[\"ROLE_MAGASIN\"]".equals(user.getRole())){
                  UserSession session = UserSession.getInstance();
+                    session.setId(user.getId());
+                 
                     session.setEmail(user.getEmail());
                     session.setNom(user.getNom());
                     session.setPrenom(user.getPrenom());
