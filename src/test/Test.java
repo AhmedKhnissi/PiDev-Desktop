@@ -6,7 +6,7 @@
 package test;
 
 
-import entities.RendezVous;
+import entities.User;
 import java.sql.SQLException;
 
 import services.RapportMedicalService;
@@ -29,9 +29,11 @@ public class Test {
             RendezVousService rvs = new RendezVousService();
            // System.out.println(rvs.recupererRdvByVeto(1));
             //System.out.println(ps.recuperer());
-            RendezVous t = new RendezVous(1, 1, "Zah", "22", "12", "fexli", "box");
+           // RendezVous t = new RendezVous(1, 1, "Zah", "22", "12", "fexli", "box");
            // rvs.modifier(t);
-            System.out.println(rvs.recupererRdvByVeto(1)); 
+           User user = ps.veterinaireRole(1);
+System.out.println(user.getRole().equals("[\"ROLE_VETERINAIRE\"]"));
+System.out.println(user.getRole());
             
         } catch (SQLException ex) {
             System.out.println(ex.getMessage());

@@ -53,6 +53,9 @@ public class AnimalService implements IService<Animal>{
         Animal animal = new Animal();
         animal.setId(rs.getInt("id"));
         animal.setNom(rs.getString("nom"));
+        animal.setAge(rs.getInt("age"));
+        animal.setPoids(rs.getInt("poids"));
+        animal.setAnimals_id(rs.getInt("animals_id"));
         animaux.add(animal);
     }
     return animaux;
