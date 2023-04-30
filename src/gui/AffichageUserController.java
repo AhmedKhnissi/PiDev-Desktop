@@ -2,6 +2,9 @@ package gui;
 
 import entities.Commentaire;
 import entities.Publication;
+import java.awt.Desktop;
+import java.io.UnsupportedEncodingException;
+import java.net.URI;
 import java.net.URL;
 import java.sql.SQLException;
 import java.util.List;
@@ -26,11 +29,17 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import services.PublicationService;
 import java.net.URL;
+import java.net.URLEncoder;
 import java.sql.Date;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.TextField;
@@ -58,14 +67,13 @@ List<Publication> publications = null;
     @FXML
     private Button ActualiserBtn; 
     
-    final boolean[] likePressed = { false };
-    final boolean[] dislikePressed = { false }; 
-    
-    final boolean[] LikePressed = { false };
-    final boolean[] DislikePressed = { false }; 
     
     
-    final boolean[] signalPressed = { false };
+    
+    final boolean[] signalPressed = { false }; 
+    int badWordCount = 0; 
+    int BAN_DURATION = 60;  
+    private ScheduledExecutorService scheduler;
     
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -87,37 +95,29 @@ List<Publication> publications = null;
          Date sqlDate = Date.valueOf(currentDate); 
          publicationGrid.getChildren().clear();
     for (Publication publication : publications) {
-        // create a VBox to hold the publication information
         VBox publicationBox = new VBox();
         publicationBox.setAlignment(Pos.CENTER);
         publicationBox.setSpacing(10);
 
-        // add the publication title and author to the VBox
         Label titleLabel = new Label(publication.getTitre());
         Label authorLabel = new Label("Auteur: " + publication.getAuteur());
         authorLabel.setStyle("-fx-font-weight: bold; -fx-font-size: 13pt;");
         publicationBox.getChildren().addAll(titleLabel, authorLabel);
 
-        // create a button to display the full content of the publication
         Button voirPlusButton = new Button("Voir plus");
        voirPlusButton.setOnAction(e -> {
-    // create a new window to display the full content
     Stage stage = new Stage();
     VBox vbox = new VBox();
     vbox.setPadding(new Insets(20));
     vbox.setSpacing(10);
 
-    // add the full content of the publication to the 
     Label titreLabel = new Label(publication.getTitre());
     titleLabel.setStyle("-fx-font-weight: bold; -fx-font-size: 25pt;");
     vbox.getChildren().add(titleLabel); 
-    // create labels for displaying the number of likes and dislikes
 
 
-// add the labels to the VBox
 
 
-    // create an HBox to hold the author and date information
     HBox infoBox = new HBox();
     infoBox.setSpacing(10);
 
@@ -139,7 +139,6 @@ likesDislikesBox.setSpacing(10);
 
 
 
-// add the likes and dislikes HBox to the main VBox
 vbox.getChildren().add(likesDislikesBox);
     int  idpub= publication.getId();  
     List<Commentaire> commentaires = null; 
@@ -150,12 +149,10 @@ try {
     System.out.println("Erreur lors de la récupération des commentaires: " + ex.getMessage());
 }
 
-// create a label for the commentaires
 Label commentairesLabel = new Label("Commentaires (" + commentaires.size() + "):");
 commentairesLabel.setStyle("-fx-font-weight: bold; -fx-font-size: 14pt;");
 vbox.getChildren().add(commentairesLabel);
 
-// display the commentaires
 for (Commentaire com : commentaires) {
     Label commentaireLabel = new Label(com.getContenu());
     commentaireLabel.setWrapText(true);
@@ -163,13 +160,11 @@ for (Commentaire com : commentaires) {
 }
     
 
-    // create a text field for adding a new comment
     TextField commentaireField = new TextField();
     commentaireField.setPromptText("Ajouter un commentaire");
     vbox.getChildren().add(commentaireField);
     
 
-    // create a submit button for adding the new comment
     Button submitButton = new Button("Ajouter un commentaire");   
     submitButton.setStyle("-fx-background-color: #4682B4; -fx-text-fill: white; -fx-font-weight: bold;");
     Button LikeButton = new Button("👍 " + publication.getLikes()); 
@@ -203,7 +198,38 @@ for (Commentaire com : commentaires) {
     Alert alert = new Alert(Alert.AlertType.WARNING);
     alert.setTitle("Commentaire non autorisé");
     alert.setContentText("Votre commentaire contient un langage inapproprié.");
-    alert.show();
+    alert.show();  
+    badWordCount++;
+     if (badWordCount >= 3) {
+                submitButton.setDisable(true); 
+                long banEndTime = System.currentTimeMillis() + BAN_DURATION * 1000;
+                scheduler = Executors.newScheduledThreadPool(1);
+
+                scheduler.scheduleAtFixedRate(() -> {
+                    long remainingTime = banEndTime - System.currentTimeMillis();
+                    if (remainingTime <= 0) {
+                        Platform.runLater(() -> {
+                            submitButton.setDisable(false);
+                            submitButton.setText("Ajouter un commentaire");
+                            
+                            badWordCount = 0;
+                        });
+                        scheduler.shutdown();
+                        return;
+                    }
+                    Platform.runLater(() -> {
+                        submitButton.setText("banni pour " + remainingTime / 1000 + "s");
+                        
+                        
+                    });
+                }, 0, 1, TimeUnit.SECONDS);
+
+                Alert banAlert = new Alert(Alert.AlertType.ERROR);
+                banAlert.setTitle("Error");
+                banAlert.setHeaderText("Vous avez été banni pour " + BAN_DURATION + " secondes");
+                banAlert.showAndWait();
+                return;
+            }
 } else {
     try {
         commentaireService.ajouter(commentaire);
@@ -220,32 +246,27 @@ for (Commentaire com : commentaires) {
         }
         
 
-        // clear the text field after adding the comment
         commentaireField.clear(); 
-        // get the commentaires associated with the publication 
         
 
 
 
     }); 
-    
+    Button twitterBTN = new Button("share on twitter");
+twitterBTN.setStyle("-fx-background-color: #008CBA; -fx-text-fill: white; -fx-font-weight: bold;");
     
     
     
     HBox buttonBox = new HBox(); 
 buttonBox.setSpacing(10);
-buttonBox.getChildren().addAll(submitButton, LikeButton, DislikeButton,SignalButton, shareOnFacebookButton );
+buttonBox.getChildren().addAll(submitButton, LikeButton, DislikeButton,SignalButton, twitterBTN );
 vbox.getChildren().add(buttonBox); 
 
-    // add the vbox to the scene and show the window
     Scene scene = new Scene(vbox);
     stage.setScene(scene);
     stage.show(); 
     
-    shareOnFacebookButton.setOnAction(r -> {
    
-    publication.shareOnFacebook(publication);
-});
     
  LikeButton.setOnAction(r -> {
     int currentLikes = publication.getLikes();
@@ -263,7 +284,9 @@ vbox.getChildren().add(buttonBox);
         } catch (SQLException ex) {
             Logger.getLogger(AffichageUserController.class.getName()).log(Level.SEVERE, null, ex);
         }
-    }
+    } 
+    DislikeButton.setText("👎 " + publication.getDislike()); 
+    LikeButton.setText("👍 " + publication.getLikes());
 });
 
     
@@ -284,7 +307,9 @@ vbox.getChildren().add(buttonBox);
         } catch (SQLException ex) {
             Logger.getLogger(AffichageUserController.class.getName()).log(Level.SEVERE, null, ex);
         }
-    }
+    } 
+    DislikeButton.setText("👎 " + publication.getDislike()); 
+    LikeButton.setText("👍 " + publication.getLikes());
     
 }); 
    
@@ -302,12 +327,35 @@ SignalButton.setOnAction(r -> {
         }
     }
 });
+
+ twitterBTN.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                try {
+                    // create the Twitter share link with pre-filled content
+                    String encodedAuteur = URLEncoder.encode(publication.getAuteur(), "UTF-8");
+                    String encodedTitle = URLEncoder.encode(publication.getTitre(), "UTF-8"); 
+                    String encodedContent = URLEncoder.encode(publication.getContenu(), "UTF-8"); 
+                    String encodedt = URLEncoder.encode(" a publié(e):\n", "UTF-8");
+                    String shareLink = "https://twitter.com/intent/tweet?text="+encodedTitle+ "%0A"+encodedAuteur+encodedt+encodedContent;
+
+                    
+                    try {
+                        // open the link in the default browser
+                        Desktop.getDesktop().browse(new URI(shareLink));
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                } catch (UnsupportedEncodingException ex) {
+                    Logger.getLogger(AffichageUserController.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+        });
 });
 
 
 
 
-        // create a HBox to hold the like and dislike buttons and the "Voir plus" button
         HBox buttonsBox = new HBox();
         buttonsBox.setAlignment(Pos.CENTER);
         buttonsBox.setSpacing(10); 
@@ -332,7 +380,9 @@ likeButton.setOnAction(e -> {
         } catch (SQLException ex) {
             Logger.getLogger(AffichageUserController.class.getName()).log(Level.SEVERE, null, ex);
         }
-    }
+    } 
+    likeButton.setText("👍 " + publication.getLikes()); 
+    dislikeButton.setText("👎 " + publication.getDislike());
 });
 
 
@@ -353,29 +403,26 @@ dislikeButton.setOnAction(e -> {
             Logger.getLogger(AffichageUserController.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    likeButton.setText("👍 " + publication.getLikes());
+    likeButton.setText("👍 " + publication.getLikes()); 
+    dislikeButton.setText("👎 " + publication.getDislike());
 });
 
 
 
-        // add a border and spacing to the publicationBox
         publicationBox.setBorder(new Border(new BorderStroke(Color.BLACK, BorderStrokeStyle.SOLID, CornerRadii.EMPTY, BorderWidths.DEFAULT)));
         publicationBox.setPadding(new Insets(10));
 
        
 
-        // create a BorderPane to hold the rectangle and publicationBox
         BorderPane borderPane = new BorderPane();
         borderPane.setCenter(publicationBox);
         borderPane.setPrefSize(400, 200);
         borderPane.setBorder(new Border(new BorderStroke(Color.BLACK, BorderStrokeStyle.SOLID, CornerRadii.EMPTY, BorderWidths.DEFAULT)));
         borderPane.setPadding(new Insets(10));
 
-        // add the BorderPane and HBox to the grid pane
         publicationGrid.add(borderPane, col, row);
         publicationGrid.add(buttonsBox, col, row + 1);
 
-        // increment the column index, wrap to the next row if necessary
         col++;
         if (col == 3) {
             col = 0;
@@ -387,10 +434,8 @@ dislikeButton.setOnAction(e -> {
 private void handleSearch(ActionEvent event) { 
     String searchTerm = searchField.getText();
     if (searchTerm == null || searchTerm.trim().isEmpty()) {
-        // No search term entered, show all publications
         displayPublications(publications);
     } else {
-        // Filter publications based on search term
         List<Publication> filteredPublications = publications.stream()
                 .filter(p -> p.getTitre().contains(searchTerm) || p.getContenu().contains(searchTerm))
                 .collect(Collectors.toList()); 
