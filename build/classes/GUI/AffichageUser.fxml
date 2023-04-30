@@ -19,8 +19,8 @@
 <GridPane layoutX="18.0" layoutY="125.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="752.0" prefWidth="1275.0">
   
     <columnConstraints>
-        <ColumnConstraints hgrow="SOMETIMES" maxWidth="806.0" minWidth="10.0" prefWidth="418.0" />
-        <ColumnConstraints hgrow="SOMETIMES" maxWidth="410.0" minWidth="10.0" prefWidth="410.0" />
+        <ColumnConstraints hgrow="SOMETIMES" maxWidth="1095.0" minWidth="10.0" prefWidth="1093.0" />
+        <ColumnConstraints hgrow="SOMETIMES" maxWidth="410.0" minWidth="10.0" prefWidth="61.0" />
          <ColumnConstraints />
     </columnConstraints>
     <rowConstraints>

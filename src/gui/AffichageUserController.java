@@ -43,9 +43,12 @@ import javafx.event.EventHandler;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.TextField;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderStroke;
 import javafx.stage.Stage;
 import services.CommentaireService;
+import javafx.scene.image.Image;
+
 
 
 /**
@@ -98,14 +101,23 @@ List<Publication> publications = null;
         VBox publicationBox = new VBox();
         publicationBox.setAlignment(Pos.CENTER);
         publicationBox.setSpacing(10);
+        
 
         Label titleLabel = new Label(publication.getTitre());
+        
         Label authorLabel = new Label("Auteur: " + publication.getAuteur());
         authorLabel.setStyle("-fx-font-weight: bold; -fx-font-size: 13pt;");
-        publicationBox.getChildren().addAll(titleLabel, authorLabel);
+        Image imagep = new Image("http://127.0.0.1/img/" + publication.getImage());
+        ImageView iv2 = new ImageView();
+        iv2.setImage(imagep);
+        iv2.setFitHeight(200);
+        iv2.setPreserveRatio(true);
+        
+        publicationBox.getChildren().addAll(iv2,titleLabel, authorLabel);
 
         Button voirPlusButton = new Button("Voir plus");
        voirPlusButton.setOnAction(e -> {
+           
     Stage stage = new Stage();
     VBox vbox = new VBox();
     vbox.setPadding(new Insets(20));
@@ -114,20 +126,26 @@ List<Publication> publications = null;
     Label titreLabel = new Label(publication.getTitre());
     titleLabel.setStyle("-fx-font-weight: bold; -fx-font-size: 25pt;");
     vbox.getChildren().add(titleLabel); 
+    
 
 
 
 
     HBox infoBox = new HBox();
     infoBox.setSpacing(10);
+    HBox iBox = new HBox();
+    
+    
 
     Label auteurLabel = new Label("Auteur: " + publication.getAuteur()); 
     titleLabel.setTextFill(Color.BLUE);
     Label dateLabel = new Label("Date de Publication: " + publication.getDatepub().toString()); 
     dateLabel.setStyle("-fx-font-weight: bold; -fx-font-size: 13pt;");
 
-    infoBox.getChildren().addAll(authorLabel, dateLabel);
+    infoBox.getChildren().addAll(iv2, authorLabel, dateLabel);
+    iBox.getChildren().addAll(iv2);
     vbox.getChildren().add(infoBox);
+    vbox.getChildren().add(iBox);
 
     Label contentLabel = new Label(publication.getContenu()); 
    

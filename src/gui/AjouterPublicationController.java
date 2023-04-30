@@ -7,6 +7,7 @@ package gui;
 
 import entities.Publication;
 import java.io.File;
+import java.io.IOException;
 import java.net.URL;
 import java.sql.Date;
 import java.time.LocalDate;
@@ -20,6 +21,13 @@ import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.stage.FileChooser;
 import services.PublicationService;
+import java.awt.image.BufferedImage;
+import java.io.ByteArrayOutputStream;
+import java.io.FileInputStream;
+import javafx.embed.swing.SwingFXUtils;
+import javafx.scene.image.WritableImage;
+import javax.imageio.ImageIO;
+
 
 /**
  * FXML Controller class
@@ -41,7 +49,10 @@ public class AjouterPublicationController implements Initializable {
     
     PublicationService ps = new PublicationService();
     @FXML
-    private Button chooseImageButton;
+    private Button chooseImageButton; 
+    private String i; 
+    byte [] post_image = null;
+    private String imagePath;
 
     /**
      * Initializes the controller class.
@@ -94,7 +105,6 @@ public class AjouterPublicationController implements Initializable {
 
     } 
 
-    @FXML
     private void chooseImage(ActionEvent event) { 
          FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Select Image");
@@ -106,7 +116,39 @@ public class AjouterPublicationController implements Initializable {
             tfImage.setText(selectedFile.getAbsolutePath());
         }
     }
-    
+@FXML   
+    private void uploadim(ActionEvent event) throws IOException {
+        Publication p = new Publication();
+        FileChooser fc = new FileChooser();
+        fc.setTitle("Ajouter une Image");
+        fc.getExtensionFilters().addAll(
+            new FileChooser.ExtensionFilter("Images", "*.png", "*.jpg", "*.jpeg", "*.gif")
+        );
+        File f = fc.showOpenDialog(null);
+        String DBPath = "C:\\xampp\\htdocs\\img" + f.getName();
+        i = f.getName();
+        p.setImage(i);
+       tfImage.setText(i);
+        System.out.println(p.getImage());
+        if (f != null) {
+            try {
+                BufferedImage bufferedImage = ImageIO.read(f);
+                WritableImage image = SwingFXUtils.toFXImage(bufferedImage,null);
+                ImageIO.write(bufferedImage, "jpg", new File(DBPath));
+                FileInputStream fin = new FileInputStream(f);
+                ByteArrayOutputStream bos = new ByteArrayOutputStream();
+                byte[] buf = new byte [1024];
+                for (int readNum ;(readNum= fin.read(buf)) != -1 ;) {
+                    bos.write(buf,0,readNum);
+                    post_image = bos.toByteArray();
+                }
+            } catch (IOException ex) {
+                // Traitement de l'exception
+                ex.printStackTrace();
+            }
+        }      
+    }
+  
     
     
 }
