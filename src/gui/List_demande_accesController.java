@@ -27,6 +27,10 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import entities.User;
+import java.util.stream.Collectors;
+import javafx.event.EventHandler;
+import javafx.scene.control.TextField;
+import javafx.scene.input.KeyEvent;
 import services.UserService;
 
 /**
@@ -46,6 +50,8 @@ public class List_demande_accesController implements Initializable {
     
     private ObservableList<User> alluser = FXCollections.observableArrayList();
      private List<User> listdemande;
+    @FXML
+    private TextField rechercher;
 
     /**
      * Initializes the controller class.
@@ -104,6 +110,53 @@ public class List_demande_accesController implements Initializable {
         }catch(IOException ex){
           System.out.println("nooooooooooooooooooooooooooooooooooooooooooonnnnnnnnnnn");
         }
+    }
+
+    @FXML
+    private void rechercherdemande(KeyEvent event) throws SQLException, IOException {
+        String recherche = rechercher.getText();
+                listdemande = userservice.recuperer_demande_acces();
+                List<User> resultatsRecherche = listdemande.stream()
+                .filter(s -> s.getNom().toLowerCase().startsWith(recherche.toLowerCase()))
+                .collect(Collectors.toList());
+                
+                UsertGrid.getChildren().clear();
+               int row =1 ;
+               int col=0;
+
+               for (User vet : resultatsRecherche) {
+                FXMLLoader fxmlLoader = new FXMLLoader();
+                fxmlLoader.setLocation(getClass().getResource("Card_demande_acces.fxml"));
+                VBox vbox = fxmlLoader.load();
+                vbox.setStyle("-fx-background-color: #F7F8FD;");
+                Card_demande_accesController cardController = fxmlLoader.getController();
+                cardController.setData(vet);
+                if (col == 3) {
+                    col = 0;
+                    row++;
+                }
+                UsertGrid.add(vbox, col++, row);
+                UsertGrid.setMargin(vbox, new Insets(10));
+                         System.out.println("helllllllllllooooooooooooooooooooooooo fin pour");
+
+            }
+             rechercher.setOnKeyReleased(new EventHandler<KeyEvent>() {
+             @Override
+             public void handle(KeyEvent event) {
+                try {
+                    rechercherdemande(event);
+                } catch (SQLException ex) {
+                } catch (IOException ex) {
+                     Logger.getLogger(List_demande_accesController.class.getName()).log(Level.SEVERE, null, ex);
+                 }
+            }
+
+        });
+
+    }
+
+    @FXML
+    private void rechercherdm(KeyEvent event) {
     }
     
 }

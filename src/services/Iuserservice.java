@@ -11,7 +11,7 @@ import java.util.List;
  *
  * @author user
  */
-public interface Iservice<T> {
+public interface Iuserservice<T> {
    public void ajouter(T t) throws SQLException;
     public void modifier(T t,String m) throws SQLException;
     public void supprimer(int id) throws SQLException;
