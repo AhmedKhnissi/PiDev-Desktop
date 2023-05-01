@@ -5,8 +5,12 @@
         <group>
             <file>file:/C:/Users/Haamdi/Desktop/PiDev-Desktop-main/src/gui/AfficherListeAnimalController.java</file>
             <file>file:/C:/Users/Haamdi/Desktop/PiDev-Desktop-main/src/test/NewFXMain1.java</file>
-            <file>file:/C:/Users/Haamdi/Desktop/PiDev-Desktop-main/src/gui/affichage.css</file>
+            <file>file:/C:/Users/Haamdi/Desktop/PiDev-Desktop-main/src/gui/AfficherListeAnimal.fxml</file>
+            <file>file:/C:/Users/Haamdi/Desktop/PiDev-Desktop-main/src/test/Test.java</file>
+            <file>file:/C:/Users/Haamdi/Desktop/PiDev-Desktop-main/src/entities/Animal.java</file>
+            <file>file:/C:/Users/Haamdi/Desktop/PiDev-Desktop-main/src/services/AnimalService.java</file>
             <file>file:/C:/Users/Haamdi/Desktop/PiDev-Desktop-main/src/gui/LearnMoreController.java</file>
+            <file>file:/C:/Users/Haamdi/Desktop/PiDev-Desktop-main/src/utils/MyDB.java</file>
             <file>file:/C:/Users/Haamdi/Desktop/PiDev-Desktop-main/src/gui/LearnMore.fxml</file>
         </group>
     </open-files>

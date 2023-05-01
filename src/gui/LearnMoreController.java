@@ -93,7 +93,7 @@ String urlString = "https://api.openweathermap.org/data/2.5/weather?q=" + city +
 }
     @FXML
 private void infoAnimalButtonClicked(ActionEvent event) throws IOException {
-    String apiUrl = "https://api-ninjas.com/v1/animals";
+    String apiUrl = "https://api.api-ninjas.com/v1/animals";
     String apiKey = "Bz5Nx7bVhhAP6ER4ZFCVuD8IN1Q2USlPfgUeHLya"; // Replace this with your actual API key
     String animalName = animalsearch.getText();
 
@@ -101,12 +101,14 @@ private void infoAnimalButtonClicked(ActionEvent event) throws IOException {
         URL url = new URL(apiUrl + "?name=" + animalName);
         HttpURLConnection connection = (HttpURLConnection) url.openConnection();
         connection.setRequestMethod("GET");
+        connection.setRequestProperty("accept", "application/json");
         connection.setRequestProperty("x-api-key", apiKey);
 
         BufferedReader in = new BufferedReader(new InputStreamReader(connection.getInputStream()));
         String inputLine;
         StringBuilder response = new StringBuilder();
 
+        System.out.println(in.readLine());
         while ((inputLine = in.readLine()) != null) {
             response.append(inputLine);
         }
@@ -114,10 +116,14 @@ private void infoAnimalButtonClicked(ActionEvent event) throws IOException {
         in.close();
 
         JSONObject json = new JSONObject(response.toString());
+        
+        System.out.println(json.toString());
         JSONArray animals = json.getJSONArray("animals");
+        System.out.println(animals.get(0));
 
         StringBuilder message = new StringBuilder();
         message.append("Results for: ").append(animalName).append("\n");
+        
 
         for (int i = 0; i < animals.length(); i++) {
             JSONObject animal = animals.getJSONObject(i);
@@ -137,6 +143,7 @@ private void infoAnimalButtonClicked(ActionEvent event) throws IOException {
         Platform.runLater(() -> animalInfoLabel1.setText(message.toString()));
     } catch (IOException | JSONException e) {
         Platform.runLater(() -> animalInfoLabel1.setText("Failed to retrieve animal data"));
+        System.out.println(e.getMessage());
     }
 }
 
