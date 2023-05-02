@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.net.URL?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane id="AnchorPane" prefHeight="568.0" prefWidth="757.0" style="-fx-background-color: #FFFFFF;" styleClass="mainFxmlClass" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.ModifierUserController">
+    <stylesheets>
+        <URL value="@ajouter_veterinaire.css" />
+    </stylesheets>
+   <children>
+      <TextField fx:id="nom" layoutX="47.0" layoutY="103.0" prefHeight="42.0" prefWidth="272.0" promptText="nom" />
+      <TextField fx:id="prenom" layoutX="47.0" layoutY="170.0" prefHeight="42.0" prefWidth="272.0" promptText="prenom" />
+      <TextField fx:id="email" layoutX="47.0" layoutY="238.0" prefHeight="42.0" prefWidth="272.0" promptText="E-mail" />
+      <TextField fx:id="tel" layoutX="47.0" layoutY="361.0" prefHeight="42.0" prefWidth="272.0" promptText="téléphone" />
+      <TextField fx:id="pays" layoutX="426.0" layoutY="103.0" prefHeight="42.0" prefWidth="272.0" promptText="Pays" />
+      <TextField fx:id="gouvernorat" layoutX="424.0" layoutY="170.0" prefHeight="42.0" prefWidth="272.0" promptText="Gouvernorat" />
+      <TextField fx:id="ville" layoutX="426.0" layoutY="238.0" prefHeight="42.0" prefWidth="272.0" promptText="Ville" />
+      <TextField fx:id="rue" layoutX="426.0" layoutY="296.0" prefHeight="42.0" prefWidth="272.0" promptText="Rue" />
+      <Button fx:id="modifier" layoutX="334.0" layoutY="499.0" mnemonicParsing="false" onAction="#modifier_user" text="modifier" />
+      <Label layoutX="259.0" layoutY="29.0" text="Modifier  Profile" textFill="#1624ee">
+         <font>
+            <Font size="28.0" />
+         </font>
+      </Label>
+      <ImageView fitHeight="77.0" fitWidth="125.0" layoutX="74.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../images/add-user.png" />
+         </image>
+      </ImageView>
+      <PasswordField fx:id="password" layoutX="47.0" layoutY="296.0" prefHeight="42.0" prefWidth="272.0" promptText="mot de passe" />
+   </children>
+</AnchorPane>

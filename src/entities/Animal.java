@@ -10,9 +10,13 @@ package entities;
  * @author heha
  */
 public class Animal {
-    private int id,age;
+    private int id;
+    private int age;
     private String nom;
     private float poids;
+    private User user;
+    private int id_user;
+
        
 
     public Animal() {
@@ -66,6 +70,25 @@ public class Animal {
     public void setPoids(float poids) {
         this.poids = poids;
     }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+    public int getId_user() {
+        return id_user;
+    }
+
+    public void setId_user(int id_user) {
+        this.id_user = id_user;
+    }
+
+    
+    
 
     
  

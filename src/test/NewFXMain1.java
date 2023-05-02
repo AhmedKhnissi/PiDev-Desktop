@@ -21,10 +21,10 @@ public class NewFXMain1 extends Application {
     @Override
     public void start(Stage primaryStage) {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("../gui/acceuille.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("../gui/AffichageUser"));
             Parent root = loader.load();
             Scene sc = new Scene(root);
-            primaryStage.setTitle("MyVet");
+            primaryStage.setTitle("MyVET");
             primaryStage.setScene(sc);
             primaryStage.show();
         } catch (IOException ex) {
