@@ -5,8 +5,21 @@
  */
 package test;
 
-import java.sql.SQLException;
 
+import entities.Commentaire;
+import entities.Publication;
+import entities.RendezVous;
+import java.sql.Date;
+import java.sql.SQLException;
+import java.time.LocalDate;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import services.CommentaireService;
+import services.PublicationService;
+
+import services.RapportMedicalService;
+import services.RendezVousService;
+import services.UserService;
 
 
 /**
@@ -18,8 +31,22 @@ public class Test {
     
     public static void main(String[] args) {
        
-    
-            System.out.println();
-   
+       
+        LocalDate currentDate = LocalDate.now();
+        Date sqlDate = Date.valueOf(currentDate);
+       Commentaire p = new Commentaire(41,"ahla",sqlDate);
+       
+        CommentaireService cs = new CommentaireService(); 
+        
+       
+        try {
+            cs.ajouter(p); 
+        } catch (SQLException ex) {
+            Logger.getLogger(Test.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        
+        
     }
+    
 }

@@ -3,6 +3,7 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="557.0" prefWidth="943.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.AfficherProduitController">
@@ -45,13 +46,17 @@
    <children>
       <TableView fx:id="tableProduit" layoutX="14.0" layoutY="53.0" prefHeight="446.0" prefWidth="784.0">
          <columns>
-            <TableColumn fx:id="coNom" prefWidth="150.0" styleClass="table-header" text="Nom" />
-            <TableColumn fx:id="coDescription" prefWidth="200.0" styleClass="table-header" text="Description" />
-            <TableColumn fx:id="coPrix" prefWidth="75.0" styleClass="table-header" text="Prix" />
-            <TableColumn fx:id="coStock" prefWidth="75.0" styleClass="table-header" text="Stock" />
+            <TableColumn fx:id="coNom" prefWidth="126.99996376037598" styleClass="table-header" text="Nom" />
+            <TableColumn fx:id="coCategorie" prefWidth="115.00006103515625" styleClass="table-header" text="Categorie" />
+            <TableColumn fx:id="coDescription" prefWidth="273.9999694824219" styleClass="table-header" text="Description" />
+            <TableColumn fx:id="coStock" prefWidth="74.0" styleClass="table-header" text="Stock" />
+            <TableColumn fx:id="coPrix" minWidth="0.0" prefWidth="91.0" styleClass="table-header" text="Prix" />
          </columns>
       </TableView>
       <Button layoutX="653.0" layoutY="14.0" mnemonicParsing="false" onAction="#getAddView" prefHeight="32.0" prefWidth="108.0" styleClass="button" text="Ajouter" />
-      <Button fx:id="suppbtn" layoutX="525.0" layoutY="14.0" mnemonicParsing="false" onAction="#deletebtn" prefHeight="32.0" prefWidth="108.0" styleClass="button" text="Supprimer" />
+      <Button fx:id="suppbtn" layoutX="525.0" layoutY="14.0" mnemonicParsing="false" onAction="#supprimerPublication" prefHeight="32.0" prefWidth="108.0" styleClass="button" text="Supprimer" />
+      <Button fx:id="suppbtn1" layoutX="391.0" layoutY="14.0" mnemonicParsing="false" onAction="#pdf" prefHeight="32.0" prefWidth="108.0" styleClass="button" text="imprimer" />
+      <TextField fx:id="availableB_search" layoutX="131.0" layoutY="16.0" />
+      <Button fx:id="suppbtn2" layoutY="14.0" mnemonicParsing="false" onAction="#availableSearch" prefHeight="32.0" prefWidth="108.0" styleClass="button" text="Search" />
    </children>
 </AnchorPane>

@@ -7,7 +7,7 @@ package gui;
 
 import entities.Animal;
 import entities.RendezVous;
-import entities.user;
+import entities.User;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
@@ -55,10 +55,10 @@ public class VeterinaireController implements Initializable {
     /**
      * Initializes the controller class.
      */
-    user pe = new user();
+    User pe = new User();
        RendezVousService aa = new RendezVousService();
     int ids;
-    public void setVeto(user c) {
+    public void setVeto(User c) {
     ids = c.getId();
         System.out.println(ids);
     nomVeto.setText(c.getNom());

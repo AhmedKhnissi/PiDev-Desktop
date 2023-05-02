@@ -14,6 +14,33 @@ public class Produit {
     private String nom, description;
     private float prix ;
     private String image ;
+    private Categorie categories_id ;
+    private User user ; 
+ private int id_user;
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+    
+    
+    public int getId_user() {
+        return id_user;
+    }
+
+    public void setId_user(int id_user) {
+        this.id_user = id_user;
+    }
+    public Categorie getCategories_id() {
+        return categories_id;
+    }
+
+    public void setCategories_id(Categorie categories_id) {
+        this.categories_id = categories_id;
+    }
 
     public Produit(String nom, String description, int stock, float prix, String image) {
         this.nom = nom;
@@ -91,7 +118,8 @@ public class Produit {
 
     @Override
     public String toString() {
-        return "Produit{" + "stock=" + stock + ", nom=" + nom + ", description=" + description + ", prix=" + prix + '}';
+        return "Produit{" + "id=" + id + ", stock=" + stock + ", nom=" + nom + ", description=" + description + ", prix=" + prix + ", image=" + image + '}';
     }
 
+    
 }

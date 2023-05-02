@@ -1,36 +1,43 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package entities;
 
+import java.util.List;
+
 /**
  *
- * @author heha
+ * @author user
  */
-public class user {
-     private int id, telephone;
-    private String nom, prenom, email, pays, gouvernorat, ville, rue,roles;
+public class User {
+    
+  
 
-    public user() {
+   private Integer id;
+   private String nom;
+   private String prenom;
+   private String password;
+   private String email;
+   private String pays;
+   private String gouvernorat;
+   private String ville;
+   private String rue;
+   private String tel;
+   private String permistravail;
+   private Integer bloque;
+   private Integer demande_acces;
+   private String role;
+   private List<Publication> publications; 
+    private List<Produit> produits;
+   private List<Commentaire> commentaires; 
+   public User() {
     }
+    
 
-    public user(int telephone, String nom, String prenom, String email, String pays, String gouvernorat, String ville, String rue, String roles) {
-        this.telephone = telephone;
-        this.nom = nom;
-        this.prenom = prenom;
-        this.email = email;
-        this.pays = pays;
-        this.gouvernorat = gouvernorat;
-        this.ville = ville;
-        this.rue = rue;
-        this.roles = roles;
-    }
 
-    public user(int id, int telephone, String nom, String prenom, String email, String pays, String gouvernorat, String ville, String rue, String roles) {
+    public User(int id,String nom, String prenom, String email, String pays, String gouvernorat, String ville, String rue, String tel, Integer bloque) {
         this.id = id;
-        this.telephone = telephone;
         this.nom = nom;
         this.prenom = prenom;
         this.email = email;
@@ -38,93 +45,176 @@ public class user {
         this.gouvernorat = gouvernorat;
         this.ville = ville;
         this.rue = rue;
-        this.roles = roles;
+        this.tel = tel;
+        this.bloque=bloque;
+        
     }
 
-    public int getId() {
+    public User(String nom, String prenom, String password, String email, String pays, String gouvernorat, String ville, String rue, String tel) {
+        this.nom = nom;
+        this.prenom = prenom;
+        this.password = password;
+        this.email = email;
+        this.pays = pays;
+        this.gouvernorat = gouvernorat;
+        this.ville = ville;
+        this.rue = rue;
+        this.tel = tel;
+    }
+
+    public User(String nom, String password, String email, String pays, String gouvernorat, String ville, String rue, String tel, String permistravail, Integer bloque, Integer demande_acces) {
+        this.nom = nom;
+        this.password = password;
+        this.email = email;
+        this.pays = pays;
+        this.gouvernorat = gouvernorat;
+        this.ville = ville;
+        this.rue = rue;
+        this.tel = tel;
+        this.permistravail = permistravail;
+        this.bloque = bloque;
+        this.demande_acces = demande_acces;
+    }
+
+    public Integer getId() {
         return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public int getTelephone() {
-        return telephone;
-    }
-
-    public void setTelephone(int telephone) {
-        this.telephone = telephone;
     }
 
     public String getNom() {
         return nom;
     }
 
-    public void setNom(String nom) {
-        this.nom = nom;
-    }
-
     public String getPrenom() {
         return prenom;
     }
 
-    public void setPrenom(String prenom) {
-        this.prenom = prenom;
+    public String getRole() {
+        return role;
     }
 
-    public String getEMail() {
+    public String getPassword() {
+        return password;
+    }
+
+    public String getEmail() {
         return email;
     }
 
-    public void setEMail(String email) {
-        this.email = email;
+    public void setRole(String role) {
+        this.role = role;
     }
 
     public String getPays() {
         return pays;
     }
 
-    public void setPays(String pays) {
-        this.pays = pays;
-    }
-
     public String getGouvernorat() {
         return gouvernorat;
-    }
-
-    public void setGouvernorat(String gouvernorat) {
-        this.gouvernorat = gouvernorat;
     }
 
     public String getVille() {
         return ville;
     }
 
-    public void setVille(String ville) {
-        this.ville = ville;
-    }
-
     public String getRue() {
         return rue;
+    }
+
+    public String getTel() {
+        return tel;
+    }
+
+    public String getPermistravail() {
+        return permistravail;
+    }
+
+    public Integer getBloque() {
+        return bloque;
+    }
+
+    public Integer getDemande_acces() {
+        return demande_acces;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public void setNom(String nom) {
+        this.nom = nom;
+    }
+
+    public void setPrenom(String prenom) {
+        this.prenom = prenom;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public void setPays(String pays) {
+        this.pays = pays;
+    }
+
+    public void setGouvernorat(String gouvernorat) {
+        this.gouvernorat = gouvernorat;
+    }
+
+    public void setVille(String ville) {
+        this.ville = ville;
     }
 
     public void setRue(String rue) {
         this.rue = rue;
     }
 
-    public String getRoles() {
-        return roles;
+    public void setTel(String tel) {
+        this.tel = tel;
     }
 
-    public void setRoles(String roles) {
-        this.roles = roles;
+    public void setPermistravail(String permistravail) {
+        this.permistravail = permistravail;
+    }
+
+    public void setBloque(Integer bloque) {
+        this.bloque = bloque;
+    }
+
+    public void setDemande_acces(Integer demande_acces) {
+        this.demande_acces = demande_acces;
     }
 
     @Override
     public String toString() {
-        return "user{" + "id=" + id + ", telephone=" + telephone + ", nom=" + nom + ", prenom=" + prenom + ", email=" + email + ", pays=" + pays + ", gouvernorat=" + gouvernorat + ", ville=" + ville + ", rue=" + rue + ", roles=" + roles + '}';
+        return "User{" + "id=" + id + ", nom=" + nom + ", prenom=" + prenom + ", password=" + password + ", email=" + email + ", pays=" + pays + ", gouvernorat=" + gouvernorat + ", ville=" + ville + ", rue=" + rue + ", tel=" + tel + ", permistravail=" + permistravail + ", bloque=" + bloque + ", demande_acces=" + demande_acces + ", role=" + role + ", publications=" + publications + ", commentaires=" + commentaires + '}';
+    }
+
+
+     
+    public void addPublication(Publication publication) {
+        publications.add(publication);
     }
     
+    public List<Publication> getPublications() {
+    return publications;
+} 
+     public void addCommentaireU(Commentaire commentaire) {
+        commentaires.add(commentaire);
+    }
+    public List<Commentaire> getCommentairesU() {
+    return commentaires;
+}
+    
+     public void addProduit(Produit prod) {
+        produits.add(prod);
+    }
+    
+    public List<Produit> getProduit() {
+    return produits;
+} 
     
 }

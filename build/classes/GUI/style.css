@@ -1,0 +1,36 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : 23 avr. 2023, 18:12:23
+    Author     : Khalil
+*/
+
+#publicationGrid {
+    -fx-font-size: 16pt;
+    -fx-font-family: Arial;
+    -fx-line-spacing: 1.5em;
+    -fx-background-color: rgba(255, 255, 255, 0.8);
+}
+.button {
+    -fx-background-color:  #4682B4; /* Blue */
+    -fx-text-fill: white;
+    -fx-background-radius: 5px;
+    -fx-padding: 10px 20px;
+    -fx-font-size: 14px;
+}
+
+#voirPlusBtn {
+    -fx-background-color: #0066cc;
+    -fx-text-fill: white;
+    -fx-font-size: 14px;
+    -fx-padding: 8px 16px;
+    -fx-border-radius: 4px;
+    -fx-cursor: hand;
+}
+
+#voirPlusBtn:hover {
+    -fx-background-color: #0052a3;
+}

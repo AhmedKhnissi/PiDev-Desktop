@@ -6,9 +6,12 @@
 package gui;
 
 import entities.Produit;
+import entities.User;
+import entities.UserSession;
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.net.URL;
 import java.nio.file.Files;
@@ -27,7 +30,9 @@ import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.image.WritableImage;
 import javafx.stage.FileChooser;
+import javafx.stage.Stage;
 import javax.imageio.ImageIO;
 import services.ServiceProduit;
 
@@ -53,42 +58,49 @@ public class AjouterProduitController implements Initializable {
     private TextField tfimag;
      @FXML
     private ImageView img;
+     byte [] post_image = null;
     private String imagePath;
-    private Produit p ;
-    
-@FXML   
-private void uploadim(ActionEvent event) throws IOException {
-   FileChooser chooser = new FileChooser();
-   FileChooser.ExtensionFilter exxFilterJPG= new FileChooser.ExtensionFilter("JPG files (*.jpg)","*.JPG");
-   FileChooser.ExtensionFilter exxFilterPNG= new FileChooser.ExtensionFilter("PNG files (*.png)","*.PNG");
-    chooser.getExtensionFilters().addAll(exxFilterJPG,exxFilterPNG);
-    File file=chooser.showOpenDialog(null);
-    BufferedImage bufferedimg = ImageIO.read(file);
-    Image image =SwingFXUtils.toFXImage(bufferedimg, null);
-    img.setImage(image);
-     // Convert the image to a string
-   ByteArrayOutputStream baos = new ByteArrayOutputStream();
-   ImageIO.write(bufferedimg, "png", baos);
-   byte[] imageBytes = baos.toByteArray();
-   String encodedImage = Base64.getEncoder().encodeToString(imageBytes);
-   
-   // Use the encodedImage string as needed
-   System.out.println("Encoded image string: " + encodedImage);
-     String fileName = file.getName();
-    tfimag.setText(fileName);
-  
-}
-
-private String getFileExtension(String filename) {
-    int dotIndex = filename.lastIndexOf(".");
-    if (dotIndex > 0) {
-        return filename.substring(dotIndex + 1);
-    } else {
-        return "";
+            private String i;
+ private Produit p = new Produit();
+ UserSession session = UserSession.getInstance(); 
+    private int idloguser = session.getId(); 
+       private static final String UPLOAD_DIR = "uploads/";
+ @FXML   
+    private void uploadim(ActionEvent event) throws IOException {
+        FileChooser fc = new FileChooser();
+        fc.setTitle("Ajouter une Image");
+        fc.getExtensionFilters().addAll(
+            new FileChooser.ExtensionFilter("Images", "*.png", "*.jpg", "*.jpeg", "*.gif")
+        );
+        File f = fc.showOpenDialog(null);
+        String DBPath = "C:\\xampp\\htdocs\\img" + f.getName();
+        i = f.getName();
+        p.setImage(i);
+       tfimag.setText(i);
+        System.out.println(p.getImage());
+        if (f != null) {
+            try {
+                BufferedImage bufferedImage = ImageIO.read(f);
+                WritableImage image = SwingFXUtils.toFXImage(bufferedImage,null);
+                ImageIO.write(bufferedImage, "jpg", new File(DBPath));
+                img.setImage(image);
+                FileInputStream fin = new FileInputStream(f);
+                ByteArrayOutputStream bos = new ByteArrayOutputStream();
+                byte[] buf = new byte [1024];
+                for (int readNum ;(readNum= fin.read(buf)) != -1 ;) {
+                    bos.write(buf,0,readNum);
+                    post_image = bos.toByteArray();
+                }
+            } catch (IOException ex) {
+                // Traitement de l'exception
+                ex.printStackTrace();
+            }
+        }      
     }
-}
   @FXML
 private void ajouterProduit(ActionEvent event) {
+       User user = new User(); 
+         user.setId(idloguser);
     if (tfNom.getText().isEmpty() || tfStock.getText().isEmpty() || tfPrix.getText().isEmpty() || tfDescription.getText().isEmpty() ) {
         Alert al = new Alert(Alert.AlertType.WARNING);
         al.setTitle("Contrôle de saisie");
@@ -102,7 +114,7 @@ private void ajouterProduit(ActionEvent event) {
             String description = tfDescription.getText();
             String image= tfimag.getText();
             Produit p = new Produit(nom, description,stock,prix,image);
-            
+            p.setUser(user);
             ServiceProduit serviceProduit = new ServiceProduit();
             serviceProduit.ajouter(p);
             
