@@ -13,6 +13,7 @@ import java.awt.AWTException;
 import java.awt.SystemTray;
 import java.awt.TrayIcon;
 import java.awt.image.BufferedImage;
+import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
 import java.util.ResourceBundle;
@@ -23,12 +24,18 @@ import javafx.collections.ObservableList;
 import javafx.embed.swing.SwingFXUtils;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.geometry.Insets;
+import javafx.scene.Parent;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
+import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.Pane;
 import services.RendezVousService;
 import services.UserService;
 
@@ -143,6 +150,28 @@ public class ReserverRdvController implements Initializable {
             alert.setContentText("Le Rendez-Vous a été ajouté avec succès !");
             alert.showAndWait();
             System.out.println("Rendez-Vous ajouter avec succes");
+            
+            
+            try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("Sidebar_proprietaire.fxml"));
+        Parent root1 = loader.load();
+               BorderPane borderPane = new BorderPane();
+            FXMLLoader loader1 = new FXMLLoader(getClass().getResource("AfficherListeVeto.fxml"));
+            Parent root2 = loader1.load();
+            HBox hbox = new HBox(root1,new Pane(), root2);
+            hbox.setSpacing(20);
+
+            borderPane.setRight(hbox);
+            borderPane.setLeft(root1);
+
+            
+
+            borderPane.setPadding(new Insets(10, 10, 30, 10));
+            dateid.getScene().setRoot(borderPane);    
+        } catch (IOException ex) {
+            System.out.println("error" + ex.getMessage());
+        }
+            
         } catch (SQLException ex) {
             System.out.println("error" + ex.getMessage());
         }

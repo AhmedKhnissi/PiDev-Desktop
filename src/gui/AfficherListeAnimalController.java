@@ -7,6 +7,8 @@ package gui;
 
 
 import entities.Animal;
+import entities.User;
+import entities.UserSession;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
@@ -21,6 +23,7 @@ import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import services.AnimalService;
+import services.UserService;
 
 /**
  * FXML Controller class
@@ -37,7 +40,10 @@ public class AfficherListeAnimalController implements Initializable {
     /**
      * Initializes the controller class.
      */
+    UserService us = new UserService();
+    
     AnimalService ps = new AnimalService();
+    int iddd = UserSession.getInstance().getId();
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
@@ -46,10 +52,27 @@ public class AfficherListeAnimalController implements Initializable {
         try {
             
            animal = ps.recuperer();
-           
+           User u = us.veterinaireRole(iddd);
             int row = 1;
             int column = 0;
             for (int i = 0; i < animal.size(); i++) {
+                if (u.getRole().equals("[\"ROLE_VETERINAIRE\"]")) {
+                // Chargement dynamique d'une interface
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("Animal.fxml"));
+                AnchorPane pane = loader.load();
+
+                // Passage de paramètres
+                AnimalController controller = loader.getController();
+                controller.setAnimal(animal.get(i));
+                if (column > 0) {
+                    column = 0;
+                    row++;
+                }
+                grid.add(pane, column++, row);
+
+                GridPane.setMargin(pane, new Insets(10));}
+                else if (u.getRole().equals("[\"ROLE_PROPRIETAIRE\"]") && UserSession.getInstance().getId() == animal.get(i).getAnimals_id())
+                {
                 // Chargement dynamique d'une interface
                 FXMLLoader loader = new FXMLLoader(getClass().getResource("Animal.fxml"));
                 AnchorPane pane = loader.load();
@@ -64,6 +87,7 @@ public class AfficherListeAnimalController implements Initializable {
                 grid.add(pane, column++, row);
 
                 GridPane.setMargin(pane, new Insets(10));
+                }
 
             }
         } catch (SQLException ex) {

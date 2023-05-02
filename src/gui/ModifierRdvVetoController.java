@@ -125,15 +125,16 @@ public class ModifierRdvVetoController implements Initializable {
             System.out.println("error" + ex.getMessage());
         }
         try {
-            
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("Sidebar_veterinaire.fxml"));
+        Parent root1 = loader.load();
                BorderPane borderPane = new BorderPane();
             FXMLLoader loader1 = new FXMLLoader(getClass().getResource("AfficherListeVeto.fxml"));
             Parent root2 = loader1.load();
-            HBox hbox = new HBox(new Pane(), root2);
+            HBox hbox = new HBox(root1,new Pane(), root2);
             hbox.setSpacing(20);
 
             borderPane.setRight(hbox);
-
+            borderPane.setLeft(root1);
             
 
             borderPane.setPadding(new Insets(10, 10, 30, 10));

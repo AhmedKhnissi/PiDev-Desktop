@@ -10,14 +10,15 @@ package entities;
  * @author heha
  */
 public class Animal {
-    private int id,age,poids;
+    private int id,age;
+    private float poids;
     private String nom;
         private int    categories_animal_id,animals_id;
 
     public Animal() {
     }
 
-    public Animal(int age, String nom, int poids, int categories_animal_id, int animals_id) {
+    public Animal(int age, String nom, float poids, int categories_animal_id, int animals_id) {
         this.age = age;
         this.nom = nom;
         this.poids = poids;
@@ -25,7 +26,7 @@ public class Animal {
         this.animals_id = animals_id;
     }
 
-    public Animal(int id, int age, String nom, int poids, int categories_animal_id, int animals_id) {
+    public Animal(int id, int age, String nom, float poids, int categories_animal_id, int animals_id) {
         this.id = id;
         this.age = age;
         this.nom = nom;
@@ -58,11 +59,11 @@ public class Animal {
         this.nom = nom;
     }
 
-    public int getPoids() {
+    public float getPoids() {
         return poids;
     }
 
-    public void setPoids(int poids) {
+    public void setPoids(float poids) {
         this.poids = poids;
     }
 

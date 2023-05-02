@@ -30,6 +30,9 @@ public class Sidebar_proprietaireController implements Initializable {
 
     @FXML
     private Button rdvprop;
+     @FXML
+    private Button animal;
+            
     /**
      * Initializes the controller class.
      */
@@ -71,7 +74,24 @@ public class Sidebar_proprietaireController implements Initializable {
         
         
        }
-    
+    @FXML
+    private void afficherAnimal(ActionEvent event) throws IOException{
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("Sidebar_proprietaire.fxml"));
+        Parent root1 = loader.load();
+        BorderPane borderPane = new BorderPane();
+        FXMLLoader loader1 = new FXMLLoader(getClass().getResource("AfficherListeAnimal.fxml"));
+        Parent root2 = loader1.load();
+        HBox hbox = new HBox(root1, new Pane(), root2);
+        hbox.setSpacing(20);
+
+        borderPane.setRight(hbox);
+
+        borderPane.setLeft(root1);
+
+        borderPane.setPadding(new Insets(10, 10, 30, 10));
+        rdvprop.getScene().setRoot(borderPane);
+        
+    }
     @FXML
     private void logout(ActionEvent event) {
     }

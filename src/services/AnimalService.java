@@ -54,7 +54,7 @@ public class AnimalService implements IService<Animal>{
         animal.setId(rs.getInt("id"));
         animal.setNom(rs.getString("nom"));
         animal.setAge(rs.getInt("age"));
-        animal.setPoids(rs.getInt("poids"));
+        animal.setPoids(rs.getFloat("poids"));
         animal.setAnimals_id(rs.getInt("animals_id"));
         animaux.add(animal);
     }
@@ -73,7 +73,7 @@ public class AnimalService implements IService<Animal>{
 
            p.setNom(rs.getString("nom"));
             p.setAge(rs.getInt("age"));
-            p.setPoids(rs.getInt("poids"));
+            p.setPoids(rs.getFloat("poids"));
             p.setAnimals_id(rs.getInt("animals_id"));
             
 

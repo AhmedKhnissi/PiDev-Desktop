@@ -73,8 +73,8 @@ RendezVous pe = new RendezVous();
     idRdv = c.getId();
         System.out.println("hedha id session : "+UserSession.getInstance().getId()); 
         System.out.println("hedha id l veto  : "+idVeto); 
-         if (c.getUser_id() == UserSession.getInstance().getId()){modifierbutton.setVisible(false);}
-    else if (c.getUser_id() == UserSession.getInstance().getId() ){modifierbuttonveto.setVisible(false);}
+         if (user.getRole().equals("[\"ROLE_VETERINAIRE\"]")){modifierbutton.setVisible(false);}
+    else if (user.getRole().equals("[\"ROLE_PROPRIETAIRE\"]") ){modifierbuttonveto.setVisible(false);}
      if (user.getRole().equals("[\"ROLE_PROPRIETAIRE\"]")){supprimerButton.setVisible(false);}
     System.out.println("id de rendez-vous"+ idRdv);
     datelabel.setText(c.getDate());

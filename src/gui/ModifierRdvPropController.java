@@ -41,7 +41,7 @@ public class ModifierRdvPropController implements Initializable {
     @FXML
     private ComboBox<String> heureid;
     @FXML
-    private TextField raceanimalid;
+    private ComboBox<String> raceanimalid;
     @FXML
     private TextField nomanimalid;
     @FXML
@@ -63,7 +63,7 @@ public class ModifierRdvPropController implements Initializable {
 
         dateid.setText(c.getDate());
         heureid.setValue(c.getHeure());
-        raceanimalid.setText(c.getRaeanimal());
+        raceanimalid.setValue(c.getRaeanimal());
         nomanimalid.setText(c.getNomanimal());
         vetoId=c.getUser_id();
         idrdv=c.getId();
@@ -74,6 +74,8 @@ public class ModifierRdvPropController implements Initializable {
         // TODO
            ObservableList<String> listHeure = FXCollections.observableArrayList("09:00","10:00","11:00","12:00","14:00","15:00","16:00","17:00");
            heureid.setItems(listHeure);
+           ObservableList<String> listCategorie = FXCollections.observableArrayList("Chien","Chat","Lapin","Oiseau","Singe","Agneau","Vache");
+           raceanimalid.setItems(listCategorie);
     }    
 
     @FXML
@@ -86,7 +88,7 @@ public class ModifierRdvPropController implements Initializable {
             System.out.println("hedha id el rdv "+ idrdv);
         String date = dateid.getText();
         String heure = heureid.getValue();
-        String raceanimal = raceanimalid.getText();
+        String raceanimal = raceanimalid.getValue();
         String nomanimal = nomanimalid.getText();
         String decision = "Pas Prise Encore";
 
@@ -112,14 +114,16 @@ public class ModifierRdvPropController implements Initializable {
             System.out.println("error" + ex.getMessage());
         }
         try {
-            
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("Sidebar_proprietaire.fxml"));
+        Parent root1 = loader.load();
                BorderPane borderPane = new BorderPane();
             FXMLLoader loader1 = new FXMLLoader(getClass().getResource("AfficherListeVeto.fxml"));
             Parent root2 = loader1.load();
-            HBox hbox = new HBox(new Pane(), root2);
+            HBox hbox = new HBox(root1,new Pane(), root2);
             hbox.setSpacing(20);
 
             borderPane.setRight(hbox);
+            borderPane.setLeft(root1);
 
             
 

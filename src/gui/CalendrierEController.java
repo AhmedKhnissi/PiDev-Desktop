@@ -25,7 +25,10 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.geometry.Insets;
+import javafx.scene.Parent;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
@@ -36,8 +39,11 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.Pane;
 import javafx.scene.layout.RowConstraints;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
@@ -298,7 +304,25 @@ public class CalendrierEController implements Initializable {
             alert.setContentText("RendezVous Ajoutée !");
             alert.showAndWait();
         
-        
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("Sidebar_veterinaire.fxml"));
+        Parent root1 = loader.load();
+               BorderPane borderPane = new BorderPane();
+            FXMLLoader loader1 = new FXMLLoader(getClass().getResource("AfficherListeVeto.fxml"));
+            Parent root2 = loader1.load();
+            HBox hbox = new HBox(root1,new Pane(), root2);
+            hbox.setSpacing(20);
+
+            borderPane.setRight(hbox);
+            borderPane.setLeft(root1);
+
+            
+
+            borderPane.setPadding(new Insets(10, 10, 30, 10));
+            monanimal.getScene().setRoot(borderPane);    
+        } catch (IOException ex) {
+            System.out.println("error" + ex.getMessage());
+        }
         
         
         }

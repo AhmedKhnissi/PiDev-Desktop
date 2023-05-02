@@ -64,17 +64,19 @@ public class AnimalController implements Initializable {
     
        RapportMedicalService aa = new RapportMedicalService();
     int ids;
-    User u = new User();
+    int iddd = UserSession.getInstance().getId();
+    
     public void setAnimal(Animal c) throws SQLException {
-        
+        User y = userx.veterinaireRole(iddd);
     ids = c.getId();
         System.out.println(c);
     nomAnimal.setText(c.getNom());
     ageAnimal.setText(String.valueOf(c.getAge()));
     poidsAnimal.setText(String.valueOf(c.getPoids()));
-    u = userx.recupererUserByid(c.getAnimals_id());
+    User u = userx.recupererUserByid(iddd);
        nomprop.setText(u.getNom());
     prenomprop.setText(u.getPrenom());
+    if (y.getRole().equals("[\"ROLE_PROPRIETAIRE\"]")){ajouterRm.setVisible(false);}
     mailprop.setText(u.getEmail());
     pe.setId(c.getId());
     pe.setNom(c.getNom());

@@ -23,6 +23,8 @@ import javafx.scene.control.Alert;
 
 import javafx.scene.control.ButtonType;
 import entities.Animal;
+import entities.User;
+import entities.UserSession;
 
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
@@ -43,6 +45,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import services.AnimalService;
+import services.UserService;
 
 /**
  * FXML Controller class
@@ -68,14 +71,17 @@ public class RapportMedicalController implements Initializable {
     int animalId;
     private int idRapport;
 RapportMedical loca = new RapportMedical();
-    
-       
+    int iddd = UserSession.getInstance().getId();
+       UserService userx = new UserService();
     
        RapportMedical pe = new RapportMedical();
        RapportMedicalService aa = new RapportMedicalService();
        AnimalService vs = new AnimalService();
     
 public void setRapport(RapportMedical c) throws SQLException {
+    User u = userx.veterinaireRole(iddd);
+    if (u.getRole().equals("[\"ROLE_PROPRIETAIRE\"]")){modifierbutton.setVisible(false);}
+    if (u.getRole().equals("[\"ROLE_PROPRIETAIRE\"]")){supprimerButton.setVisible(false);}
     Animal v=new Animal();
     idRapport = c.getId();
     descriptionlabel.setText(c.getDescription());

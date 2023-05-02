@@ -24,10 +24,14 @@
          <padding>
             <Insets left="94.0" />
          </padding></ComboBox>  
-         <TextField fx:id="raceanimalid" alignment="CENTER" layoutX="807.0" layoutY="295.0" prefHeight="52.0" prefWidth="345.0" promptText="Catégorie Animal" style="-fx-background-radius: 10; -fx-border-color: #4682B4; -fx-border-radius: 10; -fx-background-color: #ffffff;" styleClass="labelTitreSieges" stylesheets="@../values/values.css">
-         <font>
-            <Font size="15.0" />
-         </font></TextField>
+         <ComboBox fx:id="raceanimalid" layoutX="808.0" layoutY="295.0" prefHeight="52.0" prefWidth="345.0" promptText="Cliquez içi" style="-fx-background-color: #ffffff; -fx-border-color: #4682B4; -fx-border-radius: 10; -fx-background-radius: 10;">
+         <opaqueInsets>
+            <Insets left="15.0" />
+         </opaqueInsets>
+         <padding>
+            <Insets left="94.0" />
+         </padding></ComboBox> 
+         
          <TextField fx:id="nomanimalid" alignment="CENTER" layoutX="82.0" layoutY="295.0" prefHeight="52.0" prefWidth="345.0" promptText="Nom Animal" style="-fx-background-radius: 10; -fx-border-color: #4682B4; -fx-border-radius: 10; -fx-background-color: #ffffff;" styleClass="labelTitreSieges" stylesheets="@../values/values.css">
          <font>
             <Font size="15.0" />
