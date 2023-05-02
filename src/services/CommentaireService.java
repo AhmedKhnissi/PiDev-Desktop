@@ -7,6 +7,8 @@ package services;
 
 import entities.Commentaire;
 import entities.Publication;
+import entities.User;
+import entities.UserSession;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -20,7 +22,9 @@ import utils.MyDB;
  * @author Khalil
  */
 public class CommentaireService  implements IService<Commentaire>{ 
-    Connection cnx;
+    Connection cnx; 
+    UserSession session = UserSession.getInstance(); 
+    private int idloguser = session.getId();
 
     public CommentaireService() {
         cnx = MyDB.getInstance().getCnx();
@@ -29,13 +33,13 @@ public class CommentaireService  implements IService<Commentaire>{
     @Override
     public void ajouter(Commentaire t) throws SQLException { 
         try {
-            String requete="INSERT INTO commentaire (pub_id,contenu,datetime)"
-                    + "VALUES (?,?,?)";
+            String requete="INSERT INTO commentaire (id_user_id,pub_id,contenu,datetime)"
+                    + "VALUES (?,?,?,?)";
             PreparedStatement pst = cnx.prepareStatement(requete);
-            
-            pst.setInt(1, t.getPublication().getId());
-            pst.setString(2, t.getContenu());
-            pst.setDate(3, t.getDatetime());
+            pst.setInt(1, UserSession.getInstance().getId());
+            pst.setInt(2, t.getPublication().getId());
+            pst.setString(3, t.getContenu());
+            pst.setDate(4, t.getDatetime());
             pst.executeUpdate();
             System.out.println("Success!");
 
@@ -85,9 +89,11 @@ public class CommentaireService  implements IService<Commentaire>{
     return Commentaires;
     }
     
-    public List<Commentaire> getCommentaires(int idPublication) throws SQLException {
+   public List<Commentaire> getCommentaires(int idPublication) throws SQLException {
     List<Commentaire> commentaires = new ArrayList<>();
-    String query = "SELECT * FROM commentaire WHERE pub_id = ?";
+    String query = "SELECT c.*, u.id AS user_id, u.nom AS user_nom " +
+                   "FROM commentaire c LEFT JOIN user u ON c.id_user_id = u.id " +
+                   "WHERE c.pub_id = ?";
     PreparedStatement preparedStatement = cnx.prepareStatement(query);
     preparedStatement.setInt(1, idPublication);
     ResultSet resultSet = preparedStatement.executeQuery();
@@ -100,10 +106,23 @@ public class CommentaireService  implements IService<Commentaire>{
         Publication publication = new Publication();
         publication.setId(resultSet.getInt("pub_id"));
         commentaire.setPublication(publication);
+        // set the user for the comment
+        int userId = resultSet.getInt("user_id");
+        if (!resultSet.wasNull()) {
+            User user = new User();
+            user.setId(userId);
+            user.setNom(resultSet.getString("user_nom"));
+            commentaire.setUser(user);
+        }
         commentaires.add(commentaire);
     }
     return commentaires;
 }
+
+        
+        
+              
+    
 
     
 }

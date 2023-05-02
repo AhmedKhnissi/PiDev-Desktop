@@ -26,12 +26,21 @@ public class Publication {
     private int likes=0; 
     private int dislike=0;   
     private int nbsignal=0;   
-    private user user ;  
+    private User user ;  
+
+    public int getId_user() {
+        return id_user;
+    }
+
+    public void setId_user(int id_user) {
+        this.id_user = id_user;
+    }
     private List<Commentaire> commentaires; 
     private boolean likePressed = false;
     private boolean dislikePressed = false; 
     private boolean LikePressed = false;
-    private boolean DislikePressed = false;
+    private boolean DislikePressed = false;  
+    private int id_user;
     
     public Publication() {
         commentaires = new ArrayList<>();
@@ -120,11 +129,11 @@ public class Publication {
         this.nbsignal = nbsignal;
     } 
 
-    public user getUser() {
+    public User getUser() {
         return user;
     }
 
-    public void setUser(user user) {
+    public void setUser(User user) {
         this.user = user;
     }
     public void addCommentaire(Commentaire commentaire) {
@@ -197,6 +206,8 @@ public class Publication {
         System.out.println("Error sharing on Facebook: " + ex.getMessage());
     }
 }
+
+   
     
     
 }

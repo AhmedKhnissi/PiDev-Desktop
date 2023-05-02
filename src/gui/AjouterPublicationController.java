@@ -6,6 +6,8 @@
 package gui;
 
 import entities.Publication;
+import entities.User;
+import entities.UserSession;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
@@ -24,8 +26,16 @@ import services.PublicationService;
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayOutputStream;
 import java.io.FileInputStream;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.embed.swing.SwingFXUtils;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.image.WritableImage;
+import javafx.stage.Stage;
 import javax.imageio.ImageIO;
 
 
@@ -52,7 +62,11 @@ public class AjouterPublicationController implements Initializable {
     private Button chooseImageButton; 
     private String i; 
     byte [] post_image = null;
-    private String imagePath;
+    private String imagePath; 
+    UserSession session = UserSession.getInstance(); 
+    private int idloguser = session.getId(); 
+   
+    
 
     /**
      * Initializes the controller class.
@@ -66,6 +80,8 @@ public class AjouterPublicationController implements Initializable {
     private void ajouterPublication(ActionEvent event) { 
          LocalDate currentDate = LocalDate.now(); 
          Date sqlDate = Date.valueOf(currentDate);
+         User user = new User(); 
+         user.setId(idloguser);
            if (tfTitre.getText().isEmpty() || taContenu.getText().isEmpty() || tfAuteur.getText().isEmpty()) {
             Alert al = new Alert(Alert.AlertType.WARNING);
             al.setTitle("Controle de saisie");
@@ -73,31 +89,43 @@ public class AjouterPublicationController implements Initializable {
             al.show();
     } else{
                
-              String auteur = tfAuteur.getText();
-              String titre = tfTitre.getText();
-              String contenu = taContenu.getText(); 
-              String image = tfImage.getText(); 
-            try {
-                Publication p = new Publication(auteur, titre, contenu, image); 
-                PublicationService ps = new PublicationService();
-              
-                p.setDatepub(sqlDate);
-                p.setLikes(0); 
-                p.setDislike(0); 
-                p.setNbsignal(0);
-                
-                ps.ajouter(p);
-                Alert al = new Alert(Alert.AlertType.INFORMATION);
-                al.setTitle("publication ajouté");
-                al.setContentText("La publication est ajoutée avec Succès !!");
-                al.show();
-                
-            } catch (NumberFormatException e) {
-                Alert al = new Alert(Alert.AlertType.ERROR);
-                al.setTitle("Controle de saisie");
-                al.setContentText("Le champ age doit etre numerique !!");
-                al.show();
-            } 
+             try {
+                 
+                 try {
+                     String auteur = tfAuteur.getText();
+                     String titre = tfTitre.getText();
+                     String contenu = taContenu.getText();
+                     String image = tfImage.getText();
+                     Publication p = new Publication(auteur, titre, contenu, image);
+                     PublicationService ps = new PublicationService();
+                     p.setDatepub(sqlDate);
+                     p.setLikes(0);
+                     p.setDislike(0);
+                     p.setNbsignal(0);
+                     p.setUser(user);
+                     
+                     ps.ajouter(p);
+                     
+                     
+                 } catch (SQLException ex) {
+                     Logger.getLogger(AjouterPublicationController.class.getName()).log(Level.SEVERE, null, ex);
+                     System.out.println(ex.getMessage());
+                 }
+                 Alert al = new Alert(Alert.AlertType.INFORMATION);
+                 al.setTitle("publication ajouté");
+                 al.setContentText("La publication est ajoutée avec Succès !!");
+                 al.show();
+                 Stage nouveauStage;
+                 Parent root = FXMLLoader.load(getClass().getResource("AfficherPublication.fxml"));
+                 nouveauStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+                 Scene scene = new Scene(root);
+                 nouveauStage.setScene(scene);
+                 
+                 
+                 
+             } catch (IOException ex) {
+                 Logger.getLogger(AjouterPublicationController.class.getName()).log(Level.SEVERE, null, ex);
+             }
             
             
     

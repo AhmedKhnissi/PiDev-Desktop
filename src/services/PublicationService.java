@@ -6,6 +6,8 @@
 package services;
 
 import entities.Publication;
+import entities.User;
+import entities.UserSession;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -20,30 +22,34 @@ import utils.MyDB;
  * @author Khalil
  */
 public class PublicationService  implements IService<Publication> { 
-    Connection cnx;
+    Connection cnx; 
+    UserSession session = UserSession.getInstance(); 
+    private int idloguser = session.getId();
 
     public PublicationService() {
         cnx = MyDB.getInstance().getCnx();
     }
 
     @Override
-    public void ajouter(Publication t) {
+    public void ajouter(Publication t) throws SQLException  {
+        User user = new User(); 
+        user.setId(idloguser);
         try {
-            String requete="INSERT INTO publication (auteur,titre,contenu,image,datepub,likes,dislike,nbsignal)"
-                    + "VALUES (?,?,?,?,?,?,?,?)";
-            PreparedStatement pst = cnx.prepareStatement(requete);
-            
-            pst.setString(1, t.getAuteur());
-            pst.setString(2, t.getTitre());
-            pst.setString(3, t.getContenu());
-            pst.setString(4, t.getImage());  
-            pst.setDate(5, t.getDatepub());
-            pst.setInt(6, t.getLikes()); 
-            pst.setInt(7, t.getDislike());  
-            pst.setInt(8, t.getNbsignal());
-         
-            pst.executeUpdate();
-            System.out.println("Success!");
+            String requete = "INSERT INTO publication (id_user_id, auteur, titre, contenu, image, datepub, likes, dislike, nbsignal)"
+                + " VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        PreparedStatement pst = cnx.prepareStatement(requete);
+        pst.setInt(1, UserSession.getInstance().getId());
+        pst.setString(2, t.getAuteur());
+        pst.setString(3, t.getTitre());
+        pst.setString(4, t.getContenu());
+        pst.setString(5, t.getImage());
+        pst.setDate(6, t.getDatepub());
+        pst.setInt(7, t.getLikes());
+        pst.setInt(8, t.getDislike());
+        pst.setInt(9, t.getNbsignal());
+
+        pst.executeUpdate();
+        System.out.println("Publication ajoutée avec succès!");
 
         } catch (SQLException ex) {
             System.out.println(ex.getMessage());
@@ -125,6 +131,34 @@ List<Publication> Publications = new ArrayList<>();
         pst.executeUpdate();
         System.out.println("Publication signalée!");
     }
+     
+     
+    public List<Publication> recupererByIdUser(int iduser) throws SQLException {
+    List<Publication> Publications = new ArrayList<>();  
+    User user = new User();
+    String s = "select * from publication WHERE id_user_id = ?";
+    PreparedStatement ps = cnx.prepareStatement(s);
+    ps.setInt(1, iduser);
+    ResultSet rs = ps.executeQuery(); 
+    while (rs.next()) {
+       Publication publication = new Publication();
+       publication.setId(rs.getInt("id")); 
+       publication.setAuteur(rs.getString("auteur")); 
+       publication.setTitre(rs.getString("titre"));
+       publication.setContenu(rs.getString("contenu"));
+       publication.setImage(rs.getString("image"));
+       publication.setDatepub(rs.getDate("datepub"));
+       publication.setLikes(rs.getInt("likes")); 
+       publication.setDislike(rs.getInt("dislike"));
+       publication.setNbsignal(rs.getInt("nbsignal")); 
+       user.setId(rs.getInt("id_user_id")); 
+       publication.setUser(user);
+       Publications.add(publication); 
+       
+     }
+    return Publications;
+      
+    }  
   
 
     }

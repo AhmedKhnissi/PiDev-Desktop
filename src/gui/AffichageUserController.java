@@ -2,7 +2,10 @@ package gui;
 
 import entities.Commentaire;
 import entities.Publication;
+import entities.User;
+import entities.UserSession;
 import java.awt.Desktop;
+import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.net.URI;
 import java.net.URL;
@@ -33,6 +36,7 @@ import java.net.URLEncoder;
 import java.sql.Date;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
+import java.util.Optional;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
@@ -40,14 +44,20 @@ import java.util.stream.Collectors;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderStroke;
 import javafx.stage.Stage;
 import services.CommentaireService;
 import javafx.scene.image.Image;
+import javafx.stage.StageStyle;
 
 
 
@@ -77,6 +87,11 @@ List<Publication> publications = null;
     int badWordCount = 0; 
     int BAN_DURATION = 60;  
     private ScheduledExecutorService scheduler;
+    UserSession session = UserSession.getInstance(); 
+    private int idloguser = session.getId();
+    @FXML
+    private Button retour;
+    
     
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -122,10 +137,23 @@ List<Publication> publications = null;
     VBox vbox = new VBox();
     vbox.setPadding(new Insets(20));
     vbox.setSpacing(10);
+    vbox.setStyle("-fx-background-color: ADD8E6;");
+    Image image1 = new Image("file:C:/Users/Khalil/Desktop/logo-vet.png");
+    ImageView imageView = new ImageView(image1);
+    imageView.setFitHeight(120);
+    imageView.setFitWidth(300);
+
+// Set the position of the ImageView to top left corner
+VBox.setMargin(imageView, new Insets(10, 0, 0, 10));
+vbox.setPrefSize(400, 300);
+
+// Add the ImageView to the VBox
+vbox.getChildren().add(imageView);
 
     Label titreLabel = new Label(publication.getTitre());
     titleLabel.setStyle("-fx-font-weight: bold; -fx-font-size: 25pt;");
-    vbox.getChildren().add(titleLabel); 
+    vbox.getChildren().add(titleLabel);  
+    
     
 
 
@@ -153,7 +181,7 @@ List<Publication> publications = null;
     contentLabel.setWrapText(true);
     vbox.getChildren().add(contentLabel); 
     HBox likesDislikesBox = new HBox();
-likesDislikesBox.setSpacing(10);
+    likesDislikesBox.setSpacing(10);
 
 
 
@@ -171,11 +199,20 @@ Label commentairesLabel = new Label("Commentaires (" + commentaires.size() + "):
 commentairesLabel.setStyle("-fx-font-weight: bold; -fx-font-size: 14pt;");
 vbox.getChildren().add(commentairesLabel);
 
-for (Commentaire com : commentaires) {
-    Label commentaireLabel = new Label(com.getContenu());
-    commentaireLabel.setWrapText(true);
-    vbox.getChildren().add(commentaireLabel);
-}
+for (Commentaire com : commentaires) { 
+    Label ownerLabel = new Label(); 
+    Label temps = new Label(); 
+    ownerLabel.setStyle("-fx-font-weight: bold;");
+    ownerLabel.setText(com.getUser().getNom()+":");
+    Label contenuLabel = new Label(com.getContenu());
+    contenuLabel.setWrapText(true);
+    HBox hbox = new HBox(10, ownerLabel, contenuLabel);
+    vbox.getChildren().add(hbox);
+} 
+
+
+
+
     
 
     TextField commentaireField = new TextField();
@@ -195,12 +232,14 @@ for (Commentaire com : commentaires) {
     Button shareOnFacebookButton = new Button("Partager sur Facebook");
     shareOnFacebookButton.setStyle("-fx-background-color: #4682B4; -fx-text-fill: white; -fx-font-weight: bold;");
     
-    submitButton.setOnAction(event -> { 
+    submitButton.setOnAction(event -> {  
+        User user = new User(session.getId(), session.getNom(),session.getPrenom(),session.getEmail() , session.getPays(),session.getGouvernorat(), session.getVille(),session.getRue(), session.getTel(), session.getBloque()); 
+        System.out.println(user);
         Alert a9 = new Alert(Alert.AlertType.WARNING);
         if(commentaireField.getText().isEmpty()){ 
             
             a9.setTitle("Champ Vide!");
-            a9.setContentText("Veuillez remplir le champs pour ajouter un commentaire!");
+            a9.setContentText("Veuillez remplir le champ pour ajouter un commentaire!");
             a9.show();
         }else{
         
@@ -210,7 +249,10 @@ for (Commentaire com : commentaires) {
         Commentaire commentaire = new Commentaire();
         commentaire.setPublication(publication);
         commentaire.setContenu(commentaireField.getText());
-        commentaire.setDatetime(sqlDate);
+        commentaire.setDatetime(sqlDate);  
+        commentaire.setUser(user);
+        
+        
 
         if (commentaire.hasProfanity()) {
     Alert alert = new Alert(Alert.AlertType.WARNING);
@@ -335,16 +377,31 @@ vbox.getChildren().add(buttonBox);
   final boolean[] signalPressed = { false };
 SignalButton.setOnAction(r -> {
     if (!signalPressed[0]) {
-        int currentSignal = publication.getNbsignal();
-        publication.setNbsignal(currentSignal + 1);
-        signalPressed[0] = true;
-        try {
-            publicationService.signaler(publication);
-        } catch (SQLException ex) {
-            Logger.getLogger(AffichageUserController.class.getName()).log(Level.SEVERE, null, ex);
+        Alert alert = new Alert(AlertType.WARNING);
+        alert.setHeaderText(null);
+        alert.setContentText("Êtes-vous sûr de vouloir signaler cette publication?");
+        Optional<ButtonType> result = alert.showAndWait();
+        if (result.isPresent() && result.get() == ButtonType.OK) {
+            int currentSignal = publication.getNbsignal();
+            publication.setNbsignal(currentSignal + 1);
+            signalPressed[0] = true;
+            try {
+                publicationService.signaler(publication);
+                alert = new Alert(AlertType.CONFIRMATION);
+                alert.setHeaderText(null);
+                alert.setContentText("Publication signalée avec succès!");
+                alert.showAndWait();
+            } catch (SQLException ex) {
+                Logger.getLogger(AffichageUserController.class.getName()).log(Level.SEVERE, null, ex);
+                System.out.println("Erreur lors de la signalisation de la publication: " + ex.getMessage());
+            }
         }
     }
 });
+
+
+
+
 
  twitterBTN.setOnAction(new EventHandler<ActionEvent>() {
             @Override
@@ -466,6 +523,18 @@ private void handleSearch(ActionEvent event) {
     private void Actualiser(ActionEvent event) { 
         displayPublications(publications);
     } 
+
+    @FXML
+private void Retour(ActionEvent event) {
+    try {
+        Parent root = FXMLLoader.load(getClass().getResource("Sidebar_veterinaire.fxml"));
+        Scene scene = ((Node) event.getSource()).getScene();
+        scene.setRoot(root);
+    } catch (IOException ex) {
+        System.out.print(ex);
+    }
+}
+
     
     
     

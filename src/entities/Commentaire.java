@@ -5,8 +5,6 @@
  */
 package entities;
 
-import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
@@ -27,14 +25,15 @@ public class Commentaire {
     private int id; 
     private Publication publication ;   
     private int pub_id ; 
-    private user user ;  
+    private User user ;  
+    private int user_id; 
     private String contenu; 
     private Date datetime;  
 
     public Commentaire() {
     }
 
-    public Commentaire(int id, Publication publication, user user, String contenu, Date datetime) {
+    public Commentaire(int id, Publication publication, User user, String contenu, Date datetime) {
         this.id = id;
         this.publication = publication;
         this.user = user;
@@ -57,6 +56,14 @@ public class Commentaire {
         return publication.getId();
     } 
 
+    public int getUser_id() {
+        return user_id;
+    }
+
+    public void setUser_id(int user_id) {
+        this.user_id = user_id;
+    }
+
     public void setPublication(Publication publication) {
         this.publication = publication;
     }
@@ -64,11 +71,12 @@ public class Commentaire {
     this.pub_id = pub_id;
 }
 
-    public user getUser() {
+    public User getUser() {
         return user;
     }
+    
 
-    public void setUser(user user) {
+    public void setUser(User user) {
         this.user = user;
     }
 

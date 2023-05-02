@@ -6,7 +6,12 @@
 package gui;
 
 import entities.Publication;
+import entities.UserSession;
 import java.awt.event.MouseEvent;
+import java.awt.image.BufferedImage;
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.Date;
@@ -17,6 +22,7 @@ import java.util.Optional;
 import java.util.ResourceBundle;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
+import javafx.embed.swing.SwingFXUtils;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -33,7 +39,12 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.image.WritableImage;
+import javafx.scene.layout.AnchorPane;
+import javafx.stage.FileChooser;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
+import javax.imageio.ImageIO;
 import services.PublicationService;
 
 /**
@@ -42,6 +53,7 @@ import services.PublicationService;
  * @author Khalil
  */
 public class AfficherPublicationController implements Initializable { 
+    
     
     @FXML
     private TableView<Publication> publicationTableView;
@@ -60,8 +72,6 @@ public class AfficherPublicationController implements Initializable {
     private TableColumn<Publication, Integer> likesColumn; 
     @FXML
     private TableColumn<Publication, Integer> dislikeColumn;  
-    @FXML
-    private TableColumn<Publication, Integer> signalColumn;  
     
     @FXML
     private TextField tfAuteur;
@@ -75,7 +85,15 @@ public class AfficherPublicationController implements Initializable {
     private Button suppbtn;
     @FXML
     private Button modbtn;
-    
+    @FXML
+    private Button modbtn1;
+    UserSession session = UserSession.getInstance(); 
+    private int idloguser = session.getId();
+    @FXML
+    private Button modbtn2; 
+    private String i; 
+    byte [] post_image = null;
+    private String imagePath; 
 
     /**
      * Initializes the controller class. 
@@ -85,6 +103,7 @@ public class AfficherPublicationController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
        update();
+     
     }
     
     
@@ -94,7 +113,9 @@ public class AfficherPublicationController implements Initializable {
     
     
     
-    public void update(){ 
+    
+    public void update(){
+        tfImage.setDisable(true);
         
       // Set up the table columns
         auteurColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getAuteur()));
@@ -129,7 +150,7 @@ public class AfficherPublicationController implements Initializable {
         // Retrieve publications from the service and populate the table
         PublicationService publicationService = new PublicationService();
         try {
-            List<Publication> publications = publicationService.recuperer(); 
+            List<Publication> publications = publicationService.recupererByIdUser(idloguser); 
           
             publicationTableView.getItems().setAll(publications);
         } catch (SQLException ex) {
@@ -250,6 +271,63 @@ private void modifier(ActionEvent event) {
     } 
     
 }
+
+@FXML
+    private void retour(ActionEvent event) {
+         try {
+        Parent root = FXMLLoader.load(getClass().getResource("Sidebar_veterinaire.fxml"));
+        Scene scene = ((Node) event.getSource()).getScene();
+        scene.setRoot(root);
+    } catch (IOException ex) {
+        System.out.print(ex);
+    }
+    }
+
+    @FXML
+    private void ajout(ActionEvent event) {
+        try {
+            Parent root = FXMLLoader.load(getClass().getResource("AjouterPublication.fxml"));
+            Scene scene = new Scene(root);
+            Stage stage = new Stage();
+            stage.setScene(scene);
+            stage.initStyle(StageStyle.UTILITY);
+            stage.show();
+        } catch (IOException ex) {
+            System.out.print(ex);
+        }
+    } 
+    @FXML   
+    private void uploadim(ActionEvent event) throws IOException {
+        Publication p = new Publication();
+        FileChooser fc = new FileChooser();
+        fc.setTitle("Ajouter une Image");
+        fc.getExtensionFilters().addAll(
+            new FileChooser.ExtensionFilter("Images", "*.png", "*.jpg", "*.jpeg", "*.gif")
+        );
+        File f = fc.showOpenDialog(null);
+        String DBPath = "C:\\xampp\\htdocs\\img" + f.getName();
+        i = f.getName();
+        p.setImage(i);
+       tfImage.setText(i);
+        System.out.println(p.getImage());
+        if (f != null) {
+            try {
+                BufferedImage bufferedImage = ImageIO.read(f);
+                WritableImage image = SwingFXUtils.toFXImage(bufferedImage,null);
+                ImageIO.write(bufferedImage, "jpg", new File(DBPath));
+                FileInputStream fin = new FileInputStream(f);
+                ByteArrayOutputStream bos = new ByteArrayOutputStream();
+                byte[] buf = new byte [1024];
+                for (int readNum ;(readNum= fin.read(buf)) != -1 ;) {
+                    bos.write(buf,0,readNum);
+                    post_image = bos.toByteArray();
+                }
+            } catch (IOException ex) {
+                // Traitement de l'exception
+                ex.printStackTrace();
+            }
+        }      
+    }
 
     
     
