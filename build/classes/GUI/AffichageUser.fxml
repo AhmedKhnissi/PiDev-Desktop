@@ -52,8 +52,7 @@
 </GridPane>
    <HBox layoutX="-1.0" layoutY="1.0" prefHeight="111.0" prefWidth="1344.0" style="-fx-background-color:  #4682B4; -fx-padding: 10;">
       <children>
-         <Button fx:id="retour" mnemonicParsing="false" onAction="#Retour" prefHeight="60.0" prefWidth="121.0" text="Retour" />
-         <Label style="-fx-text-fill: white; -fx-font-size: 35px;" text="Publications" />
+         <Label style="-fx-text-fill: white; -fx-font-size: 35px;" text="Blog" />
       </children>
    </HBox>
 </AnchorPane>

@@ -7,13 +7,13 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="756.0" prefWidth="1251.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.NavbarUserController">
+<AnchorPane prefHeight="98.0" prefWidth="1251.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.NavbarUserController">
    <children>
       <AnchorPane prefHeight="76.0" prefWidth="1251.0">
          <children>
             <Pane layoutX="-6.0" prefHeight="103.0" prefWidth="1251.0" style="-fx-background-color: #2EDEF0;" AnchorPane.bottomAnchor="-27.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                <children>
-                  <ImageView fitHeight="96.0" fitWidth="112.0" layoutX="14.0" layoutY="-4.0">
+                  <ImageView fitHeight="96.0" fitWidth="239.0" layoutX="14.0" layoutY="-4.0">
                      <image>
                         <Image url="@../images/logo-vet.png" />
                      </image>

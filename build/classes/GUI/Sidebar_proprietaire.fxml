@@ -19,6 +19,6 @@
       </ImageView>
       <Button layoutX="3.0" layoutY="321.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="234.0" style="-fx-background-color: white;" text="COMMANDES" />
       <Button layoutX="3.0" layoutY="380.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="234.0" style="-fx-background-color: white;" text="RECLAMATION" />
-      <Button layoutY="428.0" mnemonicParsing="false" onAction="#blog" prefHeight="35.0" prefWidth="237.0" style="-fx-background-color: white;" text="BLOG" />
+      <Button fx:id="pubs" layoutY="428.0" mnemonicParsing="false" onAction="#blog" prefHeight="35.0" prefWidth="237.0" style="-fx-background-color: white;" text="BLOG" />
    </children>
 </AnchorPane>

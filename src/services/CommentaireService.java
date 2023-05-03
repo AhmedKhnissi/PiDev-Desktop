@@ -52,9 +52,10 @@ public class CommentaireService  implements IService<Commentaire>{
 
     @Override
     public void modifier(Commentaire t) throws SQLException { 
-        String requete = "UPDATE commentaire SET Contenu = ?";
+        String requete = "UPDATE commentaire SET Contenu = ?  WHERE id = ?";
         PreparedStatement pst = cnx.prepareStatement(requete);
-        pst.setString(1, t.getContenu());
+        pst.setString(1, t.getContenu()); 
+        pst.setInt(2, t.getId());
         pst.executeUpdate();
         System.out.println("Publication modifié avec succès !");
         

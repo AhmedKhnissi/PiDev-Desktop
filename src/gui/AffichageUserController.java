@@ -5,6 +5,7 @@ import entities.Publication;
 import entities.User;
 import entities.UserSession;
 import java.awt.Desktop;
+import java.io.File;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.net.URI;
@@ -36,6 +37,7 @@ import java.net.URLEncoder;
 import java.sql.Date;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
+import java.util.Objects;
 import java.util.Optional;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
@@ -52,6 +54,7 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.TextField;
+import javafx.scene.control.TextInputDialog;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderStroke;
 import javafx.stage.Stage;
@@ -122,7 +125,8 @@ List<Publication> publications = null;
         
         Label authorLabel = new Label("Auteur: " + publication.getAuteur());
         authorLabel.setStyle("-fx-font-weight: bold; -fx-font-size: 13pt;");
-        Image imagep = new Image("http://127.0.0.1/img/" + publication.getImage());
+        File file = new File(publication.getImage());
+        Image imagep = new Image(file.toURI().toString());
         ImageView iv2 = new ImageView();
         iv2.setImage(imagep);
         iv2.setFitHeight(200);
@@ -133,12 +137,13 @@ List<Publication> publications = null;
         Button voirPlusButton = new Button("Voir plus");
        voirPlusButton.setOnAction(e -> {
            
-    Stage stage = new Stage();
+    Stage stage = new Stage(); 
+    stage.setTitle("Publication: "+publication.getTitre());
     VBox vbox = new VBox();
     vbox.setPadding(new Insets(20));
     vbox.setSpacing(10);
     vbox.setStyle("-fx-background-color: ADD8E6;");
-    Image image1 = new Image("file:C:/Users/Khalil/Desktop/logo-vet.png");
+    Image image1 = new Image(file.toURI().toString());
     ImageView imageView = new ImageView(image1);
     imageView.setFitHeight(120);
     imageView.setFitWidth(300);
@@ -206,8 +211,44 @@ for (Commentaire com : commentaires) {
     ownerLabel.setText(com.getUser().getNom()+":");
     Label contenuLabel = new Label(com.getContenu());
     contenuLabel.setWrapText(true);
+     // Create a delete button for this comment
+    Button deleteButton = new Button("Supprimer");
+    deleteButton.setStyle("-fx-background-color: transparent;");
+
+    deleteButton.setOnAction(z -> {  
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+            alert.setTitle("Confirmation de suppression");
+            alert.setHeaderText("Êtes-vous sûr de vouloir supprimer ce commentaire?");
+            alert.setContentText("Cette action est irréversible.");
+
+            Optional<ButtonType> result = alert.showAndWait();
+
+            if (result.isPresent() && result.get() == ButtonType.OK) {
+        try {
+            commentaireService.supprimer(com);
+        } catch (SQLException ex) {
+            Logger.getLogger(AffichageUserController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+         }
+        
+        
+    });
+    
+    Button editButton = new Button("Modifier");
+    editButton.setStyle("-fx-background-color: transparent;");
+
+    editButton.setOnAction(z -> {
+      
+        editcommentaire(com);
+            
+    }); 
+     if (Objects.equals(UserSession.getInstance().getId(), com.getUser().getId())) {
+         HBox hbox = new HBox(10, ownerLabel, contenuLabel, editButton, deleteButton);
+    vbox.getChildren().add(hbox);
+     }else{
     HBox hbox = new HBox(10, ownerLabel, contenuLabel);
     vbox.getChildren().add(hbox);
+     }
 } 
 
 
@@ -312,8 +353,9 @@ for (Commentaire com : commentaires) {
 
 
     }); 
-    Button twitterBTN = new Button("share on twitter");
-twitterBTN.setStyle("-fx-background-color: #008CBA; -fx-text-fill: white; -fx-font-weight: bold;");
+    Button twitterBTN = new Button("Partager sur Twitter");
+twitterBTN.setStyle("-fx-background-color: #008CBA; -fx-text-fill: white; -fx-font-weight: bold;"); 
+
     
     
     
@@ -532,6 +574,37 @@ private void Retour(ActionEvent event) {
         scene.setRoot(root);
     } catch (IOException ex) {
         System.out.print(ex);
+    }
+}
+
+
+
+private void editcommentaire(Commentaire c) { 
+    CommentaireService cs = new CommentaireService();
+    TextInputDialog dialog = new TextInputDialog(c.getContenu());
+    dialog.setTitle("Modifier commentaire");
+    dialog.setHeaderText("modifiez votre commentaire:");
+    dialog.setContentText("Publication:");
+
+    Optional<String> result = dialog.showAndWait();
+    if (result.isPresent() && !result.get().isEmpty()) {
+        String edited = result.get();
+        
+        Alert confirmation = new Alert(Alert.AlertType.CONFIRMATION, "confirmation?");
+        Optional<ButtonType> confirmResult = confirmation.showAndWait();
+        if (confirmResult.isPresent() && confirmResult.get() == ButtonType.OK) {
+            c.setContenu(edited);
+            try {
+                cs.modifier(c); 
+                 System.out.println("Commentaire modifié avec succès!"); 
+        Alert a10 = new Alert(Alert.AlertType.INFORMATION);
+        a10.setTitle("Commentaire modifié!");
+        a10.setContentText("Commentaire modifié avec succès !");
+        a10.show();
+            } catch (SQLException ex) {
+                System.out.println(ex);
+            }
+        }
     }
 }
 

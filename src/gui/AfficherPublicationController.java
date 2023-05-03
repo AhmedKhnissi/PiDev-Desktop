@@ -95,25 +95,13 @@ public class AfficherPublicationController implements Initializable {
     byte [] post_image = null;
     private String imagePath; 
 
-    /**
-     * Initializes the controller class. 
-     * 
-     */ 
+    
     
     @Override
     public void initialize(URL location, ResourceBundle resources) {
        update();
      
     }
-    
-    
-    
-    
-    
-    
-    
-    
-    
     public void update(){
         tfImage.setDisable(true);
         
@@ -125,7 +113,6 @@ public class AfficherPublicationController implements Initializable {
         datepubColumn.setCellValueFactory(cellData -> {
     Date datepub = cellData.getValue().getDatepub();
     if (datepub != null) {
-        // Convert the Date to a String representation, e.g. using SimpleDateFormat
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
         String dateStr = dateFormat.format(datepub);
         return new SimpleStringProperty(dateStr);
@@ -133,11 +120,9 @@ public class AfficherPublicationController implements Initializable {
         return new SimpleStringProperty("");
     }
 });   
-        // Create the new column
     TableColumn<Publication, Integer> signalColumn = new TableColumn<>("Nombre de Signals");
     signalColumn.setCellValueFactory(new PropertyValueFactory<>("nbsignal"));
     
-    // Add the new column to the TableView
     publicationTableView.getColumns().add(signalColumn);
         likesColumn.setCellValueFactory(new PropertyValueFactory<>("Likes")); 
         dislikeColumn.setCellValueFactory(new PropertyValueFactory<>("dislike")); 
@@ -147,7 +132,6 @@ public class AfficherPublicationController implements Initializable {
 
 
       
-        // Retrieve publications from the service and populate the table
         PublicationService publicationService = new PublicationService();
         try {
             List<Publication> publications = publicationService.recupererByIdUser(idloguser); 
@@ -175,12 +159,10 @@ public class AfficherPublicationController implements Initializable {
    
     @FXML
 private void supprimerPublication(ActionEvent event) { 
-    // Get the selected publication from the table view
     int selectedIndex = publicationTableView.getSelectionModel().getSelectedIndex();
-    if (selectedIndex >= 0) { // Check if an item is selected
+    if (selectedIndex >= 0) { 
         Publication selectedPub = publicationTableView.getItems().get(selectedIndex); 
         
-        // Display a confirmation dialog
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         alert.setTitle("Confirmation");
         alert.setHeaderText("Supprimer une publication");
@@ -191,7 +173,7 @@ private void supprimerPublication(ActionEvent event) {
             PublicationService publicationService = new PublicationService();
             try {
                 publicationService.supprimer(selectedPub);
-                update(); // Call the update() method to refresh the table view 
+                update(); 
                  Alert al = new Alert(Alert.AlertType.INFORMATION);
                 al.setTitle("publication Supprimée");
                 al.setContentText("La publication a été supprimée avec Succès !!");
@@ -201,7 +183,6 @@ private void supprimerPublication(ActionEvent event) {
             }
         }
     } else {
-        // Display a warning dialog if no publication is selected
         Alert alert = new Alert(Alert.AlertType.WARNING);
         alert.setTitle("Avertissement");
         alert.setHeaderText(null);
@@ -250,7 +231,6 @@ private void modifier(ActionEvent event) {
             Optional<ButtonType> result = alert.showAndWait();
 
             if (result.isPresent() && result.get() == ButtonType.OK) {
-                // Update the publication object with the new values
                 PublicationService ps = new PublicationService();
 
                 try {
@@ -323,7 +303,6 @@ private void modifier(ActionEvent event) {
                     post_image = bos.toByteArray();
                 }
             } catch (IOException ex) {
-                // Traitement de l'exception
                 ex.printStackTrace();
             }
         }      

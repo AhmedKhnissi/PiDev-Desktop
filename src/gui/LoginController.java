@@ -188,7 +188,7 @@ public class LoginController implements Initializable {
                    Stage nouveauStage;
                    Parent root = FXMLLoader.load(getClass().getResource("Sidebar_proprietaire.fxml"));
                    nouveauStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-                   Scene scene = new Scene(root, 1900, 1000);
+                   Scene scene = new Scene(root, 1500, 1000);
                    nouveauStage.setScene(scene);
                    }catch(IOException ex){
                     System.out.println("nooooooooooooooooooooooooooooooooooooooooooonnnnnnnnnnn");

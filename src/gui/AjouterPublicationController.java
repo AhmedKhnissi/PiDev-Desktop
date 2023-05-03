@@ -26,6 +26,11 @@ import services.PublicationService;
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayOutputStream;
 import java.io.FileInputStream;
+import java.nio.file.CopyOption;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -37,6 +42,8 @@ import javafx.scene.Scene;
 import javafx.scene.image.WritableImage;
 import javafx.stage.Stage;
 import javax.imageio.ImageIO;
+import javax.swing.JFileChooser;
+import javax.swing.filechooser.FileNameExtensionFilter;
 
 
 /**
@@ -65,6 +72,7 @@ public class AjouterPublicationController implements Initializable {
     private String imagePath; 
     UserSession session = UserSession.getInstance(); 
     private int idloguser = session.getId(); 
+    private File file2;
    
     
 
@@ -145,36 +153,48 @@ public class AjouterPublicationController implements Initializable {
         }
     }
 @FXML   
-    private void uploadim(ActionEvent event) throws IOException {
+    private File uploadim(ActionEvent event) throws IOException {
         Publication p = new Publication();
-        FileChooser fc = new FileChooser();
-        fc.setTitle("Ajouter une Image");
-        fc.getExtensionFilters().addAll(
-            new FileChooser.ExtensionFilter("Images", "*.png", "*.jpg", "*.jpeg", "*.gif")
-        );
-        File f = fc.showOpenDialog(null);
-        String DBPath = "C:\\xampp\\htdocs\\img" + f.getName();
-        i = f.getName();
-        p.setImage(i);
-       tfImage.setText(i);
-        System.out.println(p.getImage());
-        if (f != null) {
-            try {
-                BufferedImage bufferedImage = ImageIO.read(f);
-                WritableImage image = SwingFXUtils.toFXImage(bufferedImage,null);
-                ImageIO.write(bufferedImage, "jpg", new File(DBPath));
-                FileInputStream fin = new FileInputStream(f);
-                ByteArrayOutputStream bos = new ByteArrayOutputStream();
-                byte[] buf = new byte [1024];
-                for (int readNum ;(readNum= fin.read(buf)) != -1 ;) {
-                    bos.write(buf,0,readNum);
-                    post_image = bos.toByteArray();
+        Path to1 = null;
+        String m = null;
+        String path = "C:\\xampp\\htdocs\\img";
+        JFileChooser chooser = new JFileChooser();
+        FileNameExtensionFilter filter = new FileNameExtensionFilter(
+                "JPG & PNG Images", "jpg", "jpeg", "PNG");
+        chooser.setFileFilter(filter);
+        int returnVal = chooser.showOpenDialog(null);
+        if (returnVal == JFileChooser.APPROVE_OPTION) {
+            m = chooser.getSelectedFile().getAbsolutePath();
+
+            file2 = chooser.getSelectedFile();
+            String fileName = file2.getName();
+
+            if (chooser.getSelectedFile() != null) {
+
+                try {
+                    Path from = Paths.get(chooser.getSelectedFile().toURI());
+                    to1 = Paths.get(path + "\\" + fileName);
+                    //to2 =Paths.get("src\\"+path+"\\"+file.getName()+".png");
+
+                    CopyOption[] options = new CopyOption[]{
+                        StandardCopyOption.REPLACE_EXISTING,
+                        StandardCopyOption.COPY_ATTRIBUTES
+                    };
+                    Files.copy(from, to1, options);
+                    System.out.println("added");
+                    System.out.println(file2);
+
+                } catch (IOException ex) {
+                    System.out.println();
                 }
-            } catch (IOException ex) {
-                // Traitement de l'exception
-                ex.printStackTrace();
             }
-        }      
+
+        }
+        tfImage.setText(String.valueOf(file2));
+        p.setImage(String.valueOf(file2));
+        
+        return file2;
+     
     }
   
     

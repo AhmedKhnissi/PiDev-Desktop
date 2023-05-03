@@ -7,6 +7,7 @@ package gui;
 
 import entities.Publication;
 import entities.UserSession;
+import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.Date;
@@ -24,6 +25,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.geometry.Insets;
 import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.scene.Parent;
@@ -32,13 +34,17 @@ import javafx.scene.chart.PieChart;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
+import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Tooltip;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import services.CommentaireService;
 import services.PublicationService;
@@ -69,19 +75,18 @@ public class AffichageAdminController implements Initializable {
     @FXML
     private TableColumn<Publication, Integer> dislikeColumn;  
     
-    private TextField tfAuteur;
-    private TextField tfTitre; 
-    private TextArea taContenu;
-    private TextField tfImage; 
+    
     @FXML
     private Button suppbtn;
-    @FXML
-    private Button modbtn1;
     UserSession session = UserSession.getInstance(); 
     private int idloguser = session.getId();
     @FXML
     private Button statbtn1; 
     private int numsig=0;
+    @FXML
+    private Button modbtn1;
+    @FXML
+    private Button details;
 
     /**
      * Initializes the controller class. 
@@ -152,11 +157,7 @@ public class AffichageAdminController implements Initializable {
         int myIndex =publicationTableView.getSelectionModel().getSelectedIndex();
         Publication selectedPub = publicationTableView.getItems().get(myIndex);  
             System.out.println("Selected publication: " + selectedPub);
-
-     tfAuteur.setText(selectedPub.getAuteur()); 
-    tfTitre.setText(selectedPub.getTitre()); 
-    tfImage.setText(selectedPub.getContenu());
-    taContenu.setText(selectedPub.getContenu()); 
+           
     }
 
    
@@ -235,7 +236,6 @@ private void supprimerPublication(ActionEvent event) {
             
 
             int numPublications = ps.recuperer().size();
-            int numCommentaires = cs.recuperer().size(); 
             for (Publication publication : publications) {
             if(publication.getNbsignal()>0){ 
                 numsig++; 
@@ -251,12 +251,12 @@ private void supprimerPublication(ActionEvent event) {
 
             
             PieChart pieChart = new PieChart(pieChartData);
-            pieChart.setTitle("Publication signalée");
+            pieChart.setTitle("Nombre de Publications signalées");
             
             for (final PieChart.Data data : pieChart.getData()) {
                 data.getNode().addEventHandler(MouseEvent.MOUSE_CLICKED,
                         e -> {
-                            double percentage = (data.getPieValue() / (numPublications + numCommentaires)) * 100.0;
+                            double percentage = (data.getPieValue() / (numPublications + numsig)) * 100.0;
                             
                             Tooltip tooltip = new Tooltip(String.format("%.2f%%", percentage));
                             Tooltip.install(data.getNode(), tooltip);
@@ -274,6 +274,54 @@ private void supprimerPublication(ActionEvent event) {
             Logger.getLogger(AffichageAdminController.class.getName()).log(Level.SEVERE, null, ex);
         }
 }
+
+   @FXML
+private void details(ActionEvent event) { 
+    int selectedIndex = publicationTableView.getSelectionModel().getSelectedIndex();
+    Publication selectedPub = publicationTableView.getItems().get(selectedIndex);
+     if (selectedIndex >= 0) {
+    
+
+
+    Stage stage = new Stage(); 
+    stage.setTitle("Publication: "+selectedPub.getTitre());
+    VBox vbox = new VBox();
+    vbox.setPadding(new Insets(150));
+    vbox.setSpacing(10);
+
+    Label auteurLabel = new Label("Utilisateur: " + selectedPub.getAuteur());
+    auteurLabel.setStyle("-fx-font-weight: bold;");
+     
+    File file = new File(selectedPub.getImage());
+    Image image1 = new Image(file.toURI().toString());
+    ImageView imageView = new ImageView(image1);
+    imageView.setFitHeight(120);
+    imageView.setFitWidth(300);
+
+    Label likesLabel = new Label("Likes: " + selectedPub.getLikes());
+    likesLabel.setStyle("-fx-text-fill: green; -fx-font-weight: bold;");
+
+    Label dislikesLabel = new Label("Dislikes: " + selectedPub.getDislike());
+    dislikesLabel.setStyle("-fx-text-fill: orange; -fx-font-weight: bold;");
+
+    Label signalsLabel = new Label("Signals: " + selectedPub.getNbsignal());
+    signalsLabel.setStyle("-fx-text-fill: red; -fx-font-weight: bold;");
+    vbox.getChildren().add(imageView);
+    vbox.getChildren().add(auteurLabel);
+    vbox.getChildren().addAll(likesLabel, dislikesLabel, signalsLabel);
+
+    stage.setScene(new Scene(vbox));
+    stage.show();
+    } else {
+        // Display a warning dialog if no publication is selected
+        Alert alert = new Alert(Alert.AlertType.WARNING);
+        alert.setTitle("Avertissement");
+        alert.setHeaderText(null);
+        alert.setContentText("Veuillez sélectionner une publication.");
+        alert.showAndWait();
+    }
+}
+
 
    
 
