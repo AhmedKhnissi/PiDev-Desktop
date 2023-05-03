@@ -34,6 +34,7 @@ import javafx.stage.Stage;
 import services.AnimalService;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
+import javafx.stage.StageStyle;
 
 
 
@@ -93,12 +94,18 @@ private FilteredList<Animal> filteredList;
 
 @FXML
 void learnMoreClicked(ActionEvent event) throws IOException  {
-    
-    Stage nouveauStage;
-        Parent root = FXMLLoader.load(getClass().getResource("LearnMore.fxml"));
-        nouveauStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        Scene scene = new Scene(root);
-        nouveauStage.setScene(scene);
+   try {
+            Parent root = FXMLLoader.load(getClass().getResource("LearnMore.fxml"));
+            Scene scene = new Scene(root);
+            Stage stage = new Stage(); 
+            stage.setTitle("Plus d'information");
+            stage.setScene(scene);
+            stage.initStyle(StageStyle.UTILITY);
+            stage.show();
+        } catch (IOException ex) {
+            System.out.print(ex);
+        }
+        
 }
 
     

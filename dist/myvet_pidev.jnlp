@@ -16,7 +16,7 @@
     <jar href="lib\json-20230227.jar" size="72591" download="eager" />
     <jar href="lib\mysql-connector-java-5.1.23-bin.jar" size="834126" download="eager" />
     <jar href="lib\okhttp-3.9.1.jar" size="406252" download="eager" />
-    <jar href="myvet_pidev.jar" size="401634" download="eager" />
+    <jar href="myvet_pidev.jar" size="401272" download="eager" />
   </resources>
   <applet-desc  width="800" height="600" main-class="com.javafx.main.NoJavaFXFallback"  name="myvet_pidev" >
     <param name="requiredFXVersion" value="8.0+"/>

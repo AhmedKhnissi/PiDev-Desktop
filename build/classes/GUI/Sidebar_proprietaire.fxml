@@ -8,7 +8,7 @@
 <AnchorPane id="AnchorPane" prefHeight="608.0" prefWidth="234.0" style="-fx-background-color: #1DD5E4;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.Sidebar_proprietaireController">
    <children>
       <Button layoutY="163.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="237.0" style="-fx-background-color: white;" text="MES RENDEZ_VOUS" />
-      <Button layoutY="214.0" mnemonicParsing="false" onAction="#mes_animaux" prefHeight="35.0" prefWidth="237.0" style="-fx-background-color: white;" text="MES ANIMAUX" />
+      <Button fx:id="anim" layoutY="214.0" mnemonicParsing="false" onAction="#mes_animaux" prefHeight="35.0" prefWidth="237.0" style="-fx-background-color: white;" text="MES ANIMAUX" />
       <Button layoutY="269.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="237.0" style="-fx-background-color: white;" text="SHOPPING" />
       <Button layoutX="3.0" layoutY="481.0" mnemonicParsing="false" onAction="#profile" prefHeight="35.0" prefWidth="234.0" style="-fx-background-color: white;" text="MODIFIER PROFILE" />
       <Button layoutY="533.0" mnemonicParsing="false" onAction="#logout" prefHeight="35.0" prefWidth="237.0" style="-fx-background-color: white;" text="DECONNECTER" />

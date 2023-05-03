@@ -10,7 +10,7 @@ TextField {
 }
 
 Button {
-    -fx-background-color: #4CAF50;
+    -fx-background-color: #4682B4;
     -fx-text-fill: #FFFFFF;
     -fx-font-weight: bold;
     -fx-pref-width: 120px; /* Decrease button width */
