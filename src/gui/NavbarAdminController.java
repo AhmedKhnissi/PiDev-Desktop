@@ -37,6 +37,10 @@ public class NavbarAdminController implements Initializable {
     private Button btnmagasin;
     @FXML
     private Button btndec;
+    @FXML
+    private Button reclamation;
+    @FXML
+    private Button pub;
 
     /**
      * Initializes the controller class.
@@ -119,6 +123,23 @@ public class NavbarAdminController implements Initializable {
                          try{
         Stage nouveauStage;
         Parent root = FXMLLoader.load(getClass().getResource("Login.fxml"));
+        nouveauStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        Scene scene = new Scene(root);
+        nouveauStage.setScene(scene);
+        }catch(IOException ex){
+          System.out.println("nooooooooooooooooooooooooooooooooooooooooooonnnnnnnnnnn");
+        }
+    }
+
+    @FXML
+    private void list_reclamation(ActionEvent event) {
+    }
+
+    @FXML
+    private void list_pub(ActionEvent event) {
+        try{
+        Stage nouveauStage;
+        Parent root = FXMLLoader.load(getClass().getResource("AffichageAdmin.fxml"));
         nouveauStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         Scene scene = new Scene(root);
         nouveauStage.setScene(scene);

@@ -4,6 +4,8 @@
  */
 package entities;
 
+import java.util.List;
+
 /**
  *
  * @author user
@@ -26,6 +28,10 @@ public class User {
    private Integer bloque;
    private Integer demande_acces;
    private String roles;
+   private List<Publication> publications;  
+   private List<Commentaire> commentaires;
+   private List<Animal> animals;  
+   private List<Produit> produits;
     public User() {
     }
     
@@ -190,6 +196,34 @@ public class User {
     public String toString() {
         return "User{" + "id=" + id + ", nom=" + nom + ", prenom=" + prenom + ", password=" + password + ", email=" + email + ", pays=" + pays + ", gouvernorat=" + gouvernorat + ", ville=" + ville + ", rue=" + rue + ", tel=" + tel + ", permistravail=" + permistravail + ", bloque=" + bloque + ", demande_acces=" + demande_acces + ", roles=" + roles + '}';
     }
+    
+    public void addAnimal(Animal animal) {
+        animals.add(animal);
+    }
+    
+    public List<Animal> getAnimals() {
+    return animals;
+} 
+     public void addPublication(Publication publication) {
+        publications.add(publication);
+    }
+    
+    public List<Publication> getPublications() {
+    return publications;
+} 
+     public void addCommentaireU(Commentaire commentaire) {
+        commentaires.add(commentaire);
+    }
+    public List<Commentaire> getCommentairesU() {
+    return commentaires;
+}
+     public void addProduit(Produit prod) {
+        produits.add(prod);
+    }
+    
+    public List<Produit> getProduit() {
+    return produits;
+} 
 
 
     

@@ -32,6 +32,13 @@ public class Sidebar_proprietaireController implements Initializable {
     private Button rdvprop;
      @FXML
     private Button animal;
+     @FXML
+    private Button rapport ;
+    @FXML
+    private Button pubp;
+    @FXML
+    private Button shopbtn;
+     
             
     /**
      * Initializes the controller class.
@@ -79,6 +86,23 @@ public class Sidebar_proprietaireController implements Initializable {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("Sidebar_proprietaire.fxml"));
         Parent root1 = loader.load();
         BorderPane borderPane = new BorderPane();
+        FXMLLoader loader1 = new FXMLLoader(getClass().getResource("AfficheListeAnimal.fxml"));
+        Parent root2 = loader1.load();
+        HBox hbox = new HBox(root1, new Pane(), root2);
+        hbox.setSpacing(20);
+
+        borderPane.setRight(hbox);
+
+        borderPane.setLeft(root1);
+
+        borderPane.setPadding(new Insets(10, 10, 30, 10));
+        rdvprop.getScene().setRoot(borderPane);
+    }
+    @FXML
+    private void afficherRapport(ActionEvent event) throws IOException{
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("Sidebar_proprietaire.fxml"));
+        Parent root1 = loader.load();
+        BorderPane borderPane = new BorderPane();
         FXMLLoader loader1 = new FXMLLoader(getClass().getResource("AfficherListeAnimal.fxml"));
         Parent root2 = loader1.load();
         HBox hbox = new HBox(root1, new Pane(), root2);
@@ -92,8 +116,59 @@ public class Sidebar_proprietaireController implements Initializable {
         rdvprop.getScene().setRoot(borderPane);
         
     }
+    
     @FXML
     private void logout(ActionEvent event) {
+    }
+
+    @FXML
+    private void blog(ActionEvent event) { 
+         try {
+        // Load the new FXML file
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("Sidebar_proprietaire.fxml"));
+            Parent root1 = loader.load();
+            BorderPane borderPane = new BorderPane();
+               
+            FXMLLoader loader1 = new FXMLLoader(getClass().getResource("AffichageUser.fxml"));
+            Parent root2 = loader1.load();
+            HBox hbox = new HBox(root1,new Pane(), root2);
+            hbox.setSpacing(20);
+
+            borderPane.setRight(hbox);
+            borderPane.setLeft(root1);
+            
+            borderPane.setPadding(new Insets(10, 10, 30, 10));
+            pubp.getScene().setRoot(borderPane);
+      
+
+    } catch (IOException ex) {
+        System.out.print("err");
+    }
+    }
+
+    @FXML
+    private void shopp(ActionEvent event) {
+        try {
+        // Load the new FXML file
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("Sidebar_proprietaire.fxml"));
+            Parent root1 = loader.load();
+            BorderPane borderPane = new BorderPane();
+               
+            FXMLLoader loader1 = new FXMLLoader(getClass().getResource("DetailleProduit.fxml"));
+            Parent root2 = loader1.load();
+            HBox hbox = new HBox(root1,new Pane(), root2);
+            hbox.setSpacing(20);
+
+            borderPane.setRight(hbox);
+            borderPane.setLeft(root1);
+            
+            borderPane.setPadding(new Insets(10, 10, 30, 10));
+            shopbtn.getScene().setRoot(borderPane);
+      
+
+    } catch (IOException ex) {
+        System.out.print("err");
+    }
     }
     
 }

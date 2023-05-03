@@ -103,7 +103,7 @@ public class CalendrierEController implements Initializable {
         
         
         try {
-            BackgroundFill backgroundFill = new BackgroundFill(Color.WHITE, null, null);
+            BackgroundFill backgroundFill = new BackgroundFill(null, null, null);
             Background background = new Background(backgroundFill);
             // Créer une liste de boutons pour chaque jour du mois en cours
             List<AnchorPane> buttons = new ArrayList<>();

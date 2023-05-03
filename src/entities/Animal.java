@@ -13,6 +13,8 @@ public class Animal {
     private int id,age;
     private float poids;
     private String nom;
+    private User user;
+    private int id_user;
         private int    categories_animal_id,animals_id;
 
     public Animal() {
@@ -24,6 +26,22 @@ public class Animal {
         this.poids = poids;
         this.categories_animal_id = categories_animal_id;
         this.animals_id = animals_id;
+    }
+     public Animal(int age, String nom, float poids) {
+        this.age = age;
+        this.nom = nom;
+        this.poids = poids;
+   
+    }
+
+   
+
+    public Animal(String nom, int age, float poids) {
+        this.nom = nom;
+        this.age = age;
+        this.poids = poids;
+        
+        
     }
 
     public Animal(int id, int age, String nom, float poids, int categories_animal_id, int animals_id) {
@@ -82,10 +100,29 @@ public class Animal {
     public void setAnimals_id(int animals_id) {
         this.animals_id = animals_id;
     }
+    
+     public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+    
+    
+    public int getId_user() {
+        return id_user;
+    }
+
+    public void setId_user(int id_user) {
+        this.id_user = id_user;
+    }
 
     @Override
     public String toString() {
-        return "Animal{" + "id=" + id + ", age=" + age + ", nom=" + nom + ", poids=" + poids + ", categories_animal_id=" + categories_animal_id + ", animals_id=" + animals_id + '}';
+        return "Animal{" + "id=" + id + ", age=" + age + ", poids=" + poids + ", nom=" + nom + ", user=" + user + ", id_user=" + id_user + ", categories_animal_id=" + categories_animal_id + ", animals_id=" + animals_id + '}';
     }
+
+    
         
 }
