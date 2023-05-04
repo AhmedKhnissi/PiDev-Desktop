@@ -6,8 +6,10 @@
 package test;
 
 
+import entities.Adopt;
 import entities.Reclamation;
 import java.sql.SQLException;
+import services.AdoptService;
 
 import services.RapportMedicalService;
 import services.ReclamationService;
@@ -23,16 +25,18 @@ public class Test {
     
     
     public static void main(String[] args) {
-       
+ 
         try {
             
-            ReclamationService ps = new ReclamationService();
+            AdoptService ps = new AdoptService();
            // System.out.println(rvs.recupererRdvByVeto(1));
             //System.out.println(ps.recuperer());
-            Reclamation  t = new Reclamation(22,"mohsen", "jame@erlgj", "sekopu", "toujaa", "non traité");
+           // Adopt  t = new Adopt(9,"mohsen", "femelle",5,t.isSterelisation(),t.isVaccination(), "pas image","gentille");
            // rvs.modifier(t);
-           ps.modifier(t);
-           System.out.println(); 
+           //ps.ajouter(t);
+           //System.out.println(ps.recuperer()); 
+            Adopt a = new Adopt(2, "zab", "zab", "zab", true, true);
+            ps.ajouter(a);
             
         } catch (SQLException ex) {
             System.out.println(ex.getMessage());

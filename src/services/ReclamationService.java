@@ -12,13 +12,16 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
+import org.apache.http.conn.ConnectionRequest;
 import utils.MyDB;
+import utils.Statics;
 /**
  *
  * @author Soulaima_matmati
  */
 public class ReclamationService implements IService<Reclamation> {
 Connection cnx;
+    
 
     public ReclamationService() {
         cnx = MyDB.getInstance().getCnx();
@@ -70,5 +73,5 @@ String req = "INSERT INTO reclamation (id, name, email,subject,message,etat) VAL
     }
     return rapport;
     }
-    
+   
 }

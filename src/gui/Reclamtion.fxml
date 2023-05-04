@@ -7,7 +7,7 @@
 
 <AnchorPane id="animalPane" fx:id="animalPane" prefHeight="411.0" prefWidth="766.0" style="-fx-background-radius: 10; -fx-border-color: #4682B4; -fx-border-radius: 10; -fx-background-color: #ffffff;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.ReclamationController">
    <children>
-      <Button fx:id="Annuler" layoutX="468.0" layoutY="319.0" mnemonicParsing="false" onAction="#AnnulerReclamation" prefHeight="32.0" prefWidth="238.0" style="-fx-background-color: #4682B4;" text="Annuler Reclamation" textFill="WHITE">
+      <Button fx:id="Annuler" layoutX="468.0" layoutY="319.0" mnemonicParsing="false" onAction="#AnnulerReclamation" prefHeight="32.0" prefWidth="181.0" style="-fx-background-color: #4682B4;" text="Annuler Reclamation" textFill="WHITE">
          <font>
             <Font name="System Bold" size="12.0" />
          </font></Button>
@@ -44,6 +44,7 @@
             <Font name="System Bold" size="14.0" />
          </font>
       </Label>
+      <Label layoutX="681.0" layoutY="380.0" prefHeight="17.0" prefWidth="0.0" />
          
    </children>
 </AnchorPane>

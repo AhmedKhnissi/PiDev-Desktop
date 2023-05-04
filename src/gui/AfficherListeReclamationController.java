@@ -13,6 +13,8 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -27,6 +29,12 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 import services.ReclamationService;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyCodeCombination;
+import javafx.scene.input.KeyCombination;
+import javafx.scene.layout.VBox;
+
+
 
 /**
  * FXML Controller class
@@ -41,14 +49,44 @@ ReclamationService rs = new ReclamationService();
     private ScrollPane scrollPane;
     @FXML
     private GridPane grid;
-
+    
+    
+    @FXML
+    private AnchorPane anchorPane;
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
-         
+         //Create a KeyCodeCombination for the "N" shortcut
+        KeyCodeCombination rShortcut = new KeyCodeCombination(KeyCode.R, KeyCombination.CONTROL_DOWN);
+        KeyCodeCombination cShortcut = new KeyCodeCombination(KeyCode.C);
+
+        // Add a listener to the list view to detect when the "N" key is pressed
+        anchorPane.setOnKeyPressed(keyEvent -> {
+        if (rShortcut.match(keyEvent)) {
+                    Stage nouveauStage;
+        Parent root = null;
+            try {
+                root = FXMLLoader.load(getClass().getResource("AjouterReclamation.fxml"));
+            } catch (IOException ex) {
+                Logger.getLogger(AfficherListeReclamationController.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        nouveauStage = (Stage) ((Node) keyEvent.getSource()).getScene().getWindow();
+
+Scene scene = new Scene(root, 1300, 1000);
+        nouveauStage.setScene(scene);
+            
+        keyEvent.consume(); // Prevent the event from being processed further
+    };
+    if(cShortcut.match(keyEvent)){
+        System.out.println("test");
+    }
+});
+
+
+
         List<Reclamation> reclamation =new ArrayList<>();
         try {
             
@@ -57,6 +95,7 @@ ReclamationService rs = new ReclamationService();
             int row = 1;
             int column = 0;
             for (int i = 0; i < reclamation.size(); i++) {
+                System.out.println("tmarech");
                 // Chargement dynamique d'une interface
                 FXMLLoader loader = new FXMLLoader(getClass().getResource("Reclamtion.fxml"));
                 AnchorPane pane = loader.load();
@@ -88,6 +127,12 @@ ReclamationService rs = new ReclamationService();
         nouveauStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         Scene scene = new Scene(root, 1300, 1000);
         nouveauStage.setScene(scene);
+    }
+    
+    private void navaigateThroughShortcut() throws IOException{
+                
+
+
     }
     
 }

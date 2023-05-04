@@ -57,6 +57,7 @@ public class ReclamationController implements Initializable {
     
     ReclamationService rs = new ReclamationService();
         Reclamation pe = new Reclamation();
+    
          public void setReclamation(Reclamation c) {
     
         
@@ -79,7 +80,6 @@ public class ReclamationController implements Initializable {
         // TODO
         
     }    
-
     @FXML
     private void AnnulerReclamation(ActionEvent event) throws IOException {
               
@@ -131,7 +131,7 @@ public class ReclamationController implements Initializable {
     alert.setContentText("Cette Reclamation ne peut pas être annulée !");
      Optional<ButtonType> result = alert.showAndWait();}
     }
-
+ 
     @FXML
     private void ModifierReclamation(ActionEvent event) {
         if ("non_traitee".equals(pe.getEtat()) || "en_cours".equals(pe.getEtat())){
@@ -177,5 +177,6 @@ public class ReclamationController implements Initializable {
     alert.setContentText("Cette Reclamation ne peut pas être modifié !");
      Optional<ButtonType> result = alert.showAndWait();}
     }
-    
+
+  
 }

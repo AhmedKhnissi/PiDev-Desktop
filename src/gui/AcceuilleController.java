@@ -59,6 +59,14 @@ public class AcceuilleController implements Initializable {
         Scene scene = new Scene(root, 1300, 1000);
         nouveauStage.setScene(scene);
     }
+     @FXML
+    private void  afficherAdoption(ActionEvent event) throws IOException {
+        Stage nouveauStage;
+        Parent root = FXMLLoader.load(getClass().getResource("AfficherListeAdoption.fxml"));
+        nouveauStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        Scene scene = new Scene(root, 1300, 1000);
+        nouveauStage.setScene(scene);
+    }
     
    
 }
