@@ -4,10 +4,18 @@
  * and open the template in the editor.
  */
 package GUI;
+
 import entities.Reclamation;
+import java.awt.Desktop;
+
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.net.URL;
+import java.nio.file.Paths;
+import java.nio.file.Path;
 import java.sql.SQLException;
+import java.util.List;
 import java.util.Optional;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
@@ -25,6 +33,14 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import services.ReclamationService;
+import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.ss.usermodel.Sheet;
+import org.apache.poi.ss.usermodel.Workbook;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+
+
+
+
 
 /**
  * FXML Controller class
@@ -49,6 +65,10 @@ public class ReclamationController implements Initializable {
     private Label etat;
     @FXML
     private Button Modifier;
+    
+    @FXML
+    private Button excel_button ; 
+    
 
     /**
      * Initializes the controller class.
@@ -176,6 +196,51 @@ public class ReclamationController implements Initializable {
     alert.setHeaderText(null);
     alert.setContentText("Cette Reclamation ne peut pas être modifié !");
      Optional<ButtonType> result = alert.showAndWait();}
+    }
+
+    @FXML
+    private void handleDownloadExcel(ActionEvent event) throws SQLException, IOException {
+        // Generate the Excel file and save it to disk
+        String filename = "produits.xlsx";
+        Path filepath = Paths.get(System.getProperty("user.home"), filename);
+        generateExcelFile(filepath.toString());
+
+        // Download the file using the user's default browser
+        Desktop.getDesktop().open(filepath.toFile());
+    }
+
+    private void generateExcelFile(String filename) throws SQLException {
+        // Generate the Excel file and save it to disk using a library like Apache POI
+        // Here's an example of how to generate a simple Excel file with three columns (ID, Name and Quantity):
+        Workbook workbook = new XSSFWorkbook();
+        Sheet sheet = workbook.createSheet("Produits");
+        int rowNum = 0;
+        Row headerRow = sheet.createRow(rowNum++);
+        headerRow.createCell(0).setCellValue("id");
+        headerRow.createCell(1).setCellValue("Name");
+        headerRow.createCell(2).setCellValue("Email");
+        headerRow.createCell(3).setCellValue("Subject");
+        headerRow.createCell(4).setCellValue("Message");
+headerRow.createCell(5).setCellValue("etat");
+
+
+       // produitcrud produitService = new produitcrud();
+        for (Reclamation reclamation : rs.recuperer()) {
+            Row row = sheet.createRow(rowNum++);
+            row.createCell(0).setCellValue(reclamation.getId());
+            row.createCell(1).setCellValue(reclamation.getName());
+            row.createCell(2).setCellValue(reclamation.getEmail());
+            row.createCell(3).setCellValue(reclamation.getSubject());
+            row.createCell(4).setCellValue(reclamation.getMessage());
+             row.createCell(5).setCellValue(reclamation.getEtat());
+        }
+        try {
+            FileOutputStream outputStream = new FileOutputStream(filename);
+            workbook.write(outputStream);
+            workbook.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
   

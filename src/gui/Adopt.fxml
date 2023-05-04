@@ -51,7 +51,7 @@
             <Font name="System Bold" size="14.0" />
          </font>
       </Label>
-      <ImageView fx:id="image" fitHeight="95.0" fitWidth="164.0" layoutX="18.0" layoutY="12.0" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fx:id="image" fitHeight="89.0" fitWidth="130.0" layoutX="43.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true" />
          
    </children>
 </AnchorPane>

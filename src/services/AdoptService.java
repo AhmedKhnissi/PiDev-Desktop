@@ -31,7 +31,7 @@ public class AdoptService implements IService<Adopt> {
     public void ajouter(Adopt t) throws SQLException {
       
         
-        String req = "INSERT INTO adopt (id, nom, gender, age, sterelisation, vaccination, informations) VALUES(?,?,?,?,?,?,?)";
+        String req = "INSERT INTO adopt (id, nom, gender, age, sterelisation, vaccination,image, informations) VALUES(?,?,?,?,?,?,?,?)";
         PreparedStatement ps = cnx.prepareStatement(req);
         ps.setInt(1, t.getId() );
         ps.setString(2, t.getNom());
@@ -39,22 +39,24 @@ public class AdoptService implements IService<Adopt> {
         ps.setInt(4, t.getAge());
         ps.setBoolean(5,t.isSterelisation());
         ps.setBoolean(6, t.isVaccination());
-        ps.setString(7, t.getInformations());
+        ps.setString(7, t.getImage());
+        ps.setString(8, t.getInformations());
         ps.executeUpdate();
         
     }
 
     @Override
     public void modifier(Adopt t) throws SQLException {
-         String req = "UPDATE adopt SET nom = ?,gender = ?,age = ?,sterelisation = ?,vaccination= ?,informations= ? where id = ?";
+         String req = "UPDATE adopt SET nom = ?,gender = ?,age = ?,sterelisation = ?,vaccination= ?,image=?,informations= ? where id = ?";
         PreparedStatement ps = cnx.prepareStatement(req);
         ps.setString(1, t.getNom());
         ps.setString(2, t.getGender());
         ps.setInt(3, t.getAge());
         ps.setBoolean(4, t.isSterelisation());
         ps.setBoolean(5, t.isVaccination());
-        ps.setString(6, t.getInformations());
-        ps.setInt(7,t.getId());
+        ps.setString(6, t.getImage());
+        ps.setString(7, t.getInformations());
+        ps.setInt(8,t.getId());
         ps.executeUpdate();
         System.out.println("Adoption modifié avec succés");
         
@@ -101,10 +103,10 @@ public class AdoptService implements IService<Adopt> {
         rm.setId(rs.getInt("id"));
         rm.setNom(rs.getString("nom"));
         rm.setGender(rs.getString("gender"));
-         rm.setAge(rs.getInt("age"));
+        rm.setAge(rs.getInt("age"));
         rm.setSterelisation(rs.getBoolean("sterelisation"));
         rm.setVaccination(rs.getBoolean("vaccination"));
-        
+        rm.setImage(rs.getString("image"));
         rm.setInformations(rs.getString("informations"));
         rapport.add(rm);
     }

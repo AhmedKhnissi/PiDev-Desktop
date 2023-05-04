@@ -6,6 +6,7 @@
 package GUI;
 
 import entities.Adopt;
+import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
@@ -20,6 +21,7 @@ import javafx.geometry.Insets;
 import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
@@ -76,6 +78,7 @@ public class AdoptController implements Initializable {
     vaccination.setText("Oui");}
          else {sterelisation.setText("Non");}
     
+     
   
     informations.setText(c.getInformations());
 
@@ -86,7 +89,7 @@ public class AdoptController implements Initializable {
     pe.setAge(c.getAge());
     pe.setSterelisation(c.isSterelisation());
     pe.setVaccination(c.isVaccination());
- 
+    pe.setImage(c.getImage());
     pe.setInformations(c.getInformations());
         }
     @Override

@@ -26,21 +26,15 @@ public class Test {
     
     public static void main(String[] args) {
  
-        try {
-            
-            AdoptService ps = new AdoptService();
-           // System.out.println(rvs.recupererRdvByVeto(1));
-            //System.out.println(ps.recuperer());
-           // Adopt  t = new Adopt(9,"mohsen", "femelle",5,t.isSterelisation(),t.isVaccination(), "pas image","gentille");
-           // rvs.modifier(t);
-           //ps.ajouter(t);
-           //System.out.println(ps.recuperer()); 
-            Adopt a = new Adopt(2, "zab", "zab", "zab", true, true);
-            ps.ajouter(a);
-            
-        } catch (SQLException ex) {
-            System.out.println(ex.getMessage());
-        }
+        AdoptService ps = new AdoptService();
+        // System.out.println(rvs.recupererRdvByVeto(1));
+        //System.out.println(ps.recuperer());
+        // Adopt  t = new Adopt(9,"mohsen", "femelle",5,t.isSterelisation(),t.isVaccination(), "pas image","gentille");
+        // rvs.modifier(t);
+        //ps.ajouter(t);
+        //System.out.println(ps.recuperer());
+        //Adopt a = new Adopt(2, "zab", "zab", "zab", true, true);
+        //ps.ajouter(a);
     }
     
 }

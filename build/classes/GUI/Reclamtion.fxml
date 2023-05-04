@@ -45,6 +45,7 @@
          </font>
       </Label>
       <Label layoutX="681.0" layoutY="380.0" prefHeight="17.0" prefWidth="0.0" />
+      <Button fx:id="excel_button" layoutX="326.0" layoutY="323.0" mnemonicParsing="false" onAction="#handleDownloadExcel" text="excel" />
          
    </children>
 </AnchorPane>

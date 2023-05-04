@@ -15,7 +15,9 @@ import java.util.List;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import java.util.stream.Collectors;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -25,6 +27,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ScrollPane;
+import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
@@ -33,6 +36,7 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyCodeCombination;
 import javafx.scene.input.KeyCombination;
 import javafx.scene.layout.VBox;
+import javafx.scene.input.KeyEvent;
 
 
 
@@ -49,6 +53,8 @@ ReclamationService rs = new ReclamationService();
     private ScrollPane scrollPane;
     @FXML
     private GridPane grid;
+    @FXML
+    private TextField barreRecherche;
     
     
     @FXML
@@ -130,9 +136,54 @@ Scene scene = new Scene(root, 1300, 1000);
     }
     
     private void navaigateThroughShortcut() throws IOException{
-                
-
-
+               
     }
+     @FXML
+    private void BrreRecherche(KeyEvent event) throws SQLException{
+        String recherche = barreRecherche.getText();
+        List<Reclamation> rec = null;
+        try {
+            rec = rs.recuperer();
+          //  System.out.println("hedhi liste de  rendez vous  li recuperineha : " + rdv );
+        } catch (SQLException ex) {
+            Logger.getLogger(AfficherListeReclamationController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+// filtrer les rendez vous qui correspondent aux critères de recherche
+        List<Reclamation> resultatsRecherche = rec.stream()
+                .filter(s -> s.getName().toLowerCase().startsWith(recherche.toLowerCase()))
+                .collect(Collectors.toList());
+        System.out.println(resultatsRecherche.size());
+        grid.getChildren().clear(); // Effacer tous les enfants du GridPane
+        int row = 1;
+        int column = 0;
+        for (int i = 0; i < resultatsRecherche.size(); i++) {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("Reclamtion.fxml"));
+            AnchorPane pane = null;
+            try {
+                pane = loader.load();
+            } catch (IOException ex) {
+                Logger.getLogger(AfficherListeReclamationController.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            GUI.ReclamationController controller = loader.getController();
+            controller.setReclamation(resultatsRecherche.get(i));
+            if (column > 0) {
+                column = 0;
+                row++;
+            }
+            grid.add(pane, column++, row);
+            GridPane.setMargin(pane, new Insets(10));
+        }
+        barreRecherche.setOnKeyReleased(new EventHandler<KeyEvent>() {
+            @Override
+            public void handle(KeyEvent event) {
+                try {
+                    BrreRecherche(event); //Logger.getLogger(AfficherChauffeurController.class.getName()).log(Level.SEVERE, null, ex);
+                } catch (SQLException ex) {
+                    Logger.getLogger(AfficherListeReclamationController.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+
+        });
     
+}
 }

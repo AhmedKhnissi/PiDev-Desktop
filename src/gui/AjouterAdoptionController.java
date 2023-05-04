@@ -11,7 +11,9 @@ import java.awt.AWTException;
 import java.awt.SystemTray;
 import java.awt.TrayIcon;
 import java.awt.image.BufferedImage;
+import java.io.File;
 import java.io.IOException;
+import java.net.MalformedURLException;
 import java.net.URL;
 import java.sql.SQLException;
 import java.util.ResourceBundle;
@@ -32,10 +34,13 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.DragEvent;
+import javafx.scene.input.Dragboard;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
+import javafx.stage.FileChooser;
 import services.AdoptService;
 
 /**
@@ -44,7 +49,7 @@ import services.AdoptService;
  * @author Soulaima_matmati
  */
 public class AjouterAdoptionController implements Initializable {
-
+    private String path;
     @FXML
     private Button retourbtn;
     @FXML
@@ -61,6 +66,9 @@ public class AjouterAdoptionController implements Initializable {
     private CheckBox sterilisation;
     @FXML
     private CheckBox vaccination;
+    @FXML
+    private ImageView image;
+    File selectedFile;
     
 
     /**
@@ -119,14 +127,23 @@ public class AjouterAdoptionController implements Initializable {
             
             
               int age = Integer.parseInt(ageid.getText());
-        if (age == 0) {
-    Alert alert = new Alert(Alert.AlertType.ERROR);
+              if (ageid.getText().trim().length() == 2) {
+            int nbChar = 0;
+            for (int i = 1; i < ageid.getText().trim().length(); i++) {
+                char ch = ageid.getText().charAt(i);
+                if (Character.isLetter(ch)) {
+                    nbChar++;
+                }
+            }
+             Alert alert = new Alert(Alert.AlertType.ERROR);
     alert.setTitle("Erreur de saisie");
     alert.setHeaderText("La case 'age' est vide !");
-    alert.setContentText("Veuillez entrer un âge valide.");
+    alert.setContentText("Age doit avoir 2 chiffres et ne doit pas contenir des caracteres \n");
     alert.showAndWait();
-    return;
-} 
+    return; 
+              
+              }
+        
           
      
               
@@ -196,7 +213,56 @@ public class AjouterAdoptionController implements Initializable {
     }
 
     @FXML
-    private void uploadimage(MouseEvent event) {
+    private void uploadimage(MouseEvent event) throws MalformedURLException {
+        FileChooser fc = new FileChooser();
+        fc.setInitialDirectory(new File(System.getProperty("user.home") + "\\Desktop"));
+        fc.setTitle("Veuillez choisir l'image");
+        fc.getExtensionFilters().addAll(
+                new FileChooser.ExtensionFilter("Image", "*.jpg", "*.png"),
+                new FileChooser.ExtensionFilter("PNG", "*.png"),
+                new FileChooser.ExtensionFilter("JPG", "*.jpg")
+        );
+        selectedFile = fc.showOpenDialog(null);
+
+        if (selectedFile != null) {
+
+            path = selectedFile.getName();
+//                path = selectedFile.toURI().toURL().toExternalForm();
+            image.setImage(new Image(selectedFile.toURI().toURL().toString()));
+            image.setFitHeight(150);
+            image.setFitWidth(250);
+           
+
+        }
     }
     
+            public void handle(DragEvent event) {
+                Dragboard db = event.getDragboard();
+                boolean success = false;
+                if (db.hasFiles()) {
+                    success = true;
+                    path = null;
+                    for (File file : db.getFiles()) {
+                        path = file.getName();
+                        selectedFile = new File(file.getAbsolutePath());
+                        System.out.println("Drag and drop file done and path=" + file.getAbsolutePath());//file.getAbsolutePath()="C:\Users\X\Desktop\ScreenShot.6.png"
+                        image.setImage(new Image("file:" + file.getAbsolutePath()));
+//                        screenshotView.setFitHeight(150);
+//                        screenshotView.setFitWidth(250);
+                        
+                    }
+                }
+                event.setDropCompleted(success);
+                event.consume();
+            }
+    
+         /*FileChooser fileChooser = new FileChooser();
+    fileChooser.setTitle("Choisir une image");
+    fileChooser.getExtensionFilters().addAll(
+            new FileChooser.ExtensionFilter("Images", "*.png", "*.jpg", "*.gif"));
+    File selectedFile = fileChooser.showOpenDialog(null);
+    if (selectedFile != null) {
+        Image image = new Image(selectedFile.toURI().toString());
+        image.setImage(image);
+    }*/
 }

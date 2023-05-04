@@ -3,18 +3,12 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/Soulaima_matmati/Downloads/PiDev-Desktop-AhmedKhnissi/PiDev-Desktop-AhmedKhnissi/src/gui/AjouterRapportController.java</file>
-            <file>file:/C:/Users/Soulaima_matmati/Downloads/PiDev-Desktop-AhmedKhnissi/PiDev-Desktop-AhmedKhnissi/src/gui/AfficherListeReclamtion.fxml</file>
-            <file>file:/C:/Users/Soulaima_matmati/Downloads/PiDev-Desktop-AhmedKhnissi/PiDev-Desktop-AhmedKhnissi/src/gui/ModifierRdvPropController.java</file>
-            <file>file:/C:/Users/Soulaima_matmati/Downloads/PiDev-Desktop-AhmedKhnissi/PiDev-Desktop-AhmedKhnissi/src/gui/AfficherListeAnimalController.java</file>
-            <file>file:/C:/Users/Soulaima_matmati/Downloads/PiDev-Desktop-AhmedKhnissi/PiDev-Desktop-AhmedKhnissi/src/gui/ModifierRdvProp.fxml</file>
-            <file>file:/C:/Users/Soulaima_matmati/Downloads/PiDev-Desktop-AhmedKhnissi/PiDev-Desktop-AhmedKhnissi/src/gui/AjouterReclamation.fxml</file>
-            <file>file:/C:/Users/Soulaima_matmati/Downloads/PiDev-Desktop-AhmedKhnissi/PiDev-Desktop-AhmedKhnissi/src/gui/AcceuilleController.java</file>
-            <file>file:/C:/Users/Soulaima_matmati/Downloads/PiDev-Desktop-AhmedKhnissi/PiDev-Desktop-AhmedKhnissi/src/gui/AjouterReclamationController.java</file>
-            <file>file:/C:/Users/Soulaima_matmati/Downloads/PiDev-Desktop-AhmedKhnissi/PiDev-Desktop-AhmedKhnissi/src/gui/ModifierReclamationController.java</file>
-            <file>file:/C:/Users/Soulaima_matmati/Downloads/PiDev-Desktop-AhmedKhnissi/PiDev-Desktop-AhmedKhnissi/src/gui/ReclamationController.java</file>
+            <file>file:/C:/Users/Soulaima_matmati/Downloads/PiDev-Desktop-AhmedKhnissi/PiDev-Desktop-AhmedKhnissi/src/entities/Adopt.java</file>
+            <file>file:/C:/Users/Soulaima_matmati/Downloads/PiDev-Desktop-AhmedKhnissi/PiDev-Desktop-AhmedKhnissi/src/services/ReclamationService.java</file>
             <file>file:/C:/Users/Soulaima_matmati/Downloads/PiDev-Desktop-AhmedKhnissi/PiDev-Desktop-AhmedKhnissi/src/gui/AfficherListeReclamationController.java</file>
-            <file>file:/C:/Users/Soulaima_matmati/Downloads/PiDev-Desktop-AhmedKhnissi/PiDev-Desktop-AhmedKhnissi/src/gui/ModifierReclamation.fxml</file>
+            <file>file:/C:/Users/Soulaima_matmati/Downloads/PiDev-Desktop-AhmedKhnissi/PiDev-Desktop-AhmedKhnissi/src/entities/Reclamation.java</file>
+            <file>file:/C:/Users/Soulaima_matmati/Downloads/PiDev-Desktop-AhmedKhnissi/PiDev-Desktop-AhmedKhnissi/src/gui/ReclamationController.java</file>
+            <file>file:/C:/Users/Soulaima_matmati/Downloads/PiDev-Desktop-AhmedKhnissi/PiDev-Desktop-AhmedKhnissi/src/gui/Reclamtion.fxml</file>
         </group>
     </open-files>
 </project-private>
