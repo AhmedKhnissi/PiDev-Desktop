@@ -27,6 +27,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
@@ -174,7 +175,9 @@ iv2.setPreserveRatio(true);
     VBox vBox = new VBox();
     Label labelNom = new Label(nom);
     Label labelPrix = new Label(String.format("%.2f €", prix));
-    vBox.getChildren().addAll(iv2, labelNom, labelPrix);
+    Button commande=new Button("commander");
+    commande.setOnAction(event -> envoyer());
+    vBox.getChildren().addAll(iv2, labelNom, labelPrix,commande);
     vBox.setAlignment(Pos.CENTER);
     vBox.setSpacing(10);
     vBox.setPadding(new Insets(10));
@@ -192,9 +195,9 @@ iv2.setPreserveRatio(true);
 }
 }
 
-@FXML
 
-public void envoyer(ActionEvent event) {
+
+public void envoyer() {
     
 // Etape 1 : Création de la session
 Properties props = new Properties();
@@ -230,7 +233,12 @@ message.setText("votre commande est en cours de traitement  ");
             
         });
         mailThread.start();
-System.out.println("Message_envoye");
+             System.out.println("Message_envoye");
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Commande");
+            alert.setHeaderText(null);
+            alert.setContentText(" votre commande est en cours de traitement ");
+            alert.showAndWait();
 } catch (MessagingException e) {
 throw new RuntimeException(e);
 } }}
