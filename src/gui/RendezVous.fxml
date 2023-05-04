@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane id="AnchorPane" fx:id="rdvLignes" prefHeight="324.0" prefWidth="809.0" style="-fx-background-radius: 10; -fx-border-color: #4682B4; -fx-border-radius: 10; -fx-background-color: #ffffff;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.RendezVousController">
+     <children>
+         <Label layoutX="36.0" layoutY="25.0" prefHeight="34.0" prefWidth="192.0" text="Nom Animal :" textFill="STEELBLUE">
+         <font>
+            <Font name="System Bold" size="14.0" />
+         </font></Label>
+      <Label fx:id="datelabel" layoutX="436.0" layoutY="188.0" prefHeight="42.0" prefWidth="204.0" style="-fx-background-radius: 10; -fx-border-color: #4682B4; -fx-border-radius: 10; -fx-background-color: #ffffff;" text="Label" />
+      <Label fx:id="heurelabel" layoutX="142.0" layoutY="188.0" prefHeight="42.0" prefWidth="204.0" style="-fx-background-radius: 10; -fx-border-color: #4682B4; -fx-border-radius: 10; -fx-background-color: #ffffff;" text="Label" />
+      <Label fx:id="racelabel" layoutX="274.0" layoutY="72.0" prefHeight="42.0" prefWidth="204.0" style="-fx-background-radius: 10; -fx-border-color: #4682B4; -fx-border-radius: 10; -fx-background-color: #ffffff;" text="Label" />
+      <Label fx:id="nomlabel" layoutX="30.0" layoutY="72.0" prefHeight="42.0" prefWidth="204.0" style="-fx-background-radius: 10; -fx-border-color: #4682B4; -fx-border-radius: 10; -fx-background-color: #ffffff;" text="Label" />
+      
+      
+      <Button fx:id="modifierbutton" layoutX="153.0" layoutY="264.0" mnemonicParsing="false" onAction="#modifierRdv" prefHeight="34.0" prefWidth="183.0" style="-fx-background-color: #4682B4;" text="Modifier Rendez-Vous " textFill="WHITE">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font></Button>
+      <Button fx:id="supprimerButton" layoutX="466.0" layoutY="264.0" mnemonicParsing="false" onAction="#supprimerRdv" prefHeight="34.0" prefWidth="183.0" style="-fx-background-color: #4682B4;" text="Annuler Rendez-Vous" textFill="WHITE">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font></Button>
+      <Label layoutX="274.0" layoutY="25.0" prefHeight="34.0" prefWidth="192.0" text="Race Animal :" textFill="STEELBLUE">
+         <font>
+            <Font name="System Bold" size="14.0" />
+         </font></Label>
+      <Label layoutX="142.0" layoutY="149.0" prefHeight="34.0" prefWidth="192.0" text="Date Rendez-Vous : " textFill="STEELBLUE">
+         <font>
+            <Font name="System Bold" size="14.0" />
+         </font></Label>
+      <Button fx:id="modifierbuttonveto" layoutX="153.0" layoutY="264.0" mnemonicParsing="false" onAction="#modifierVetoRdv" prefHeight="34.0" prefWidth="183.0" style="-fx-background-color: #4682B4;" text="Modifier Rendez-Vous " textFill="WHITE">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font></Button>
+      <Label layoutX="566.0" layoutY="25.0" prefHeight="34.0" prefWidth="192.0" text="Decision :" textFill="STEELBLUE">
+         <font>
+            <Font name="System Bold" size="14.0" />
+         </font></Label>
+      <Label fx:id="decisionlabel" layoutX="560.0" layoutY="72.0" prefHeight="42.0" prefWidth="204.0" style="-fx-background-radius: 10; -fx-border-color: #4682B4; -fx-border-radius: 10; -fx-background-color: #ffffff;" text="Label" />
+      <Label layoutX="436.0" layoutY="149.0" prefHeight="34.0" prefWidth="192.0" text="Heure Rendez-Vous : " textFill="STEELBLUE">
+         <font>
+            <Font name="System Bold" size="14.0" />
+         </font>
+      </Label>
+      <Label layoutX="362.0" layoutY="302.0" />
+      <Label layoutX="771.0" layoutY="180.0" prefHeight="17.0" prefWidth="34.0" />
+   </children>
+</AnchorPane>

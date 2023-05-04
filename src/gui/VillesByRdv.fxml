@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane id="AnchorPane" prefHeight="934.0" prefWidth="1500.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.VillesByRdvController">
+    <children>
+        <AnchorPane layoutX="281.0" prefHeight="400.0" prefWidth="1005.0" AnchorPane.bottomAnchor="641.0" AnchorPane.leftAnchor="281.0" AnchorPane.rightAnchor="319.0" AnchorPane.topAnchor="0.0">
+         <children>
+                   <fx:include layoutY="200.0" prefHeight="1000.0" prefWidth="1500.0" source="Statistiques.fxml" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="200.0" AnchorPane.rightAnchor="0.40000000000009095" AnchorPane.topAnchor="200.0" />
+         </children>
+      </AnchorPane>
+      <AnchorPane layoutX="-37.0" prefHeight="162.0" prefWidth="1642.0" style="-fx-background-color: #4682B4;" AnchorPane.leftAnchor="-37.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="-8.0">
+         <children>
+            <Label layoutX="344.0" layoutY="59.0" text="Voici Les Statistiques Des Villes Qui Ont Plus De Rendez-Vous !" textAlignment="CENTER" textFill="WHITE">
+               <font>
+                  <Font name="System Bold Italic" size="30.0" />
+               </font>
+            </Label>
+         </children>
+      </AnchorPane>
+    </children>
+</AnchorPane>

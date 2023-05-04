@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.FlowPane?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" stylesheets="@style.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.PanierController">
+    <children>
+        <FlowPane fx:id="flowPane" layoutX="51.0" layoutY="65.0" prefHeight="335.0" prefWidth="498.0" />
+        <Button fx:id="viderPanierButton" layoutX="40.0" layoutY="14.0" mnemonicParsing="false" onAction="#viderPanier" text="Vider le panier" />
+        <Button fx:id="commanderButton" layoutX="469.0" layoutY="14.0" mnemonicParsing="false" onAction="#envoyer" text="Commander" />
+    </children>
+</AnchorPane>

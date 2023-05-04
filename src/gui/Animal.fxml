@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane id="animalPane" fx:id="animalPane" prefHeight="301.0" prefWidth="787.0" style="-fx-background-radius: 10; -fx-border-color: #4682B4; -fx-border-radius: 10; -fx-background-color: #ffffff;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.AnimalController">
+   <children>
+      <Button fx:id="afficherRm" layoutX="529.0" layoutY="249.0" mnemonicParsing="false" onAction="#afficherRmAnimal" prefHeight="32.0" prefWidth="120.0" style="-fx-background-color: #4682B4;" text="Consulter Rapport" textFill="WHITE">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font></Button>
+      <Label fx:id="nomAnimal" layoutX="48.0" layoutY="61.0" prefHeight="46.0" prefWidth="181.0" style="-fx-border-radius: 10; -fx-background-color: #ffffff; -fx-border-color: #4682B4; -fx-background-radius: 10;" text="Label" textAlignment="CENTER" />
+      <Button fx:id="ajouterRm" layoutX="169.0" layoutY="249.0" mnemonicParsing="false" onAction="#ajouterRmAnimal" prefHeight="32.0" prefWidth="120.0" style="-fx-background-color: #4682B4;" text="Ajouter Rapport" textFill="WHITE">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font></Button>
+      <Label graphicTextGap="6.0" layoutX="48.0" layoutY="14.0" prefHeight="46.0" prefWidth="150.0" style="-fx-background-color: #ffffff; -fx-border-radius: 10; -fx-background-radius: 10;" text="Nom  Animal :" textFill="STEELBLUE">
+         <font>
+            <Font name="System Bold" size="14.0" />
+         </font></Label>
+      <Label fx:id="poidsAnimal" layoutX="48.0" layoutY="164.0" prefHeight="46.0" prefWidth="181.0" style="-fx-border-radius: 10; -fx-background-color: #ffffff; -fx-border-color: #4682B4; -fx-background-radius: 10;" text="Label" textAlignment="CENTER" />
+      <Label fx:id="ageAnimal" layoutX="289.0" layoutY="164.0" prefHeight="46.0" prefWidth="181.0" style="-fx-border-radius: 10; -fx-background-color: #ffffff; -fx-border-color: #4682B4; -fx-background-radius: 10;" text="Label" textAlignment="CENTER" />
+      <Label graphicTextGap="6.0" layoutX="48.0" layoutY="118.0" prefHeight="46.0" prefWidth="150.0" style="-fx-background-color: #ffffff; -fx-border-radius: 10; -fx-background-radius: 10;" text="Poids  :" textFill="STEELBLUE">
+         <font>
+            <Font name="System Bold" size="14.0" />
+         </font>
+      </Label>
+      <Label graphicTextGap="6.0" layoutX="289.0" layoutY="118.0" prefHeight="46.0" prefWidth="150.0" style="-fx-background-color: #ffffff; -fx-border-radius: 10; -fx-background-radius: 10;" text="Age :" textFill="STEELBLUE">
+         <font>
+            <Font name="System Bold" size="14.0" />
+         </font>
+      </Label>
+      <Label fx:id="nomprop" layoutX="285.0" layoutY="61.0" prefHeight="46.0" prefWidth="181.0" style="-fx-border-radius: 10; -fx-background-color: #ffffff; -fx-border-color: #4682B4; -fx-background-radius: 10;" text="Label" textAlignment="CENTER" />
+      <Label fx:id="prenomprop" layoutX="543.0" layoutY="61.0" prefHeight="46.0" prefWidth="181.0" style="-fx-border-radius: 10; -fx-background-color: #ffffff; -fx-border-color: #4682B4; -fx-background-radius: 10;" text="Label" textAlignment="CENTER" />
+      <Label fx:id="mailprop" layoutX="543.0" layoutY="164.0" prefHeight="46.0" prefWidth="181.0" style="-fx-border-radius: 10; -fx-background-color: #ffffff; -fx-border-color: #4682B4; -fx-background-radius: 10;" text="Label" textAlignment="CENTER" />
+      <Label graphicTextGap="6.0" layoutX="286.0" layoutY="14.0" prefHeight="46.0" prefWidth="150.0" style="-fx-background-color: #ffffff; -fx-border-radius: 10; -fx-background-radius: 10;" text="Nom  Propriétaire :" textFill="STEELBLUE">
+         <font>
+            <Font name="System Bold" size="14.0" />
+         </font>
+      </Label>
+      <Label graphicTextGap="6.0" layoutX="550.0" layoutY="14.0" prefHeight="46.0" prefWidth="150.0" style="-fx-background-color: #ffffff; -fx-border-radius: 10; -fx-background-radius: 10;" text="Prénom  Propriétaire :" textFill="STEELBLUE">
+         <font>
+            <Font name="System Bold" size="14.0" />
+         </font>
+      </Label>
+      <Label graphicTextGap="6.0" layoutX="543.0" layoutY="118.0" prefHeight="46.0" prefWidth="150.0" style="-fx-background-color: #ffffff; -fx-border-radius: 10; -fx-background-radius: 10;" text="Email  Propriétaire :" textFill="STEELBLUE">
+         <font>
+            <Font name="System Bold" size="14.0" />
+         </font>
+      </Label>
+      <Label layoutX="362.0" layoutY="287.0" />
+   </children>
+</AnchorPane>
