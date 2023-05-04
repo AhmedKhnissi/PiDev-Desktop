@@ -13,7 +13,7 @@ import java.sql.SQLException;
  * @author user
  */
 public class MaConnection {
-     private final String url = "jdbc:mysql://localhost:3306/pidev";
+     private final String url = "jdbc:mysql://localhost:3306/pii";
     private final String login = "root";
     private final String password ="";
     
