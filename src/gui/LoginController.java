@@ -134,6 +134,7 @@ public class LoginController implements Initializable {
                 User user=new User();
                 user=us.authenticate(mail.getText(),mot_de_passe.getText());
                  
+                   System.out.println("rrrrrrrrooooooooollleeee   "+user.getRole());
 
 
                 if("[\"ROLE_VETERINAIRE\"]".equals(user.getRole())){

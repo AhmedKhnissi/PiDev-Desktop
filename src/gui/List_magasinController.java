@@ -26,6 +26,10 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import entities.User;
+import java.util.stream.Collectors;
+import javafx.event.EventHandler;
+import javafx.scene.control.TextField;
+import javafx.scene.input.KeyEvent;
 import services.UserService;
 
 /**
@@ -42,6 +46,8 @@ public class List_magasinController implements Initializable {
     private GridPane UsertGrid;
  private ObservableList<User> alluser = FXCollections.observableArrayList();
      private List<User> listmagasin;
+    @FXML
+    private TextField rechercher;
     /**
      * Initializes the controller class.
      */
@@ -100,6 +106,55 @@ public class List_magasinController implements Initializable {
         }catch(IOException ex){
           System.out.println("nooooooooooooooooooooooooooooooooooooooooooonnnnnnnnnnn");
         }
+    }
+
+    @FXML
+    private void recherchermagasin(KeyEvent event) throws IOException, SQLException {
+        String recherche = rechercher.getText();
+                listmagasin = userservice.recuperer_magasins();
+                List<User> resultatsRecherche = listmagasin.stream()
+                .filter(s -> s.getNom().toLowerCase().startsWith(recherche.toLowerCase()))
+                .collect(Collectors.toList());
+                
+                UsertGrid.getChildren().clear();
+               int row =1 ;
+               int col=0;
+
+               for (User vet : resultatsRecherche) {
+                FXMLLoader fxmlLoader = new FXMLLoader();
+                fxmlLoader.setLocation(getClass().getResource("Card_magasin.fxml"));
+                VBox vbox = fxmlLoader.load();
+                vbox.setStyle("-fx-background-color: #F7F8FD;");
+                Card_magasinController cardController = fxmlLoader.getController();
+                cardController.setData(vet);
+                if (col == 3) {
+                    col = 0;
+                    row++;
+                }
+                UsertGrid.add(vbox, col++, row);
+                UsertGrid.setMargin(vbox, new Insets(10));
+                         System.out.println("helllllllllllooooooooooooooooooooooooo fin pour");
+
+            }
+             rechercher.setOnKeyReleased(new EventHandler<KeyEvent>() {
+             @Override
+             public void handle(KeyEvent event) {
+                try {
+                    recherchermagasin(event);
+                } catch (SQLException ex) {
+                } catch (IOException ex) { 
+                     Logger.getLogger(List_magasinController.class.getName()).log(Level.SEVERE, null, ex);
+                 } 
+            }
+
+        });
+
+    }
+
+    
+
+    @FXML
+    private void recherchermag(KeyEvent event) {
     }
     
 }

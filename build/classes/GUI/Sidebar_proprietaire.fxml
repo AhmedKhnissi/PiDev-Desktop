@@ -17,8 +17,9 @@
             <Image url="file:///C:/Users/heha/Desktop/logo.png" />
          </image>
       </ImageView>
-      <Button fx:id="pubp" layoutX="3.0" layoutY="321.0" mnemonicParsing="false" onAction="#blog" prefHeight="35.0" prefWidth="234.0" style="-fx-background-color: white;" text="BLOG" />
-      <Button layoutX="3.0" layoutY="377.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="234.0" style="-fx-background-color: white;" text="RECLAMATION" />
+      <Button fx:id="pubp" layoutY="321.0" mnemonicParsing="false" onAction="#blog" prefHeight="35.0" prefWidth="237.0" style="-fx-background-color: white;" text="BLOG" />
+      <Button fx:id="rec" layoutY="377.0" mnemonicParsing="false" onAction="#afficherReclamation" prefHeight="35.0" prefWidth="237.0" style="-fx-background-color: white;" text="RECLAMATION" />
       <Button fx:id="rapport" layoutY="427.0" mnemonicParsing="false" onAction="#afficherRapport" prefHeight="35.0" prefWidth="237.0" style="-fx-background-color: white;" text="MES RAPPORTS MEDICAUX" />
+      <Button fx:id="adopt" layoutY="111.0" mnemonicParsing="false" onAction="#afficherAdopt" prefHeight="35.0" prefWidth="237.0" style="-fx-background-color: white;" text="ADOPTION" />
    </children>
 </AnchorPane>

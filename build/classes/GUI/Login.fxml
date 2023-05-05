@@ -11,13 +11,13 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane id="AnchorPane" prefHeight="908.0" prefWidth="1057.0" style="-fx-background-color: #F5F6FA;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.LoginController">
+<AnchorPane id="AnchorPane" prefHeight="978.0" prefWidth="1790.0" style="-fx-background-color: #F5F6FA;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.LoginController">
     <stylesheets>
         <URL value="@login.css" />
     </stylesheets>
     
      <children>
-      <AnchorPane layoutX="14.0" layoutY="-12.0" onMouseClicked="#mdp_oublie" prefHeight="990.0" prefWidth="498.0" style="-fx-background-color: #0B51CC;">
+      <AnchorPane layoutX="14.0" layoutY="-12.0" onMouseClicked="#mdp_oublie" prefHeight="990.0" prefWidth="528.0" style="-fx-background-color: #0B51CC;">
          <children>
             <Label layoutX="22.0" layoutY="954.0" prefHeight="36.0" prefWidth="271.0" text="MYVET" textFill="WHITE">
                <font>
@@ -31,47 +31,47 @@
             </Label>
          </children>
       </AnchorPane>
-      <ImageView fitHeight="144.0" fitWidth="188.0" layoutX="698.0" layoutY="23.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fitHeight="144.0" fitWidth="188.0" layoutX="1002.0" layoutY="20.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../images/logo-vet.png" />
          </image>
       </ImageView>
-      <TextField fx:id="mail" layoutX="523.0" layoutY="188.0" prefHeight="57.0" prefWidth="498.0" promptText="e-mail" style="-fx-background-color: ffffff; -fx-background-radius: 15; -fx-border-width: 1; -fx-border-radius: 15; -fx-border-color: #548BEC;">
+      <TextField fx:id="mail" layoutX="862.0" layoutY="185.0" prefHeight="57.0" prefWidth="498.0" promptText="e-mail" style="-fx-background-color: ffffff; -fx-background-radius: 15; -fx-border-width: 1; -fx-border-radius: 15; -fx-border-color: #548BEC;">
          <font>
             <Font name="System Bold Italic" size="30.0" />
          </font>
       </TextField>
-      <Text layoutX="671.0" layoutY="483.0" onMouseClicked="#mdp_oublie" strokeType="OUTSIDE" strokeWidth="0.0" text="Mot de passe oublier?" underline="true">
+      <Text layoutX="1010.0" layoutY="537.0" onMouseClicked="#mdp_oublie" strokeType="OUTSIDE" strokeWidth="0.0" text="Mot de passe oublier?" underline="true">
          <font>
             <Font name="System Bold Italic" size="20.0" />
          </font>
       </Text>
-      <PasswordField fx:id="mot_de_passe" layoutX="523.0" layoutY="292.0" prefHeight="64.0" prefWidth="498.0" promptText="Mot De Passe" style="-fx-background-color: ffffff; -fx-background-radius: 15; -fx-border-radius: 15; -fx-border-color: #548BEC; -fx-border-width: 1;">
+      <PasswordField fx:id="mot_de_passe" layoutX="862.0" layoutY="314.0" prefHeight="64.0" prefWidth="498.0" promptText="Mot De Passe" style="-fx-background-color: ffffff; -fx-background-radius: 15; -fx-border-radius: 15; -fx-border-color: #548BEC; -fx-border-width: 1;">
          <font>
             <Font name="System Bold Italic" size="30.0" />
          </font>
       </PasswordField>
-      <Text layoutX="628.0" layoutY="524.0" strokeType="OUTSIDE" strokeWidth="0.0" text="voullez-vous créer un compte ?">
+      <Text layoutX="967.0" layoutY="578.0" strokeType="OUTSIDE" strokeWidth="0.0" text="voullez-vous créer un compte ?">
          <font>
             <Font name="System Bold Italic" size="20.0" />
          </font>
       </Text>
-      <Text layoutX="736.0" layoutY="550.0" onMouseClicked="#register_veterinaire" strokeType="OUTSIDE" strokeWidth="0.0" text="Vétérinaire">
+      <Text layoutX="1075.0" layoutY="604.0" onMouseClicked="#register_veterinaire" strokeType="OUTSIDE" strokeWidth="0.0" text="Vétérinaire">
          <font>
             <Font name="System Bold" size="13.0" />
          </font>
       </Text>
-      <Text layoutX="720.0" layoutY="576.0" onMouseClicked="#register_proprietaire" strokeType="OUTSIDE" strokeWidth="0.0" text="Propriétaire animal">
+      <Text layoutX="1059.0" layoutY="630.0" onMouseClicked="#register_proprietaire" strokeType="OUTSIDE" strokeWidth="0.0" text="Propriétaire animal">
          <font>
             <Font name="System Bold" size="13.0" />
          </font>
       </Text>
-      <Text layoutX="742.0" layoutY="604.0" onMouseClicked="#register_magasin" strokeType="OUTSIDE" strokeWidth="0.0" text=" Magasin">
+      <Text layoutX="1081.0" layoutY="658.0" onMouseClicked="#register_magasin" strokeType="OUTSIDE" strokeWidth="0.0" text=" Magasin">
          <font>
             <Font name="System Bold" size="13.0" />
          </font>
       </Text>
-       <Button fx:id="login" layoutX="663.0" layoutY="372.0" mnemonicParsing="false" onAction="#authenticate" prefHeight="67.0" prefWidth="214.0" style="-fx-background-color: #548BEC; -fx-background-radius: 15;" text="Login " textFill="WHITE">
+       <Button fx:id="login" layoutX="1002.0" layoutY="426.0" mnemonicParsing="false" onAction="#authenticate" prefHeight="67.0" prefWidth="214.0" style="-fx-background-color: #548BEC; -fx-background-radius: 15;" text="Login " textFill="WHITE">
          <font>
             <Font name="System Bold Italic" size="25.0" />
          </font>

@@ -4,6 +4,7 @@
  */
 package gui;
 
+import entities.UserSession;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -12,6 +13,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -55,6 +57,27 @@ public class Sidebar_magasinController implements Initializable {
 
     @FXML
     private void logout(ActionEvent event) {
+         UserSession session=UserSession.getInstance();
+        session.setId(null);
+        session.setNom(null);
+        session.setPassword(null);
+        session.setEmail(null);
+        session.setPays(null);
+        session.setGouvernorat(null);
+        session.setVille(null);
+        session.setRue(null);
+        session.setTel(null);
+        session.setIsLoggedIn(false);
+
+                         try{
+        Stage nouveauStage;
+        Parent root = FXMLLoader.load(getClass().getResource("Login.fxml"));
+        nouveauStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        Scene scene = new Scene(root);
+        nouveauStage.setScene(scene);
+        }catch(IOException ex){
+          System.out.println("nooooooooooooooooooooooooooooooooooooooooooonnnnnnnnnnn");
+        }
     }
 
     @FXML

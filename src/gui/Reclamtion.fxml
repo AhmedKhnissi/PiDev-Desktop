@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane id="animalPane" fx:id="animalPane" prefHeight="411.0" prefWidth="766.0" style="-fx-background-radius: 10; -fx-border-color: #4682B4; -fx-border-radius: 10; -fx-background-color: #ffffff;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.ReclamationController">
+   <children>
+      <Button fx:id="Annuler" layoutX="468.0" layoutY="319.0" mnemonicParsing="false" onAction="#AnnulerReclamation" prefHeight="32.0" prefWidth="181.0" style="-fx-background-color: #4682B4;" text="Annuler Reclamation" textFill="WHITE">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font></Button>
+      <Label fx:id="name" layoutX="235.0" layoutY="160.0" prefHeight="46.0" prefWidth="181.0" style="-fx-border-radius: 10; -fx-background-color: #ffffff; -fx-border-color: #4682B4; -fx-background-radius: 10;" text="Label" textAlignment="CENTER" />
+      <Label fx:id="email" layoutX="10.0" layoutY="91.0" prefHeight="46.0" prefWidth="181.0" style="-fx-border-radius: 10; -fx-background-color: #ffffff; -fx-border-color: #4682B4; -fx-background-radius: 10;" text="Label" textAlignment="CENTER" />
+       <Label fx:id="subject" layoutX="468.0" layoutY="236.0" prefHeight="46.0" prefWidth="181.0" style="-fx-border-radius: 10; -fx-background-color: #ffffff; -fx-border-color: #4682B4; -fx-background-radius: 10;" text="Label" textAlignment="CENTER" />
+       <Label fx:id="message" layoutX="25.0" layoutY="236.0" prefHeight="46.0" prefWidth="181.0" style="-fx-border-radius: 10; -fx-background-color: #ffffff; -fx-border-color: #4682B4; -fx-background-radius: 10;" text="Label" textAlignment="CENTER" />
+        <Label fx:id="etat" layoutX="453.0" layoutY="91.0" prefHeight="46.0" prefWidth="181.0" style="-fx-border-radius: 10; -fx-background-color: #ffffff; -fx-border-color: #4682B4; -fx-background-radius: 10;" text="Label" textAlignment="CENTER" />
+       <Button fx:id="Modifier" layoutX="67.0" layoutY="319.0" mnemonicParsing="false" onAction="#ModifierReclamation" prefHeight="32.0" prefWidth="181.0" style="-fx-background-color: #4682B4;" text="Modifier Reclamation" textFill="WHITE">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font></Button>
+      <Label graphicTextGap="6.0" layoutX="14.0" layoutY="30.0" prefHeight="46.0" prefWidth="150.0" style="-fx-background-color: #ffffff; -fx-border-radius: 10; -fx-background-radius: 10;" text="Email De L'Utilisateur :" textFill="STEELBLUE">
+         <font>
+            <Font name="System Bold" size="14.0" />
+         </font></Label>
+      <Label graphicTextGap="6.0" layoutX="468.0" layoutY="160.0" prefHeight="46.0" prefWidth="150.0" style="-fx-background-color: #ffffff; -fx-border-radius: 10; -fx-background-radius: 10;" text="Objet :" textFill="STEELBLUE">
+         <font>
+            <Font name="System Bold" size="14.0" />
+         </font>
+      </Label>
+      <Label graphicTextGap="6.0" layoutX="235.0" layoutY="102.0" prefHeight="46.0" prefWidth="150.0" style="-fx-background-color: #ffffff; -fx-border-radius: 10; -fx-background-radius: 10;" text="Nom De L'Utilisateur :" textFill="STEELBLUE">
+         <font>
+            <Font name="System Bold" size="14.0" />
+         </font>
+      </Label>
+      <Label graphicTextGap="6.0" layoutX="25.0" layoutY="183.0" prefHeight="46.0" prefWidth="150.0" style="-fx-background-color: #ffffff; -fx-border-radius: 10; -fx-background-radius: 10;" text="Message :" textFill="STEELBLUE">
+         <font>
+            <Font name="System Bold" size="14.0" />
+         </font>
+      </Label>
+      <Label graphicTextGap="6.0" layoutX="453.0" layoutY="30.0" prefHeight="46.0" prefWidth="150.0" style="-fx-background-color: #ffffff; -fx-border-radius: 10; -fx-background-radius: 10;" text="Etat :" textFill="STEELBLUE">
+         <font>
+            <Font name="System Bold" size="14.0" />
+         </font>
+      </Label>
+      <Label layoutX="681.0" layoutY="380.0" prefHeight="17.0" prefWidth="0.0" />
+      <Button fx:id="excel_button" layoutX="326.0" layoutY="323.0" mnemonicParsing="false" onAction="#handleDownloadExcel" text="excel" />
+         
+   </children>
+</AnchorPane>

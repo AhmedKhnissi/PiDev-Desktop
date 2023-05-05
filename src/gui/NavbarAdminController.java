@@ -4,6 +4,7 @@
  */
 package gui;
 
+import entities.UserSession;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -41,6 +42,8 @@ public class NavbarAdminController implements Initializable {
     private Button reclamation;
     @FXML
     private Button pub;
+    @FXML
+    private Button btnstat;
 
     /**
      * Initializes the controller class.
@@ -120,6 +123,19 @@ public class NavbarAdminController implements Initializable {
 
     @FXML
     private void deconnexion(ActionEvent event) {
+ UserSession session=UserSession.getInstance();
+        session.setId(null);
+        session.setNom(null);
+        session.setPrenom(null);
+        session.setPassword(null);
+        session.setEmail(null);
+        session.setPays(null);
+        session.setGouvernorat(null);
+        session.setVille(null);
+        session.setRue(null);
+        session.setTel(null);
+        session.setIsLoggedIn(false);
+
                          try{
         Stage nouveauStage;
         Parent root = FXMLLoader.load(getClass().getResource("Login.fxml"));
@@ -140,6 +156,19 @@ public class NavbarAdminController implements Initializable {
         try{
         Stage nouveauStage;
         Parent root = FXMLLoader.load(getClass().getResource("AffichageAdmin.fxml"));
+        nouveauStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        Scene scene = new Scene(root);
+        nouveauStage.setScene(scene);
+        }catch(IOException ex){
+          System.out.println("nooooooooooooooooooooooooooooooooooooooooooonnnnnnnnnnn");
+        }
+    }
+
+    @FXML
+    private void statistique(ActionEvent event) {
+                            try{
+        Stage nouveauStage;
+        Parent root = FXMLLoader.load(getClass().getResource("Userstatistique.fxml"));
         nouveauStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         Scene scene = new Scene(root);
         nouveauStage.setScene(scene);

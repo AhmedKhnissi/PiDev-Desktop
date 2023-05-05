@@ -18,5 +18,6 @@
          </image>
       </ImageView>
       <Button fx:id="blogbtn" layoutY="313.0" mnemonicParsing="false" onAction="#blogv" prefHeight="47.0" prefWidth="234.0" style="-fx-background-color: white;" text="BLOG" />
+      <Button fx:id="adopt" layoutY="126.0" mnemonicParsing="false" onAction="#afficherAdopt" prefHeight="47.0" prefWidth="234.0" style="-fx-background-color: white;" text="ADOPTION" />
    </children>
 </AnchorPane>
