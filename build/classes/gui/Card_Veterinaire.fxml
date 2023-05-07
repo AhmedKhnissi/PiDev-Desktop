@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.effect.DropShadow?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.Circle?>
+<?import javafx.scene.text.Font?>
+
+<VBox style="-fx-background-color: F7F8FD;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.Card_VeterinaireController">
+   <children>
+      <VBox fx:id="vbox" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="528.0" prefWidth="386.0" style="-fx-background-color: F7F8FD;">
+         <children>
+            <AnchorPane prefHeight="528.0" prefWidth="376.0" style="-fx-background-color: F7F8FD;">
+               <children>
+                  <Label fx:id="nom" layoutX="34.0" layoutY="43.0" prefHeight="22.0" prefWidth="338.0" text="nom">
+                     <font>
+                        <Font name="System Bold" size="12.0" />
+                     </font>
+                  </Label>
+                  <Circle fill="#f49f85" layoutX="14.0" layoutY="345.0" radius="5.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" />
+                  <Button fx:id="supprimer" layoutX="64.0" layoutY="458.0" mnemonicParsing="false" onAction="#supprimer" prefHeight="25.0" prefWidth="76.0" style="-fx-background-color: red; -fx-text-fill: white;" text="supprimer" />
+                  <Label fx:id="prenom" layoutX="29.0" layoutY="97.0" prefHeight="22.0" prefWidth="338.0" text="prenom">
+                     <font>
+                        <Font name="System Bold" size="12.0" />
+                     </font>
+                  </Label>
+                  <Circle fill="#f49f85" layoutX="14.0" layoutY="54.0" radius="5.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" />
+                  <Label fx:id="email" layoutX="29.0" layoutY="138.0" prefHeight="22.0" prefWidth="338.0" text="email">
+                     <font>
+                        <Font name="System Bold" size="12.0" />
+                     </font>
+                  </Label>
+                  <Circle fill="#f49f85" layoutX="14.0" layoutY="108.0" radius="5.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" />
+                  <Label fx:id="tel" layoutX="29.0" layoutY="182.0" prefHeight="22.0" prefWidth="338.0" text="numero téléphone">
+                     <font>
+                        <Font name="System Bold" size="12.0" />
+                     </font>
+                  </Label>
+                  <Circle fill="#f49f85" layoutX="14.0" layoutY="154.0" radius="5.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" />
+                  <Circle fill="#f49f85" layoutX="14.0" layoutY="193.0" radius="5.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" />
+                  <Circle fill="#f49f85" layoutX="14.0" layoutY="241.0" radius="5.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" />
+                  <Circle fill="#f49f85" layoutX="14.0" layoutY="293.0" radius="5.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" />
+                  <Circle fill="#f49f85" layoutX="14.0" layoutY="396.0" radius="5.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" />
+                  <Label fx:id="pays" layoutX="34.0" layoutY="230.0" prefHeight="22.0" prefWidth="338.0" text="pays">
+                     <font>
+                        <Font name="System Bold" size="12.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="gouvernorat" layoutX="29.0" layoutY="282.0" prefHeight="22.0" prefWidth="338.0" text="gouvernorat">
+                     <font>
+                        <Font name="System Bold" size="12.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="ville" layoutX="24.0" layoutY="334.0" prefHeight="22.0" prefWidth="338.0" text="ville">
+                     <font>
+                        <Font name="System Bold" size="12.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="rue" layoutX="24.0" layoutY="385.0" prefHeight="22.0" prefWidth="338.0" text="rue">
+                     <font>
+                        <Font name="System Bold" size="12.0" />
+                     </font>
+                  </Label>
+                  <Button fx:id="bloquer" layoutX="239.0" layoutY="458.0" mnemonicParsing="false" onAction="#bloquer" prefHeight="25.0" prefWidth="76.0" style="-fx-background-color: #F0A72E; -fx-text-fill: white;" text="bloquer" />
+                  <ImageView fitHeight="52.0" fitWidth="50.0" layoutX="322.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../images/icone_vet.jpg" />
+                     </image>
+                  </ImageView>
+                  <Label fx:id="id" layoutX="20.0" layoutY="14.0" text="id" />
+                  <Button fx:id="deploquer" layoutX="149.0" layoutY="458.0" mnemonicParsing="false" onAction="#deploquer" style="-fx-background-color: #10841D;" text="débloquer" textFill="#eee9e9" />
+
+               </children>
+            </AnchorPane>
+         </children>
+         <effect>
+            <DropShadow height="7.0" radius="3.0" width="7.0" />
+         </effect>
+      </VBox>
+   </children>
+</VBox>

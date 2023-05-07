@@ -18,6 +18,7 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import entities.User;
 import entities.UserSession;
+import services.BCrypt;
 import services.UserService;
 
 /**
@@ -97,7 +98,7 @@ public class Modifier_magasinController implements Initializable {
 
     @FXML
     private void modifier_user(ActionEvent event) throws SQLException {
-                        if(nom.getText().isEmpty()  || email.getText().isEmpty()  ||tel.getText().isEmpty() ||pays.getText().isEmpty() ||gouvernorat.getText().isEmpty() || rue.getText().isEmpty() || ville.getText().isEmpty() ){
+                        if(password.getText().isEmpty()||  nom.getText().isEmpty()  || email.getText().isEmpty()  ||tel.getText().isEmpty() ||pays.getText().isEmpty() ||gouvernorat.getText().isEmpty() || rue.getText().isEmpty() || ville.getText().isEmpty() ){
          Alert alert = new Alert(Alert.AlertType.WARNING);
             alert.setTitle("Erreur");
             alert.setHeaderText(null);
@@ -144,7 +145,7 @@ public class Modifier_magasinController implements Initializable {
         u.setGouvernorat(gouvernorat.getText());
         u.setVille(ville.getText());
         u.setRue(rue.getText());
-        u.setPassword(password.getText());
+        u.setPassword(BCrypt.hashpw(password.getText(),BCrypt.gensalt(13)));
 
         session.setEmail(u.getEmail());
         session.setNom(u.getNom());

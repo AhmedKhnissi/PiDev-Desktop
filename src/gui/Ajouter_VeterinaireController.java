@@ -35,6 +35,7 @@ import javax.swing.JFileChooser;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import entities.CrypterPassword;
 import entities.User;
+import services.BCrypt;
 import services.UserService;
 
 /**
@@ -156,7 +157,7 @@ public class Ajouter_VeterinaireController implements Initializable {
         u.setNom(nom.getText());
         u.setPrenom(prenom.getText());
         u.setEmail(email.getText());
-        u.setPassword(password.getText());
+        u.setPassword(BCrypt.hashpw(password.getText(),BCrypt.gensalt(13)));
         u.setPays(pays.getText());
         u.setGouvernorat(gouvernorat.getText());
          u.setVille(ville.getText());

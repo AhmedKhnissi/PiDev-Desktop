@@ -254,12 +254,12 @@ public class UserService implements IuserService<User> {
     public User authenticate(String mail, String password) {
         User u = new User();
         u.setId(0);
+        if (BCrypt.checkpw(password,getpassword(mail))){
         try {
 
-            String sql = "SELECT * FROM user WHERE email = ? AND password = ?";
+            String sql = "SELECT * FROM user WHERE email = ? ";
             PreparedStatement ps = cnx.prepareStatement(sql);
             ps.setString(1, mail);
-            ps.setString(2, password);
             
             ResultSet rs = ps.executeQuery();
             if (rs.next()) {
@@ -285,6 +285,7 @@ public class UserService implements IuserService<User> {
         } catch (SQLException e) {
             System.out.print("erreur authentification");
 
+        }
         }
         return u;
     }
@@ -453,6 +454,25 @@ public class UserService implements IuserService<User> {
 
         }
         return p;
+    }
+       
+              public String getpassword(String email){
+                    String pw ="";
+
+                    PreparedStatement pst;
+                    ResultSet rs = null;
+                    try {
+                        pst = cnx.prepareStatement("SELECT *  FROM user WHERE email=? ");
+                        pst.setString(1, email);
+                      
+                        rs = pst.executeQuery();
+                        if (rs.next()) {
+                             pw=rs.getString("password");
+                        }
+                    } catch (SQLException ex) {
+                        System.out.println(ex.getMessage());
+                    }
+                    return pw;
     }
     
 }

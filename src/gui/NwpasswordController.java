@@ -20,6 +20,7 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import entities.CrypterPassword;
+import services.BCrypt;
 import services.UserService;
 
 /**
@@ -72,7 +73,7 @@ public class NwpasswordController implements Initializable {
             alert.setContentText("confirmez votre mot de passe ");
             alert.show();
         }else {
-           us.ModifierMdp(email,cps.CrypterPassword(new_pwd));
+           us.ModifierMdp(email,BCrypt.hashpw(new_pwd,BCrypt.gensalt(13)));
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("succès");
             alert.setHeaderText("modification mot de passe");

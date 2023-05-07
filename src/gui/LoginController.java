@@ -112,7 +112,7 @@ public class LoginController implements Initializable {
 
     @FXML
     private void authenticate(ActionEvent event) throws IOException {
-                         System.out.println(cps.CrypterPassword("123456"));
+                          System.out.println(    us.getpassword(mail.getText()));
 
         if(mail.getText().isEmpty() || mot_de_passe.getText().isEmpty()){
         Alert alert = new Alert(Alert.AlertType.WARNING);
@@ -129,6 +129,7 @@ public class LoginController implements Initializable {
                alert.showAndWait();  
         
         }
+        
         else if(us.authenticate(mail.getText(),mot_de_passe.getText()).getId() !=0 && us.authenticate(mail.getText(),mot_de_passe.getText()).getDemande_acces()==0 && us.authenticate(mail.getText(),mot_de_passe.getText()).getBloque()==0){
             
                 User user=new User();
