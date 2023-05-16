@@ -64,5 +64,10 @@ public class CalendarService implements IService<Calendar>{
         }
         return rdv;
     }
+
+    @Override
+    public Calendar getById(int id) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
     
 }

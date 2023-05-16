@@ -73,5 +73,27 @@ String req = "INSERT INTO reclamation (id, name, email,subject,message,etat) VAL
     }
     return rapport;
     }
-   
+    
+    @Override
+    public Reclamation getById(int id) {
+        String req = "SELECT * FROM reclamation WHERE id = ?";
+        Reclamation reclamation = null;
+        try {
+            PreparedStatement ps = cnx.prepareStatement(req);
+            ps.setInt(1, id);
+            ResultSet rs = ps.executeQuery(req);
+            if (rs.next()) {
+                reclamation = new Reclamation();
+                reclamation.setId(rs.getInt(1));
+                reclamation.setName(rs.getString(2));
+                reclamation.setEmail(rs.getString(3));
+                reclamation.setSubject(rs.getString(4));
+                reclamation.setMessage(rs.getString(5));
+                reclamation.setEtat(rs.getString(6));
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return reclamation;
+    }
 }

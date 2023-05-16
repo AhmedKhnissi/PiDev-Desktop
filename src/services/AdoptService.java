@@ -112,5 +112,10 @@ public class AdoptService implements IService<Adopt> {
     }
     return rapport;
     }
+
+    @Override
+    public Adopt getById(int id) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
     
 }

@@ -100,6 +100,11 @@ String req = "DELETE FROM rapport_medical where id = ?";
         return l;
     }
 
+    @Override
+    public RapportMedical getById(int id) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
 
 
    

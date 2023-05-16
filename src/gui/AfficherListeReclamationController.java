@@ -67,7 +67,6 @@ ReclamationService rs = new ReclamationService();
         // TODO
          //Create a KeyCodeCombination for the "N" shortcut
         KeyCodeCombination rShortcut = new KeyCodeCombination(KeyCode.R, KeyCombination.CONTROL_DOWN);
-        KeyCodeCombination cShortcut = new KeyCodeCombination(KeyCode.C);
 
         // Add a listener to the list view to detect when the "N" key is pressed
         anchorPane.setOnKeyPressed(keyEvent -> {
@@ -86,9 +85,7 @@ Scene scene = new Scene(root, 1300, 1000);
             
         keyEvent.consume(); // Prevent the event from being processed further
     };
-    if(cShortcut.match(keyEvent)){
-        System.out.println("test");
-    }
+    
 });
 
 

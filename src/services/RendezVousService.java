@@ -96,6 +96,11 @@ String req = "DELETE FROM rendez_vous where id = ?";
         
         return Vetos;
     }
+
+    @Override
+    public RendezVous getById(int id) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
     
    
 }

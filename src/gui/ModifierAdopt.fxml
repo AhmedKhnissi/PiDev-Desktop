@@ -72,16 +72,6 @@
             <Font size="15.0" />
          </font>
       </TextField>
-      <Label layoutX="517.0" layoutY="311.0" prefHeight="17.0" prefWidth="129.0" text="Stérilisation:" textFill="STEELBLUE">
-         <font>
-            <Font name="System Bold" size="14.0" />
-         </font>
-      </Label>
-      <Label layoutX="517.0" layoutY="388.0" prefHeight="17.0" prefWidth="129.0" text="Vaccination:" textFill="STEELBLUE">
-         <font>
-            <Font name="System Bold" size="14.0" />
-         </font>
-      </Label>
       <Label layoutX="517.0" layoutY="498.0" prefHeight="20.0" prefWidth="200.0" text="L'image de l'animal:" textFill="STEELBLUE">
          <font>
             <Font name="System Bold" size="14.0" />
@@ -92,8 +82,8 @@
             <Image url="@../images/telecharger.png" />
          </image>
       </ImageView>
-      <CheckBox fx:id="sterilisation" layoutX="636.0" layoutY="313.0" mnemonicParsing="false" />
-      <CheckBox fx:id="vaccination" layoutX="636.0" layoutY="390.0" mnemonicParsing="false" />
+      <CheckBox fx:id="sterilisation" layoutX="527.0" layoutY="313.0" mnemonicParsing="false" text="stérélisé(e)" />
+      <CheckBox fx:id="vaccination" layoutX="527.0" layoutY="400.0" mnemonicParsing="false" text="vacciné(e)" />
    </children>
    <padding>
       <Insets left="-8.0" top="-8.0" />
